@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" role="img" aria-labelledby="title desc">
+  <title id="title">SQL audit</title>
+  <desc id="desc">Stylized database audit panel with query and permission signals.</desc>
+  <rect width="640" height="380" fill="#0d0d12"/>
+  <path d="M0 70h640M0 140h640M0 210h640M0 280h640M85 0v380M170 0v380M255 0v380M340 0v380M425 0v380M510 0v380M595 0v380" stroke="#ccd6f6" stroke-opacity=".08"/>
+  <g fill="#13131a" stroke="#00ff88" stroke-width="2">
+    <ellipse cx="208" cy="104" rx="100" ry="34" stroke-opacity=".7"/>
+    <path d="M108 104v146c0 19 45 34 100 34s100-15 100-34V104" stroke-opacity=".7"/>
+    <ellipse cx="208" cy="176" rx="100" ry="34" stroke-opacity=".42"/>
+    <ellipse cx="208" cy="250" rx="100" ry="34" stroke-opacity=".42"/>
+  </g>
+  <rect x="366" y="82" width="172" height="210" rx="12" fill="#13131a" stroke="#00ff88" stroke-opacity=".58" stroke-width="2"/>
+  <text x="392" y="130" fill="#00ff88" font-family="monospace" font-size="20">SELECT *</text>
+  <text x="392" y="168" fill="#ccd6f6" font-family="monospace" font-size="18">FROM users</text>
+  <text x="392" y="206" fill="#8892b0" font-family="monospace" font-size="18">WHERE role</text>
+  <path d="M386 244h112M386 266h82" stroke="#00ff88" stroke-opacity=".35" stroke-linecap="round" stroke-width="2"/>
+  <path d="M308 190h58" stroke="#00ff88" stroke-opacity=".4" stroke-width="2"/>
+  <circle cx="338" cy="190" r="5" fill="#00ff88"/>
+  <text x="78" y="336" fill="#8892b0" font-family="monospace" font-size="18">SQL-05 / permissions / exposure / risk</text>
+</svg>

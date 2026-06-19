@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre mi - Miguel Pinedo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+  <canvas id="cyber-bg" aria-hidden="true"></canvas>
+
+  <nav>
+    <a class="nav-logo" href="portfolio-cyber.html">root@miguel<span>:~$</span></a>
+    <ul>
+      <li><a class="active" href="sobre-mi.html">sobre mi</a></li>
+      <li><a href="proyectos.html">proyectos</a></li>
+      <li><a href="estudios.html">estudios</a></li>
+      <li><a href="contacto.html">contacto</a></li>
+    </ul>
+  </nav>
+
+  <main class="page-main">
+    <section id="sobre-mi" class="page-section">
+      <p class="section-label">// 01 - sobre mi</p>
+      <h2>Perfil</h2>
+      <div class="grid">
+        <div>
+          <p>Especializado en ciberseguridad defensiva y ofensiva, con experiencia en analisis de vulnerabilidades, pentesting web y hardening de sistemas Linux.</p>
+          <p>Combino mentalidad de atacante con disciplina de defensor. Cada sistema que analizo lo hago con el objetivo de entenderlo desde adentro.</p>
+          <p>Actualmente en busqueda de proyectos donde la seguridad no sea un afterthought, sino parte del diseno.</p>
+        </div>
+        <div>
+          <div class="skills-grid">
+            <div class="skill-item">
+              <span class="skill-name">Pentesting Web</span>
+              OWASP / Burp Suite
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Network Security</span>
+              Wireshark / Nmap
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Linux / Bash</span>
+              Hardening / Scripts
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">CTF / Red Team</span>
+              HackTheBox / THM
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Python</span>
+              Automatizacion / PoC
+            </div>
+            <div class="skill-item">
+              <span class="skill-name">Forense</span>
+              Analisis de logs
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section capabilities-section">
+      <p class="section-label">// capacidades detectadas</p>
+      <h2>Capacidades operativas</h2>
+      <div class="capabilities-grid">
+        <article class="capability-card">
+          <img src="assets/windows-server.svg" alt="Ilustracion de administracion de Windows Server">
+          <div class="capability-content">
+            <p class="project-num">[ SYS-01 ]</p>
+            <h3>Windows Server</h3>
+            <p>Creacion, configuracion y gestion de servidores Windows, roles, usuarios, permisos, politicas y hardening base.</p>
+            <div class="tag-list">
+              <span class="tag">AD</span>
+              <span class="tag">GPO</span>
+              <span class="tag">Roles</span>
+              <span class="tag">Hardening</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="capability-card">
+          <img src="assets/linux-server.svg" alt="Ilustracion de administracion de servidores Linux">
+          <div class="capability-content">
+            <p class="project-num">[ SYS-02 ]</p>
+            <h3>Servidores Linux</h3>
+            <p>Despliegue, administracion y gestion de servicios Linux, permisos, SSH, automatizacion con Bash y bastionado.</p>
+            <div class="tag-list">
+              <span class="tag">Bash</span>
+              <span class="tag">SSH</span>
+              <span class="tag">Servicios</span>
+              <span class="tag">Seguridad</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="capability-card">
+          <img src="assets/systems-audit.svg" alt="Ilustracion de auditoria de sistemas">
+          <div class="capability-content">
+            <p class="project-num">[ AUD-03 ]</p>
+            <h3>Auditoria de sistemas</h3>
+            <p>Revision de configuraciones, exposicion, logs, permisos, vulnerabilidades y buenas practicas de seguridad.</p>
+            <div class="tag-list">
+              <span class="tag">Logs</span>
+              <span class="tag">Config</span>
+              <span class="tag">Riesgo</span>
+              <span class="tag">Defensa</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="capability-card">
+          <img src="assets/network-audit.svg" alt="Ilustracion de auditoria de redes">
+          <div class="capability-content">
+            <p class="project-num">[ NET-04 ]</p>
+            <h3>Auditoria de redes</h3>
+            <p>Analisis de topologia, puertos, servicios, trafico, segmentacion y superficie expuesta en redes.</p>
+            <div class="tag-list">
+              <span class="tag">Nmap</span>
+              <span class="tag">Wireshark</span>
+              <span class="tag">Puertos</span>
+              <span class="tag">Trafico</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="capability-card capability-card-wide">
+          <img src="assets/sql-audit.svg" alt="Ilustracion de auditoria SQL">
+          <div class="capability-content">
+            <p class="project-num">[ SQL-05 ]</p>
+            <h3>Auditoria SQL</h3>
+            <p>Revision de permisos, configuracion, exposicion, consultas inseguras y riesgos comunes en bases de datos SQL.</p>
+            <div class="tag-list">
+              <span class="tag">Permisos</span>
+              <span class="tag">Queries</span>
+              <span class="tag">Exposicion</span>
+              <span class="tag">Riesgo</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>(c) 2026 Miguel Pinedo</p>
+    <p>disenado &amp; construido manualmente</p>
+  </footer>
+
+  <script src="script.js?v=4"></script>
+</body>
+</html>

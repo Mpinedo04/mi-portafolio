@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" role="img" aria-labelledby="title desc">
+  <title id="title">Linux server management</title>
+  <desc id="desc">Stylized terminal and Linux server nodes in a cyber grid.</desc>
+  <rect width="640" height="380" fill="#0d0d12"/>
+  <path d="M0 60h640M0 120h640M0 180h640M0 240h640M0 300h640M70 0v380M140 0v380M210 0v380M280 0v380M350 0v380M420 0v380M490 0v380M560 0v380" stroke="#ccd6f6" stroke-opacity=".08"/>
+  <circle cx="172" cy="110" r="122" fill="#00ff88" opacity=".07"/>
+  <rect x="82" y="78" width="280" height="210" rx="12" fill="#13131a" stroke="#00ff88" stroke-opacity=".62" stroke-width="2"/>
+  <rect x="82" y="78" width="280" height="42" rx="12" fill="#1a1a24"/>
+  <circle cx="108" cy="100" r="6" fill="#ff5f57"/>
+  <circle cx="130" cy="100" r="6" fill="#ffbd2e"/>
+  <circle cx="152" cy="100" r="6" fill="#28ca41"/>
+  <text x="108" y="158" fill="#00ff88" font-family="monospace" font-size="22">&gt; ssh root@node</text>
+  <text x="108" y="196" fill="#ccd6f6" font-family="monospace" font-size="20">systemctl status</text>
+  <text x="108" y="234" fill="#8892b0" font-family="monospace" font-size="18">ufw / bash / cron</text>
+  <g fill="none" stroke="#00ff88" stroke-linecap="round" stroke-width="2">
+    <circle cx="462" cy="130" r="36" stroke-opacity=".7"/>
+    <circle cx="522" cy="222" r="36" stroke-opacity=".55"/>
+    <circle cx="428" cy="260" r="28" stroke-opacity=".45"/>
+    <path d="M482 160l22 32M488 236l-34 14M434 224l18-58" stroke-opacity=".35"/>
+  </g>
+  <text x="82" y="336" fill="#8892b0" font-family="monospace" font-size="18">SYS-02 / bash / services / security</text>
+</svg>
