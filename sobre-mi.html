@@ -66,8 +66,21 @@
     <section class="page-section capabilities-section">
       <p class="section-label">// capacidades detectadas</p>
       <h2>Capacidades operativas</h2>
+      <div class="ops-console" aria-hidden="true">
+        <div class="ops-console-status">
+          <span class="ops-pulse"></span>
+          <span>live capability matrix</span>
+        </div>
+        <div class="ops-console-stream">
+          <div class="ops-console-track">
+            <span>WINDOWS_SERVER // LINUX_HARDENING // SYSTEM_AUDIT // NETWORK_DEFENSE // SQL_SECURITY //</span>
+            <span>WINDOWS_SERVER // LINUX_HARDENING // SYSTEM_AUDIT // NETWORK_DEFENSE // SQL_SECURITY //</span>
+          </div>
+        </div>
+        <span class="ops-console-count">05 nodes online</span>
+      </div>
       <div class="capabilities-grid">
-        <article class="capability-card">
+        <article class="capability-card" data-node="SYS-01" data-sector="identity_control">
           <img src="assets/windows-server.svg" alt="Ilustracion de administracion de Windows Server">
           <div class="capability-content">
             <p class="project-num">[ SYS-01 ]</p>
@@ -82,7 +95,7 @@
           </div>
         </article>
 
-        <article class="capability-card">
+        <article class="capability-card" data-node="SYS-02" data-sector="linux_defense">
           <img src="assets/linux-server.svg" alt="Ilustracion de administracion de servidores Linux">
           <div class="capability-content">
             <p class="project-num">[ SYS-02 ]</p>
@@ -97,7 +110,7 @@
           </div>
         </article>
 
-        <article class="capability-card">
+        <article class="capability-card" data-node="AUD-03" data-sector="system_audit">
           <img src="assets/systems-audit.svg" alt="Ilustracion de auditoria de sistemas">
           <div class="capability-content">
             <p class="project-num">[ AUD-03 ]</p>
@@ -112,7 +125,7 @@
           </div>
         </article>
 
-        <article class="capability-card">
+        <article class="capability-card" data-node="NET-04" data-sector="network_analysis">
           <img src="assets/network-audit.svg" alt="Ilustracion de auditoria de redes">
           <div class="capability-content">
             <p class="project-num">[ NET-04 ]</p>
@@ -127,7 +140,7 @@
           </div>
         </article>
 
-        <article class="capability-card capability-card-wide">
+        <article class="capability-card capability-card-wide" data-node="SQL-05" data-sector="database_security">
           <img src="assets/sql-audit.svg" alt="Ilustracion de auditoria SQL">
           <div class="capability-content">
             <p class="project-num">[ SQL-05 ]</p>
