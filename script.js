@@ -332,7 +332,6 @@ if (reduceMotion) {
 
 const capabilitiesSection = document.querySelector(".capabilities-section");
 const capabilityCards = [...document.querySelectorAll(".capability-card")];
-const precisePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
 if (capabilitiesSection && capabilityCards.length) {
   capabilityCards.forEach((card, index) => {
@@ -343,12 +342,10 @@ if (capabilitiesSection && capabilityCards.length) {
     capabilitiesSection.classList.add("capabilities-motion-ready");
 
     if ("IntersectionObserver" in window) {
-      const capabilityObserver = new IntersectionObserver((entries, observer) => {
+      const capabilityObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
+          entry.target.classList.toggle("is-active", entry.isIntersecting);
+          if (entry.isIntersecting) entry.target.classList.add("is-visible");
         });
       }, {
         rootMargin: "0px 0px -8% 0px",
@@ -357,67 +354,23 @@ if (capabilitiesSection && capabilityCards.length) {
 
       capabilityCards.forEach((card) => capabilityObserver.observe(card));
     } else {
-      capabilityCards.forEach((card) => card.classList.add("is-visible"));
+      capabilityCards.forEach((card) => card.classList.add("is-visible", "is-active"));
     }
   } else {
     capabilityCards.forEach((card) => card.classList.add("is-visible"));
   }
 
-  if (!reduceMotion && precisePointer) {
-    let sectionFrame = 0;
-
-    capabilitiesSection.addEventListener("pointermove", (event) => {
-      if (sectionFrame) return;
-
-      sectionFrame = window.requestAnimationFrame(() => {
-        const bounds = capabilitiesSection.getBoundingClientRect();
-        const x = ((event.clientX - bounds.left) / bounds.width) * 100;
-        const y = ((event.clientY - bounds.top) / bounds.height) * 100;
-
-        capabilitiesSection.style.setProperty("--ops-x", `${x.toFixed(2)}%`);
-        capabilitiesSection.style.setProperty("--ops-y", `${y.toFixed(2)}%`);
-        sectionFrame = 0;
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        capabilitiesSection.classList.toggle("is-active", entry.isIntersecting);
       });
-    }, { passive: true });
-
-    capabilityCards.forEach((card) => {
-      let cardFrame = 0;
-
-      card.addEventListener("pointermove", (event) => {
-        if (cardFrame) return;
-
-        cardFrame = window.requestAnimationFrame(() => {
-          const bounds = card.getBoundingClientRect();
-          const x = (event.clientX - bounds.left) / bounds.width;
-          const y = (event.clientY - bounds.top) / bounds.height;
-          const normalizedX = x - 0.5;
-          const normalizedY = y - 0.5;
-
-          card.classList.add("is-tracking");
-          card.style.setProperty("--rotate-x", `${(-normalizedY * 7).toFixed(2)}deg`);
-          card.style.setProperty("--rotate-y", `${(normalizedX * 9).toFixed(2)}deg`);
-          card.style.setProperty("--glow-x", `${(x * 100).toFixed(2)}%`);
-          card.style.setProperty("--glow-y", `${(y * 100).toFixed(2)}%`);
-          card.style.setProperty("--image-x", `${(-normalizedX * 7).toFixed(2)}px`);
-          card.style.setProperty("--image-y", `${(-normalizedY * 5).toFixed(2)}px`);
-          cardFrame = 0;
-        });
-      }, { passive: true });
-
-      card.addEventListener("pointerleave", () => {
-        if (cardFrame) {
-          window.cancelAnimationFrame(cardFrame);
-          cardFrame = 0;
-        }
-
-        card.classList.remove("is-tracking");
-        card.style.setProperty("--rotate-x", "0deg");
-        card.style.setProperty("--rotate-y", "0deg");
-        card.style.setProperty("--glow-x", "50%");
-        card.style.setProperty("--glow-y", "50%");
-        card.style.setProperty("--image-x", "0px");
-        card.style.setProperty("--image-y", "0px");
-      });
+    }, {
+      threshold: 0.08
     });
+
+    sectionObserver.observe(capabilitiesSection);
+  } else if (!reduceMotion) {
+    capabilitiesSection.classList.add("is-active");
   }
 }
