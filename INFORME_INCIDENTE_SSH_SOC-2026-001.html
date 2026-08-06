@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Informe profesional del incidente simulado de fuerza bruta SSH detectado y contenido con Wazuh.">
+  <title>SOC-2026-001 · Fuerza bruta SSH y respuesta activa</title>
+  <style>
+    :root {
+      --bg: #071019;
+      --surface: #0d1a25;
+      --surface-2: #112330;
+      --line: rgba(163, 203, 222, 0.16);
+      --text: #effaff;
+      --muted: #95adba;
+      --cyan: #48d7ff;
+      --green: #56f0b2;
+      --yellow: #ffd166;
+      --red: #ff7085;
+      --red-soft: rgba(255, 112, 133, 0.12);
+      --green-soft: rgba(86, 240, 178, 0.1);
+      --cyan-soft: rgba(72, 215, 255, 0.1);
+      --radius: 18px;
+      --shadow: 0 22px 55px rgba(0, 0, 0, 0.28);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(72, 215, 255, 0.09), transparent 28%),
+        radial-gradient(circle at 90% 8%, rgba(255, 112, 133, 0.08), transparent 25%),
+        var(--bg);
+      font: 16px/1.65 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a { color: inherit; }
+
+    button { font: inherit; }
+
+    code, .mono {
+      font-family: "Cascadia Code", Consolas, monospace;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 13px max(22px, calc((100vw - 1180px) / 2));
+      border-bottom: 1px solid var(--line);
+      background: rgba(7, 16, 25, 0.9);
+      backdrop-filter: blur(16px);
+    }
+
+    .topbar strong {
+      letter-spacing: 0.08em;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .button.primary {
+      border-color: rgba(72, 215, 255, 0.32);
+      color: var(--cyan);
+      background: var(--cyan-soft);
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 34px));
+      margin: 0 auto;
+      padding: 54px 0 70px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 5vw, 58px);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: linear-gradient(145deg, rgba(17, 35, 48, 0.94), rgba(8, 20, 29, 0.94));
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -9% -48% 50%;
+      height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 112, 133, 0.17), transparent 65%);
+      pointer-events: none;
+    }
+
+    .eyebrow, .section-label, .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--cyan);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 850px;
+      margin: 15px 0 14px;
+      font-size: clamp(2.3rem, 5vw, 4.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+    }
+
+    h1 span { color: var(--red); }
+
+    .hero-copy {
+      max-width: 800px;
+      color: #bfd2dc;
+      font-size: 1.08rem;
+    }
+
+    .classification {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 25px;
+    }
+
+    .status-chip {
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .status-chip.high {
+      color: var(--red);
+      border-color: rgba(255, 112, 133, 0.3);
+      background: var(--red-soft);
+    }
+
+    .status-chip.closed {
+      color: var(--green);
+      border-color: rgba(86, 240, 178, 0.26);
+      background: var(--green-soft);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .metric, .panel, .finding, .evidence, .recommendation {
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(17, 35, 48, 0.82), rgba(10, 24, 34, 0.88));
+    }
+
+    .metric {
+      padding: 16px;
+      border-radius: 14px;
+    }
+
+    .metric strong, .metric span { display: block; }
+
+    .metric strong {
+      color: var(--cyan);
+      font-size: 1.35rem;
+    }
+
+    .metric span {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    section { margin-top: 54px; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .section-head h2 {
+      margin: 5px 0 0;
+      font-size: clamp(1.7rem, 3vw, 2.45rem);
+      letter-spacing: -0.04em;
+    }
+
+    .section-number {
+      color: rgba(149, 173, 186, 0.22);
+      font-size: 2.6rem;
+      font-weight: 900;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .panel {
+      padding: 25px;
+      border-radius: var(--radius);
+    }
+
+    .panel h3 { margin-bottom: 8px; }
+
+    .panel p:last-child { margin-bottom: 0; }
+
+    .muted { color: var(--muted); }
+
+    .verdict {
+      border-left: 4px solid var(--green);
+    }
+
+    .risk {
+      border-left: 4px solid var(--red);
+    }
+
+    .facts {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .facts th, .facts td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .facts th {
+      width: 32%;
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .facts tr:last-child th, .facts tr:last-child td { border-bottom: 0; }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 10px;
+      padding-left: 25px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background: linear-gradient(var(--red), var(--yellow), var(--green));
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 17px 19px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(13, 26, 37, 0.82);
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -24px;
+      top: 23px;
+      width: 10px;
+      height: 10px;
+      border: 3px solid var(--bg);
+      border-radius: 50%;
+      background: var(--cyan);
+    }
+
+    .timeline-item time {
+      display: block;
+      color: var(--cyan);
+      font: 0.78rem "Cascadia Code", Consolas, monospace;
+    }
+
+    .timeline-item strong { display: block; margin-top: 3px; }
+
+    .timeline-item span { color: var(--muted); }
+
+    .flow {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .flow-node {
+      min-height: 132px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(13, 26, 37, 0.84);
+    }
+
+    .flow-node strong, .flow-node span { display: block; }
+
+    .flow-node strong { margin-bottom: 6px; }
+
+    .flow-node span { color: var(--muted); font-size: 0.85rem; }
+
+    .flow-node.alert { border-color: rgba(255, 112, 133, 0.3); }
+
+    .flow-node.response { border-color: rgba(86, 240, 178, 0.3); }
+
+    .arrow { color: var(--cyan); font-size: 1.5rem; }
+
+    .mitre-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 22px;
+      align-items: center;
+      padding: 28px;
+      border: 1px solid rgba(255, 112, 133, 0.28);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, var(--red-soft), rgba(13, 26, 37, 0.9));
+    }
+
+    .mitre-id {
+      padding: 18px;
+      border: 1px solid rgba(255, 112, 133, 0.32);
+      border-radius: 14px;
+      color: var(--red);
+      background: rgba(255, 112, 133, 0.08);
+      font: 900 1.2rem "Cascadia Code", Consolas, monospace;
+    }
+
+    .findings {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .finding {
+      padding: 20px;
+      border-radius: 15px;
+    }
+
+    .finding strong { display: block; margin-bottom: 6px; }
+
+    .finding span { color: var(--muted); }
+
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .evidence {
+      overflow: hidden;
+      border-radius: var(--radius);
+    }
+
+    .zoom {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      cursor: zoom-in;
+      background: #050b10;
+    }
+
+    .zoom img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      object-position: top left;
+    }
+
+    .evidence figcaption {
+      padding: 16px 18px 18px;
+      color: var(--muted);
+    }
+
+    .evidence figcaption strong { display: block; color: var(--text); }
+
+    .recommendations {
+      display: grid;
+      gap: 10px;
+    }
+
+    .recommendation {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 15px;
+      align-items: start;
+      padding: 17px;
+      border-radius: 14px;
+    }
+
+    .priority {
+      min-width: 68px;
+      padding: 5px 8px;
+      border-radius: 8px;
+      color: var(--red);
+      background: var(--red-soft);
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .priority.medium { color: var(--yellow); background: rgba(255, 209, 102, 0.1); }
+
+    .recommendation span { color: var(--muted); }
+
+    .recommendation em {
+      color: var(--cyan);
+      font-style: normal;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    .manifest {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(13, 26, 37, 0.82);
+    }
+
+    .manifest table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+    }
+
+    .manifest th, .manifest td {
+      padding: 13px 15px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .manifest th {
+      color: var(--muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+    }
+
+    .manifest td:last-child {
+      word-break: break-all;
+      font: 0.69rem "Cascadia Code", Consolas, monospace;
+    }
+
+    .manifest tr:last-child td { border-bottom: 0; }
+
+    .download {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    .note {
+      margin-top: 14px;
+      padding: 15px 17px;
+      border: 1px solid rgba(255, 209, 102, 0.22);
+      border-radius: 12px;
+      color: #d8c691;
+      background: rgba(255, 209, 102, 0.07);
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 54px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.83rem;
+    }
+
+    dialog {
+      width: min(1400px, calc(100vw - 30px));
+      max-height: calc(100vh - 30px);
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      color: var(--text);
+      background: #060d13;
+      box-shadow: var(--shadow);
+    }
+
+    dialog::backdrop { background: rgba(0, 0, 0, 0.82); }
+
+    dialog img {
+      display: block;
+      max-width: 100%;
+      max-height: calc(100vh - 110px);
+      margin: 0 auto;
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+
+    .close {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      color: var(--text);
+      background: rgba(255,255,255,.05);
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-2, .evidence-grid { grid-template-columns: 1fr; }
+      .findings { grid-template-columns: 1fr; }
+      .flow { grid-template-columns: 1fr; }
+      .arrow { transform: rotate(90deg); justify-self: center; }
+      .mitre-card { grid-template-columns: 1fr; }
+      .recommendation { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
+    }
+
+    @media (max-width: 560px) {
+      .topbar { align-items: flex-start; }
+      .top-actions { flex-direction: column; }
+      .page { width: min(100% - 22px, 1180px); padding-top: 24px; }
+      .hero { padding: 25px 20px; }
+      .metrics { grid-template-columns: 1fr; }
+      .section-head { align-items: start; }
+      .section-number { display: none; }
+    }
+
+    @media print {
+      :root { --bg: #fff; --surface: #fff; --surface-2: #f5f8fa; --text: #15232c; --muted: #526671; --line: #d8e1e6; }
+      body { background: #fff; font-size: 11pt; }
+      .topbar { display: none; }
+      .page { width: 100%; padding: 0; }
+      .hero, .panel, .finding, .evidence, .recommendation, .manifest, .timeline-item, .flow-node, .mitre-card { box-shadow: none; break-inside: avoid; }
+      section { margin-top: 30px; break-inside: avoid; }
+      .hero::after { display: none; }
+      .zoom { cursor: default; }
+      a { text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <strong>SOC LAB · INFORME DE INCIDENTE</strong>
+    <div class="top-actions">
+      <a class="button" href="GUIA_LAB_SOC_WAZUH.html">← Volver a la guía</a>
+      <button class="button primary" type="button" onclick="window.print()">Imprimir / Guardar PDF</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <span class="eyebrow">SOC-2026-001 · Blue Team · Simulación autorizada</span>
+      <h1>Fuerza bruta SSH <span>detectada y contenida</span></h1>
+      <p class="hero-copy">
+        Wazuh correlacionó ocho intentos de autenticación fallidos contra el servidor Linux,
+        generó una alerta de nivel 10 y ordenó un bloqueo temporal de la IP de origen. La
+        conectividad se restauró automáticamente y no se produjo ningún acceso exitoso.
+      </p>
+      <div class="classification">
+        <span class="status-chip high">Severidad Wazuh · 10</span>
+        <span class="status-chip closed">Estado · Cerrado</span>
+        <span class="status-chip">Resultado · Verdadero positivo</span>
+        <span class="status-chip">Entorno · Laboratorio aislado</span>
+      </div>
+      <div class="metrics">
+        <div class="metric"><strong>8</strong><span>Fallos correlacionados</span></div>
+        <div class="metric"><strong>5712</strong><span>Regla de detección</span></div>
+        <div class="metric"><strong>651</strong><span>Respuesta activa</span></div>
+        <div class="metric"><strong>60 s</strong><span>Bloqueo temporal</span></div>
+        <div class="metric"><strong>0</strong><span>Accesos exitosos</span></div>
+      </div>
+    </section>
+
+    <section id="resumen">
+      <div class="section-head">
+        <div><span class="section-label">Resumen ejecutivo</span><h2>Qué ocurrió y cuál fue el impacto</h2></div>
+        <span class="section-number">01</span>
+      </div>
+      <div class="grid-2">
+        <article class="panel verdict">
+          <h3>Conclusión</h3>
+          <p class="muted">
+            La actividad fue una simulación controlada, pero el flujo defensivo fue real. El
+            SIEM recibió los registros SSH desde <code>journald</code>, correlacionó múltiples
+            fallos, clasificó el comportamiento con MITRE ATT&amp;CK y activó una medida de
+            contención en el endpoint afectado.
+          </p>
+        </article>
+        <article class="panel risk">
+          <h3>Impacto observado</h3>
+          <p class="muted">
+            No hubo compromiso, ejecución remota ni autenticación válida. El impacto se limitó
+            al bloqueo esperado de la IP de pruebas durante 60 segundos. El agente Linux siguió
+            comunicándose con el Manager y el Dashboard permaneció disponible.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="alcance">
+      <div class="section-head">
+        <div><span class="section-label">Alcance técnico</span><h2>Sistemas, identidades y reglas</h2></div>
+        <span class="section-number">02</span>
+      </div>
+      <div class="grid-2">
+        <article class="panel">
+          <table class="facts">
+            <tr><th>Activo afectado</th><td><code>SOC-LINUX-CLIENT</code> · agente 002</td></tr>
+            <tr><th>Destino</th><td><code>192.168.228.20:22/TCP</code></td></tr>
+            <tr><th>Origen</th><td><code>192.168.228.1</code> · equipo MAIKEL</td></tr>
+            <tr><th>Usuario probado</th><td><code>usuario-inexistente</code></td></tr>
+            <tr><th>Puertos de origen</th><td><code>62435</code> y <code>62436</code></td></tr>
+            <tr><th>Fuente de registro</th><td><code>journald</code> · servicio <code>ssh</code></td></tr>
+          </table>
+        </article>
+        <article class="panel">
+          <table class="facts">
+            <tr><th>Regla individual</th><td><code>5710</code> · usuario inexistente · nivel 5</td></tr>
+            <tr><th>Regla correlacionada</th><td><code>5712</code> · fuerza bruta · nivel 10</td></tr>
+            <tr><th>Respuesta registrada</th><td><code>651</code> · Host Blocked by firewall-drop</td></tr>
+            <tr><th>Acción</th><td><code>firewall-drop</code> con <code>iptables</code></td></tr>
+            <tr><th>Duración</th><td>60 segundos, con reversión automática</td></tr>
+            <tr><th>Resultado</th><td>Bloqueo aplicado, verificado y retirado correctamente</td></tr>
+          </table>
+        </article>
+      </div>
+    </section>
+
+    <section id="cronologia">
+      <div class="section-head">
+        <div><span class="section-label">Cronología</span><h2>Del primer intento a la recuperación</h2></div>
+        <span class="section-number">03</span>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item"><time>12:00:09 CEST</time><strong>Comienza la actividad</strong><span>SSHD registra el usuario inexistente desde 192.168.228.1.</span></article>
+        <article class="timeline-item"><time>12:00:13–12:00:34 CEST</time><strong>Se acumulan los fallos</strong><span>Los intentos de contraseña generan alertas individuales y contexto de eventos anteriores.</span></article>
+        <article class="timeline-item"><time>12:00:40 CEST</time><strong>Correlación de fuerza bruta</strong><span>La regla 5712 alcanza frecuencia 8, nivel 10 y MITRE T1110.</span></article>
+        <article class="timeline-item"><time>12:00:42 CEST</time><strong>Contención automática</strong><span>La regla 651 confirma que firewall-drop añadió 192.168.228.1 a la política de bloqueo.</span></article>
+        <article class="timeline-item"><time>12:01:37 CEST</time><strong>Reversión automática</strong><span>Wazuh ejecuta la acción delete y elimina la regla temporal de iptables.</span></article>
+        <article class="timeline-item"><time>Después de 12:01:37 CEST</time><strong>Servicio recuperado</strong><span>Test-NetConnection vuelve a mostrar TcpTestSucceeded: True.</span></article>
+      </div>
+      <p class="note">
+        Nota temporal: los registros brutos del endpoint están en UTC y el Dashboard se visualizó
+        en horario CEST (UTC+2). La secuencia y los identificadores permiten correlacionarlos sin ambigüedad.
+      </p>
+    </section>
+
+    <section id="flujo">
+      <div class="section-head">
+        <div><span class="section-label">Cadena defensiva</span><h2>Detección, decisión y respuesta</h2></div>
+        <span class="section-number">04</span>
+      </div>
+      <div class="flow" aria-label="Flujo de la respuesta al incidente">
+        <article class="flow-node"><strong>1 · Telemetría</strong><span>SSHD escribe los fallos en journald y el agente 002 los envía cifrados al Manager.</span></article>
+        <span class="arrow" aria-hidden="true">→</span>
+        <article class="flow-node alert"><strong>2 · Correlación</strong><span>Wazuh agrupa ocho fallos de una IP en menos de dos minutos y activa la regla 5712.</span></article>
+        <span class="arrow" aria-hidden="true">→</span>
+        <article class="flow-node response"><strong>3 · Contención</strong><span>firewall-drop bloquea el origen durante 60 segundos y después revierte el cambio.</span></article>
+      </div>
+    </section>
+
+    <section id="mitre">
+      <div class="section-head">
+        <div><span class="section-label">MITRE ATT&amp;CK</span><h2>Clasificación del comportamiento</h2></div>
+        <span class="section-number">05</span>
+      </div>
+      <article class="mitre-card">
+        <span class="mitre-id">T1110</span>
+        <div>
+          <h3>Brute Force · Credential Access</h3>
+          <p class="muted">
+            La alerta correlacionada se mapea con la técnica de fuerza bruta. Los eventos
+            individuales también incorporan <code>T1110.001</code> (Password Guessing) y
+            <code>T1021.004</code> (SSH), aportando contexto sobre método y servicio atacado.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section id="analisis">
+      <div class="section-head">
+        <div><span class="section-label">Análisis técnico</span><h2>Hallazgos confirmados</h2></div>
+        <span class="section-number">06</span>
+      </div>
+      <div class="findings">
+        <article class="finding"><strong>Verdadero positivo</strong><span>La regla describió correctamente varios intentos fallidos desde una misma IP.</span></article>
+        <article class="finding"><strong>Sin acceso conseguido</strong><span>No aparecen reglas de autenticación SSH exitosa asociadas a la identidad o al origen.</span></article>
+        <article class="finding"><strong>Contención eficaz</strong><span>La conexión al puerto 22 dejó de responder mientras la regla de iptables estuvo activa.</span></article>
+        <article class="finding"><strong>Recuperación validada</strong><span>La acción delete retiró el bloqueo y el puerto 22 volvió a responder automáticamente.</span></article>
+        <article class="finding"><strong>Alcance limitado</strong><span>Solo SOC-LINUX-CLIENT bloqueó al origen; el servidor Wazuh y el Dashboard siguieron operativos.</span></article>
+        <article class="finding"><strong>Tráfico cifrado</strong><span>Wireshark confirmó SSH, intercambio de claves y paquetes cifrados sin exponer la contraseña.</span></article>
+      </div>
+    </section>
+
+    <section id="evidencias">
+      <div class="section-head">
+        <div><span class="section-label">Evidencias visuales</span><h2>Pruebas del incidente y la respuesta</h2></div>
+        <span class="section-number">07</span>
+      </div>
+      <div class="evidence-grid">
+        <figure class="evidence">
+          <button class="zoom" type="button" data-image="assets/lab-soc/evidencias/11-wazuh-fuerza-bruta-5712.png" data-caption="Wazuh muestra la regla 5712 de fuerza bruta SSH, junto a los intentos individuales.">
+            <img src="assets/lab-soc/evidencias/11-wazuh-fuerza-bruta-5712.png" alt="Eventos de fuerza bruta SSH en Wazuh">
+          </button>
+          <figcaption><strong>Detección correlacionada</strong>Regla 5712, nivel 10, tras los fallos SSH.</figcaption>
+        </figure>
+        <figure class="evidence">
+          <button class="zoom" type="button" data-image="assets/lab-soc/evidencias/12-active-response-firewall-drop.png" data-caption="Registro de active response con las acciones add y delete de firewall-drop.">
+            <img src="assets/lab-soc/evidencias/12-active-response-firewall-drop.png" alt="Registro de firewall-drop en el endpoint Linux">
+          </button>
+          <figcaption><strong>Respuesta activa</strong>Inicio, bloqueo, espera de 60 segundos y retirada.</figcaption>
+        </figure>
+        <figure class="evidence">
+          <button class="zoom" type="button" data-image="assets/lab-soc/evidencias/13-recuperacion-ssh.png" data-caption="PowerShell confirma que el puerto SSH vuelve a responder después del desbloqueo.">
+            <img src="assets/lab-soc/evidencias/13-recuperacion-ssh.png" alt="Test-NetConnection exitoso después de la recuperación">
+          </button>
+          <figcaption><strong>Recuperación</strong>El puerto 22 vuelve a mostrar <code>TcpTestSucceeded: True</code>.</figcaption>
+        </figure>
+        <figure class="evidence">
+          <button class="zoom" type="button" data-image="assets/lab-soc/evidencias/10-wireshark-correlacion-ssh.png" data-caption="Wireshark muestra la conexión 192.168.228.1:58846 hacia 192.168.228.20:22 y el intercambio SSH cifrado.">
+            <img src="assets/lab-soc/evidencias/10-wireshark-correlacion-ssh.png" alt="Captura de tráfico SSH en Wireshark">
+          </button>
+          <figcaption><strong>Correlación de red</strong>Validación posterior: puerto origen 58846 coincide en Wireshark y Wazuh.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="respuesta">
+      <div class="section-head">
+        <div><span class="section-label">Respuesta al incidente</span><h2>Acciones ejecutadas y decisiones</h2></div>
+        <span class="section-number">08</span>
+      </div>
+      <div class="grid-2">
+        <article class="panel">
+          <h3>Contención aplicada</h3>
+          <p class="muted">
+            El Manager ordenó al agente afectado ejecutar <code>firewall-drop</code>. El script
+            añadió una regla temporal de <code>iptables</code> contra <code>192.168.228.1</code>.
+            Se verificó la pérdida de conectividad al puerto 22 durante el bloqueo.
+          </p>
+        </article>
+        <article class="panel">
+          <h3>Recuperación aplicada</h3>
+          <p class="muted">
+            Tras 60 segundos, Wazuh ejecutó la acción <code>delete</code>. La regla desapareció
+            de <code>iptables</code> y una nueva prueba TCP confirmó la restauración del servicio,
+            sin intervención manual ni reinicio del endpoint.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="recomendaciones">
+      <div class="section-head">
+        <div><span class="section-label">Mejora continua</span><h2>Recomendaciones para un entorno real</h2></div>
+        <span class="section-number">09</span>
+      </div>
+      <div class="recommendations">
+        <article class="recommendation"><span class="priority">Alta</span><div><strong>Usar autenticación mediante claves SSH</strong><br><span>Validar primero el acceso por clave y después desactivar PasswordAuthentication.</span></div><em>Reducir T1110</em></article>
+        <article class="recommendation"><span class="priority">Alta</span><div><strong>Revisar accesos exitosos tras una fuerza bruta</strong><br><span>Correlacionar el origen con reglas de autenticación válida, creación de usuarios y elevación de privilegios.</span></div><em>Descartar compromiso</em></article>
+        <article class="recommendation"><span class="priority medium">Media</span><div><strong>Ajustar el bloqueo al riesgo</strong><br><span>Definir duración, listas permitidas, redes administrativas y procedimiento de desbloqueo manual.</span></div><em>Evitar indisponibilidad</em></article>
+        <article class="recommendation"><span class="priority medium">Media</span><div><strong>Sincronizar el tiempo mediante NTP</strong><br><span>Garantizar que Manager y endpoints usan la misma referencia temporal para simplificar cronologías.</span></div><em>Mejorar correlación</em></article>
+        <article class="recommendation"><span class="priority medium">Media</span><div><strong>Conservar evidencias originales</strong><br><span>Guardar CSV, capturas PCAPNG y registros con hash SHA-256 y acceso restringido.</span></div><em>Cadena de custodia</em></article>
+      </div>
+    </section>
+
+    <section id="manifest">
+      <div class="section-head">
+        <div><span class="section-label">Integridad de evidencia</span><h2>Manifiesto SHA-256</h2></div>
+        <span class="section-number">10</span>
+      </div>
+      <div class="manifest">
+        <table>
+          <thead><tr><th>Evidencia</th><th>Tipo</th><th>SHA-256</th></tr></thead>
+          <tbody>
+            <tr><td><a class="download" href="assets/lab-soc/evidencias/14-alerta-fuerza-bruta-5712.csv" download>Alerta 5712 ↓</a></td><td>CSV</td><td>B6115C5F9B3BC96A4DD7A938FA43E4A959DBC7EFF2B1AEC2A6D0CB9D605257A4</td></tr>
+            <tr><td><a class="download" href="assets/lab-soc/evidencias/15-active-response-regla-651.csv" download>Respuesta activa 651 ↓</a></td><td>CSV</td><td>9785B448D23400624440172E817E716B27A95A990768C0BAD1AE2D8F46F424E4</td></tr>
+            <tr><td><a class="download" href="assets/lab-soc/evidencias/16-correlacion-ssh-wazuh.csv" download>Correlación SSH ↓</a></td><td>CSV</td><td>EE8AFB4F0D33555D1638A2E0ABAE3E308CFF004E9307F378D082C4087DCDBC8F</td></tr>
+            <tr><td>Wireshark SSH</td><td>PNG</td><td>8D28980B98FE2C42590B36FD46ED61A7D3A22ED712DDF8B13CEF9500E701DE3C</td></tr>
+            <tr><td>Wazuh fuerza bruta</td><td>PNG</td><td>59F5A68D763D9FCB1D2259726B9A22CC8B8E4C115D8FF9502DC54E32C0AE2ECF</td></tr>
+            <tr><td>Active Response</td><td>PNG</td><td>2162B0F1B7898C7E17122A5D2A605A45247BE0AAEA2C05954E01F9492902D068</td></tr>
+            <tr><td>Recuperación SSH</td><td>PNG</td><td>B99E68B4913E9BBF9B02CA5A9090534D793D98F8451D25CFF2D5CA8B36436353</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        La captura PCAPNG no estaba guardada al redactar esta versión. La evidencia visual y el
+        CSV permiten confirmar la correlación; el archivo PCAPNG se añadirá como anexo cuando esté disponible.
+      </p>
+    </section>
+
+    <footer>
+      <span>Preparado por Miguel Pinedo · Laboratorio SOC con Wazuh</span>
+      <span>Fecha del informe: 6 de agosto de 2026 · Clasificación: Uso educativo</span>
+    </footer>
+  </main>
+
+  <dialog id="image-dialog" aria-label="Evidencia ampliada">
+    <div class="modal-head"><strong id="dialog-caption">Evidencia</strong><button class="close" id="dialog-close" type="button" aria-label="Cerrar">×</button></div>
+    <img id="dialog-image" src="" alt="">
+  </dialog>
+
+  <script>
+    const dialog = document.querySelector("#image-dialog");
+    const dialogImage = document.querySelector("#dialog-image");
+    const dialogCaption = document.querySelector("#dialog-caption");
+    const closeButton = document.querySelector("#dialog-close");
+
+    document.querySelectorAll("[data-image]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const preview = button.querySelector("img");
+        dialogImage.src = button.dataset.image;
+        dialogImage.alt = preview?.alt || "Evidencia ampliada";
+        dialogCaption.textContent = button.dataset.caption || "Evidencia";
+        dialog.showModal();
+      });
+    });
+
+    closeButton.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener("close", () => { dialogImage.src = ""; });
+  </script>
+</body>
+</html>

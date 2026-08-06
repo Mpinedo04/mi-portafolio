@@ -1,0 +1,14 @@
+<!--
+  Regla personalizada del laboratorio SOC con Wazuh.
+  Instalación en el manager: /var/ossec/etc/rules/fim_soc_lab.xml
+-->
+<group name="syscheck,custom_fim,soc_lab,">
+  <rule id="100100" level="12">
+    <if_sid>550</if_sid>
+    <field name="file" type="pcre2">^/opt/soc-lab/configuracion\.txt$</field>
+    <description>SOC LAB: archivo de configuración protegido modificado: $(file)</description>
+    <mitre>
+      <id>T1565.001</id>
+    </mitre>
+  </rule>
+</group>
