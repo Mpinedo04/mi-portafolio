@@ -327,6 +327,60 @@
       transition: width 300ms ease;
     }
 
+    .hero-reports {
+      position: relative;
+      z-index: 1;
+      margin-top: 24px;
+      padding: 18px;
+      border: 1px solid rgba(255, 205, 92, 0.18);
+      border-radius: 16px;
+      background: rgba(255, 205, 92, 0.045);
+    }
+
+    .hero-reports-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .hero-reports-head strong {
+      color: var(--yellow);
+      font-size: 0.9rem;
+    }
+
+    .hero-reports-head span {
+      color: var(--muted);
+      font-size: 0.74rem;
+    }
+
+    .hero-report-links {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .hero-report-link {
+      padding: 12px 13px;
+      border: 1px solid rgba(255, 205, 92, 0.16);
+      border-radius: 11px;
+      color: #f2d88a;
+      background: rgba(5, 12, 18, 0.36);
+      font: 0.72rem "Cascadia Code", Consolas, monospace;
+      line-height: 1.45;
+      text-decoration: none;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .hero-report-link:hover,
+    .hero-report-link:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(255, 205, 92, 0.48);
+      background: rgba(255, 205, 92, 0.1);
+      outline: none;
+    }
+
     .section-heading {
       display: grid;
       grid-template-columns: 1fr auto;
@@ -1291,6 +1345,7 @@
       }
 
       .hero-meta,
+      .hero-report-links,
       .grid-2,
       .grid-3,
       .grid-4,
@@ -1401,7 +1456,7 @@
         <a class="active" href="#resumen"><span>◈</span> Resumen</a>
         <a href="#arquitectura"><span>⌘</span> Arquitectura</a>
         <a href="#roadmap"><span>◎</span> Hoja de ruta</a>
-        <a href="#mision"><span>✓</span> Próxima misión</a>
+        <a href="#mision"><span>✓</span> Cierre del proyecto</a>
         <a href="#bitacora"><span>▤</span> Bitácora</a>
       </nav>
 
@@ -1441,6 +1496,18 @@
           </div>
           <div class="progress" aria-label="Progreso del proyecto">
             <div class="progress-bar" id="progress-bar"></div>
+          </div>
+        </div>
+
+        <div class="hero-reports" aria-label="Informes profesionales del laboratorio">
+          <div class="hero-reports-head">
+            <strong>Informes de incidentes</strong>
+            <span>Tres investigaciones completas con evidencias y respuesta</span>
+          </div>
+          <div class="hero-report-links">
+            <a class="hero-report-link" href="INFORME_INCIDENTE_SSH_SOC-2026-001.html">SOC-2026-001 · Fuerza bruta SSH →</a>
+            <a class="hero-report-link" href="INFORME_INCIDENTE_POWERSHELL_SOC-2026-002.html">SOC-2026-002 · PowerShell codificado →</a>
+            <a class="hero-report-link" href="INFORME_INCIDENTE_FIM_SOC-2026-003.html">SOC-2026-003 · Integridad de archivos →</a>
           </div>
         </div>
       </section>
@@ -1484,7 +1551,7 @@
           <div>
             <span class="label">Diseño técnico</span>
             <h2>Arquitectura del laboratorio</h2>
-            <p>El servidor Wazuh será el centro. Windows y Linux enviarán sus eventos para analizarlos desde un único panel.</p>
+            <p>El servidor Wazuh es el centro. Windows y Linux envían sus eventos para analizarlos desde un único panel.</p>
           </div>
           <span class="section-number">02</span>
         </div>
@@ -1493,7 +1560,7 @@
           <article class="node">
             <span class="node-tag">Endpoint 01</span>
             <h3>Windows 11</h3>
-            <p>El ordenador real actuará como equipo monitorizado para ahorrar memoria.</p>
+            <p>El ordenador real actúa como equipo monitorizado para ahorrar memoria.</p>
             <div class="chips">
               <span class="chip">Wazuh Agent</span>
               <span class="chip">Sysmon</span>
@@ -1506,7 +1573,7 @@
           <article class="node central">
             <span class="node-tag">Servidor central</span>
             <h3>SOC-WAZUH-SERVER</h3>
-            <p>Recibe, almacena y analiza la telemetría. El Dashboard mostrará las alertas y permitirá investigarlas.</p>
+            <p>Recibe, almacena y analiza la telemetría. El Dashboard muestra las alertas y permite investigarlas.</p>
             <div class="chips">
               <span class="chip">Manager</span>
               <span class="chip">Indexer</span>
@@ -1613,7 +1680,7 @@
         <div class="section-heading">
           <div>
             <span class="label">Estado actual</span>
-            <h2>Tu próxima misión</h2>
+            <h2>Cierre del proyecto</h2>
             <p>El laboratorio está preparado como caso de estudio profesional y pieza principal del portafolio.</p>
           </div>
           <span class="section-number">04</span>
@@ -1669,7 +1736,7 @@ Repositorio    github.com/Mpinedo04/mi-portafolio</pre>
           <div>
             <span class="label">Evidencias del proyecto</span>
             <h2>Bitácora de implementación</h2>
-            <p>Cada hito quedará registrado con resultados reales, una explicación y su evidencia.</p>
+            <p>Cada hito queda registrado con resultados reales, una explicación y su evidencia.</p>
           </div>
           <span class="section-number">05</span>
         </div>
@@ -1810,7 +1877,7 @@ Repositorio    github.com/Mpinedo04/mi-portafolio</pre>
             <p>
               El servidor central está instalado y responde por la red privada. Las
               credenciales no se han añadido a la documentación. La siguiente sesión
-              comenzará con el primer acceso al Dashboard.
+              continuó con el primer acceso al Dashboard.
             </p>
           </aside>
         </div>
@@ -1863,7 +1930,7 @@ Repositorio    github.com/Mpinedo04/mi-portafolio</pre>
             </p>
             <div class="result-list">
               <div class="result"><strong>wazuhsvc · Running</strong><span>Servicio iniciado correctamente</span></div>
-              <div class="result"><strong>Inicio automático</strong><span>Persistirá después de reiniciar Windows</span></div>
+              <div class="result"><strong>Inicio automático</strong><span>Configurado para iniciarse después de reiniciar Windows</span></div>
               <div class="result"><strong>MAIKEL</strong><span>Nombre registrado para el endpoint</span></div>
               <div class="result"><strong>Grupo default</strong><span>Configuración inicial del agente</span></div>
               <div class="result"><strong>TCP 1514</strong><span>Canal de eventos hacia el Manager</span></div>
@@ -2230,8 +2297,8 @@ Repositorio    github.com/Mpinedo04/mi-portafolio</pre>
         <div class="section-heading">
           <div>
             <span class="label">Casos prácticos</span>
-            <h2>Detecciones que construiremos</h2>
-            <p>Pruebas seguras que producirán alertas, evidencias y una investigación documentada.</p>
+            <h2>Detecciones construidas y validadas</h2>
+            <p>Pruebas seguras que producen alertas, evidencias y una investigación documentada.</p>
           </div>
           <span class="section-number">06</span>
         </div>
@@ -2268,8 +2335,8 @@ Repositorio    github.com/Mpinedo04/mi-portafolio</pre>
         <div class="section-heading">
           <div>
             <span class="label">Entrega profesional</span>
-            <h2>Qué verá un reclutador</h2>
-            <p>El resultado final será un caso de estudio, no una simple colección de capturas.</p>
+            <h2>Qué ve un reclutador</h2>
+            <p>El resultado final es un caso de estudio, no una simple colección de capturas.</p>
           </div>
           <span class="section-number">07</span>
         </div>
