@@ -1,0 +1,2415 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Guía visual del laboratorio SOC con Wazuh de Miguel Pinedo.">
+  <meta name="color-scheme" content="dark">
+  <title>Laboratorio SOC con Wazuh · Guía del proyecto</title>
+  <style>
+    :root {
+      --bg: #071019;
+      --surface: #0d1924;
+      --surface-2: #112231;
+      --surface-3: #162c3d;
+      --line: rgba(153, 224, 255, 0.14);
+      --text: #eaf8ff;
+      --muted: #8da9b8;
+      --cyan: #48d7ff;
+      --cyan-soft: rgba(72, 215, 255, 0.12);
+      --green: #56f0b2;
+      --green-soft: rgba(86, 240, 178, 0.12);
+      --yellow: #ffcf66;
+      --red: #ff6f83;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
+      --radius: 22px;
+      --sidebar: 265px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 28px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 80% 8%, rgba(72, 215, 255, 0.11), transparent 26rem),
+        radial-gradient(circle at 12% 86%, rgba(86, 240, 178, 0.07), transparent 28rem),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    body::before {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      content: "";
+      opacity: 0.16;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(to bottom, black, transparent 75%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: var(--sidebar) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 22px;
+      border-right: 1px solid var(--line);
+      background: rgba(7, 16, 25, 0.86);
+      backdrop-filter: blur(20px);
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 38px;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid rgba(72, 215, 255, 0.3);
+      border-radius: 13px;
+      color: var(--cyan);
+      background: var(--cyan-soft);
+      box-shadow: 0 0 30px rgba(72, 215, 255, 0.12);
+      font-weight: 900;
+    }
+
+    .brand strong,
+    .brand small {
+      display: block;
+    }
+
+    .brand strong {
+      letter-spacing: 0.02em;
+    }
+
+    .brand small {
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    .nav-label {
+      margin: 22px 12px 8px;
+      color: #617d8d;
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: grid;
+      gap: 5px;
+    }
+
+    .nav a {
+      display: flex;
+      gap: 11px;
+      align-items: center;
+      padding: 10px 12px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: 160ms ease;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      border-color: var(--line);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .nav a.active {
+      color: var(--cyan);
+      background: var(--cyan-soft);
+    }
+
+    .sidebar-status {
+      position: absolute;
+      right: 22px;
+      bottom: 24px;
+      left: 22px;
+      padding: 14px;
+      border: 1px solid rgba(86, 240, 178, 0.18);
+      border-radius: 14px;
+      background: var(--green-soft);
+    }
+
+    .sidebar-status span {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      color: var(--green);
+      font-size: 0.77rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .sidebar-status p {
+      margin: 7px 0 0;
+      color: #a6c7b9;
+      font-size: 0.8rem;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 13px var(--green);
+    }
+
+    main {
+      width: min(1200px, 100%);
+      margin: 0 auto;
+      padding: 52px clamp(24px, 5vw, 76px) 90px;
+      overflow: hidden;
+    }
+
+    section {
+      margin-top: 88px;
+    }
+
+    .hero {
+      position: relative;
+      margin-top: 0;
+      padding: clamp(30px, 5vw, 62px);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background:
+        linear-gradient(120deg, rgba(72, 215, 255, 0.09), transparent 43%),
+        linear-gradient(155deg, var(--surface-2), var(--surface));
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      position: absolute;
+      top: -120px;
+      right: -100px;
+      width: 350px;
+      height: 350px;
+      border: 1px solid rgba(72, 215, 255, 0.18);
+      border-radius: 50%;
+      content: "";
+      box-shadow:
+        0 0 0 45px rgba(72, 215, 255, 0.025),
+        0 0 0 90px rgba(72, 215, 255, 0.016);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 7px 11px;
+      border: 1px solid rgba(72, 215, 255, 0.22);
+      border-radius: 999px;
+      color: var(--cyan);
+      background: var(--cyan-soft);
+      font-size: 0.73rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 22px 0 18px;
+      font-size: clamp(2.5rem, 6vw, 5.3rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+    }
+
+    h1 span {
+      color: var(--cyan);
+    }
+
+    .hero-copy {
+      max-width: 690px;
+      color: #aac2cf;
+      font-size: clamp(1rem, 2vw, 1.14rem);
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    .metric {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(4, 12, 19, 0.36);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.5rem;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.76rem;
+    }
+
+    .progress-wrap {
+      position: relative;
+      z-index: 1;
+      margin-top: 28px;
+    }
+
+    .progress-head {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .progress {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--cyan), var(--green));
+      box-shadow: 0 0 20px rgba(72, 215, 255, 0.4);
+      transition: width 300ms ease;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 26px;
+    }
+
+    .section-heading h2 {
+      margin-bottom: 6px;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      letter-spacing: -0.04em;
+    }
+
+    .section-heading p {
+      max-width: 670px;
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .section-number {
+      color: rgba(72, 215, 255, 0.18);
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(150deg, rgba(17, 34, 49, 0.94), rgba(10, 22, 32, 0.94));
+      box-shadow: 0 14px 45px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-icon {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 18px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      color: var(--cyan);
+      background: var(--cyan-soft);
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+      font-size: 1.08rem;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      font-size: 0.91rem;
+    }
+
+    .card ul {
+      margin: 16px 0 0;
+      padding-left: 18px;
+    }
+
+    .card li + li {
+      margin-top: 7px;
+    }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: 1fr 85px 1.2fr 85px 1fr;
+      align-items: stretch;
+    }
+
+    .node {
+      position: relative;
+      min-height: 245px;
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(145deg, var(--surface-2), var(--surface));
+    }
+
+    .node.central {
+      border-color: rgba(72, 215, 255, 0.3);
+      background:
+        radial-gradient(circle at 50% 0, rgba(72, 215, 255, 0.13), transparent 56%),
+        linear-gradient(145deg, #132c3c, #0a1721);
+      box-shadow: 0 20px 60px rgba(72, 215, 255, 0.08);
+    }
+
+    .node-tag {
+      display: inline-block;
+      margin-bottom: 30px;
+      padding: 5px 8px;
+      border-radius: 7px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .node.central .node-tag {
+      color: var(--cyan);
+      background: var(--cyan-soft);
+    }
+
+    .node h3 {
+      margin-bottom: 7px;
+      font-size: 1.25rem;
+    }
+
+    .node p {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 20px;
+    }
+
+    .chip {
+      padding: 5px 8px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      color: #b6ccd7;
+      background: rgba(255, 255, 255, 0.025);
+      font-size: 0.7rem;
+    }
+
+    .flow {
+      position: relative;
+      display: grid;
+      place-items: center;
+      color: var(--cyan);
+    }
+
+    .flow::before {
+      width: 70%;
+      height: 1px;
+      content: "";
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      box-shadow: 0 0 12px var(--cyan);
+    }
+
+    .flow span {
+      position: absolute;
+      top: calc(50% + 10px);
+      color: var(--muted);
+      font-size: 0.64rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .spec-panel {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .spec-main {
+      padding: 27px;
+      border: 1px solid rgba(86, 240, 178, 0.18);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(86, 240, 178, 0.09), rgba(13, 25, 36, 0.95));
+    }
+
+    .spec-main .label {
+      color: var(--green);
+    }
+
+    .label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--cyan);
+      font-size: 0.7rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .spec {
+      min-width: 110px;
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.16);
+    }
+
+    .spec strong,
+    .spec span {
+      display: block;
+    }
+
+    .spec strong {
+      font-size: 1.1rem;
+    }
+
+    .spec span {
+      color: var(--muted);
+      font-size: 0.7rem;
+    }
+
+    .security-note {
+      padding: 25px;
+      border: 1px solid rgba(255, 207, 102, 0.2);
+      border-radius: var(--radius);
+      background: rgba(255, 207, 102, 0.06);
+    }
+
+    .security-note .label {
+      color: var(--yellow);
+    }
+
+    .security-note p {
+      margin-bottom: 0;
+      color: #c8b98d;
+      font-size: 0.88rem;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 13px;
+    }
+
+    .phase {
+      display: grid;
+      grid-template-columns: 55px minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: rgba(13, 25, 36, 0.8);
+    }
+
+    .phase.current {
+      border-color: rgba(72, 215, 255, 0.35);
+      background: linear-gradient(90deg, var(--cyan-soft), rgba(13, 25, 36, 0.92));
+    }
+
+    .phase.done {
+      border-color: rgba(86, 240, 178, 0.22);
+      background: linear-gradient(90deg, var(--green-soft), rgba(13, 25, 36, 0.88));
+    }
+
+    .phase-number {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.03);
+      font-weight: 900;
+    }
+
+    .phase.current .phase-number {
+      border-color: rgba(72, 215, 255, 0.3);
+      color: var(--cyan);
+      background: var(--cyan-soft);
+    }
+
+    .phase.done .phase-number {
+      border-color: rgba(86, 240, 178, 0.25);
+      color: var(--green);
+      background: var(--green-soft);
+    }
+
+    .phase h3,
+    .phase p {
+      margin-bottom: 0;
+    }
+
+    .phase h3 {
+      font-size: 0.98rem;
+    }
+
+    .phase p {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .phase-status {
+      padding: 6px 9px;
+      border-radius: 8px;
+      color: #718d9c;
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.65rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .phase.current .phase-status {
+      color: var(--cyan);
+      background: var(--cyan-soft);
+    }
+
+    .phase.done .phase-status {
+      color: var(--green);
+      background: var(--green-soft);
+    }
+
+    .mission {
+      overflow: hidden;
+      border: 1px solid rgba(72, 215, 255, 0.28);
+      border-radius: 26px;
+      background: linear-gradient(140deg, #10283a, #09141e);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.22);
+    }
+
+    .mission-head {
+      display: flex;
+      justify-content: space-between;
+      padding: 27px 28px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .mission-head h3 {
+      margin-bottom: 4px;
+      font-size: 1.25rem;
+    }
+
+    .mission-head p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .live-badge {
+      height: fit-content;
+      padding: 6px 9px;
+      border-radius: 8px;
+      color: var(--green);
+      background: var(--green-soft);
+      font-size: 0.65rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 1px;
+      background: var(--line);
+    }
+
+    .task {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 17px 28px;
+      cursor: pointer;
+      background: #0d1d29;
+      transition: background 160ms ease;
+    }
+
+    .task:hover {
+      background: #112635;
+    }
+
+    .task input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--green);
+    }
+
+    .task strong,
+    .task small {
+      display: block;
+    }
+
+    .task strong {
+      font-size: 0.9rem;
+    }
+
+    .task small {
+      margin-top: 3px;
+      color: var(--muted);
+    }
+
+    .task:has(input:checked) strong {
+      color: #708895;
+      text-decoration: line-through;
+    }
+
+    .terminal {
+      margin: 22px 28px 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      background: #050c12;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+    }
+
+    .terminal-bar {
+      display: flex;
+      gap: 6px;
+      padding: 11px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: #0a131b;
+    }
+
+    .terminal-bar i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ff6b78;
+    }
+
+    .terminal-bar i:nth-child(2) {
+      background: var(--yellow);
+    }
+
+    .terminal-bar i:nth-child(3) {
+      background: var(--green);
+    }
+
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .evidence-grid + .evidence-grid {
+      margin-top: 16px;
+    }
+
+    .evidence-card,
+    .evidence-shot {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, var(--surface-2), var(--surface));
+    }
+
+    .evidence-card {
+      padding: 27px;
+    }
+
+    .evidence-card h3 {
+      margin-bottom: 7px;
+      font-size: 1.25rem;
+    }
+
+    .evidence-card > p {
+      color: var(--muted);
+    }
+
+    .result-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+      margin-top: 23px;
+    }
+
+    .result {
+      padding: 13px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    .result strong,
+    .result span {
+      display: block;
+    }
+
+    .result strong {
+      color: var(--green);
+      font-size: 0.92rem;
+    }
+
+    .result span {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 0.72rem;
+    }
+
+    .evidence-shot {
+      margin: 0;
+      padding: 12px;
+    }
+
+    .zoom-trigger {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      border-radius: 13px;
+      color: var(--text);
+      background: #020609;
+      cursor: zoom-in;
+    }
+
+    .zoom-trigger::after {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 9px;
+      content: "⌕  Ampliar";
+      color: white;
+      background: rgba(4, 12, 18, 0.82);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.32);
+      font-size: 0.7rem;
+      font-weight: 800;
+      backdrop-filter: blur(10px);
+      transition: 160ms ease;
+    }
+
+    .zoom-trigger:hover::after,
+    .zoom-trigger:focus-visible::after {
+      color: var(--cyan);
+      border-color: rgba(72, 215, 255, 0.4);
+      background: rgba(5, 27, 39, 0.94);
+    }
+
+    .zoom-trigger:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    .evidence-shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: transform 220ms ease, filter 220ms ease;
+      background: #020609;
+    }
+
+    .zoom-trigger:hover img {
+      filter: brightness(1.08);
+      transform: scale(1.015);
+    }
+
+    .evidence-shot figcaption {
+      padding: 11px 5px 2px;
+      color: var(--muted);
+      font-size: 0.72rem;
+    }
+
+    .image-modal {
+      width: min(1200px, calc(100vw - 32px));
+      max-width: none;
+      max-height: calc(100vh - 32px);
+      padding: 14px;
+      overflow: visible;
+      border: 1px solid rgba(72, 215, 255, 0.25);
+      border-radius: 20px;
+      color: var(--text);
+      background: #071019;
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.72);
+    }
+
+    .image-modal::backdrop {
+      background: rgba(0, 5, 9, 0.86);
+      backdrop-filter: blur(8px);
+    }
+
+    .image-modal img {
+      display: block;
+      width: 100%;
+      max-height: calc(100vh - 105px);
+      object-fit: contain;
+      border-radius: 12px;
+      background: #020609;
+    }
+
+    .image-modal p {
+      margin: 11px 48px 0 5px;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    .modal-close {
+      position: absolute;
+      z-index: 2;
+      top: -13px;
+      right: -13px;
+      display: grid;
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 50%;
+      color: white;
+      background: #112636;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .modal-close:hover,
+    .modal-close:focus-visible {
+      color: var(--cyan);
+      border-color: rgba(72, 215, 255, 0.45);
+    }
+
+    .next-action {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 15px;
+      align-items: center;
+      margin-top: 16px;
+      padding: 20px 22px;
+      border: 1px solid rgba(72, 215, 255, 0.22);
+      border-radius: 16px;
+      background: var(--cyan-soft);
+    }
+
+    .next-action b {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border-radius: 12px;
+      color: var(--cyan);
+      background: rgba(72, 215, 255, 0.12);
+    }
+
+    .next-action strong,
+    .next-action span {
+      display: block;
+    }
+
+    .next-action span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .log-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .log-entry {
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(13, 25, 36, 0.74);
+    }
+
+    .log-entry time {
+      color: var(--cyan);
+      font-size: 0.67rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .log-entry strong,
+    .log-entry span {
+      display: block;
+    }
+
+    .log-entry strong {
+      margin-top: 8px;
+      font-size: 0.86rem;
+    }
+
+    .log-entry span {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.74rem;
+    }
+
+    pre {
+      margin: 0;
+      padding: 21px;
+      overflow-x: auto;
+      color: #b7f9df;
+      font: 0.9rem/1.8 "Cascadia Code", Consolas, monospace;
+    }
+
+    pre span {
+      color: #5f8799;
+    }
+
+    .scenario {
+      position: relative;
+      min-height: 250px;
+    }
+
+    .scenario.completed {
+      border-color: rgba(86, 240, 178, 0.32);
+      background: linear-gradient(145deg, rgba(86, 240, 178, 0.1), var(--surface));
+    }
+
+    .scenario.completed::after {
+      content: "Validada";
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      color: var(--green);
+      background: var(--green-soft);
+      font-size: 0.62rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mitre {
+      display: inline-flex;
+      margin-top: 12px;
+      padding: 5px 8px;
+      border: 1px solid rgba(255, 111, 131, 0.18);
+      border-radius: 7px;
+      color: #ff9cab;
+      background: rgba(255, 111, 131, 0.08);
+      font: 0.68rem "Cascadia Code", Consolas, monospace;
+    }
+
+    .output {
+      border-top: 3px solid var(--cyan);
+    }
+
+    .output:nth-child(2) {
+      border-color: var(--green);
+    }
+
+    .output:nth-child(3) {
+      border-color: var(--yellow);
+    }
+
+    .output:nth-child(4) {
+      border-color: var(--red);
+    }
+
+    .output.report-ready {
+      color: inherit;
+      text-decoration: none;
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .output.report-ready:hover,
+    .output.report-ready:focus-visible {
+      transform: translateY(-4px);
+      border-color: var(--yellow);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(255, 205, 92, 0.18);
+      outline: none;
+    }
+
+    .output.report-ready .mitre {
+      color: var(--yellow);
+      border-color: rgba(255, 205, 92, 0.22);
+      background: rgba(255, 205, 92, 0.08);
+    }
+
+    .report-links {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .report-links a {
+      padding: 9px 10px;
+      border: 1px solid rgba(255, 205, 92, 0.18);
+      border-radius: 9px;
+      color: var(--yellow);
+      background: rgba(255, 205, 92, 0.06);
+      font: 0.7rem "Cascadia Code", Consolas, monospace;
+      text-decoration: none;
+    }
+
+    .report-links a:hover,
+    .report-links a:focus-visible {
+      border-color: rgba(255, 205, 92, 0.45);
+      background: rgba(255, 205, 92, 0.11);
+      outline: none;
+    }
+
+    .glossary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .term {
+      padding: 20px 22px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(13, 25, 36, 0.72);
+    }
+
+    .term:nth-child(2n) {
+      border-right: 0;
+    }
+
+    .term:nth-last-child(-n + 2) {
+      border-bottom: 0;
+    }
+
+    .term dt {
+      margin-bottom: 5px;
+      color: var(--cyan);
+      font-weight: 900;
+    }
+
+    .term dd {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .resources {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .resource {
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      color: #b9d4e1;
+      background: rgba(255, 255, 255, 0.025);
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: 160ms ease;
+    }
+
+    .resource:hover {
+      border-color: rgba(72, 215, 255, 0.35);
+      color: var(--cyan);
+      background: var(--cyan-soft);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 80px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: #66818f;
+      font-size: 0.78rem;
+    }
+
+    .mobile-header {
+      display: none;
+    }
+
+    @media (max-width: 1050px) {
+      :root {
+        --sidebar: 220px;
+      }
+
+      .hero-meta,
+      .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .architecture {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .flow {
+        height: 45px;
+        transform: rotate(90deg);
+      }
+
+      .flow span {
+        display: none;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .layout {
+        display: block;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .mobile-header {
+        position: sticky;
+        z-index: 20;
+        top: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 13px 18px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(7, 16, 25, 0.9);
+        backdrop-filter: blur(18px);
+      }
+
+      .mobile-header strong {
+        color: var(--cyan);
+      }
+
+      .mobile-header span {
+        color: var(--muted);
+        font-size: 0.75rem;
+      }
+
+      main {
+        padding: 24px 16px 60px;
+      }
+
+      section {
+        margin-top: 65px;
+      }
+
+      .hero {
+        padding: 30px 22px;
+        border-radius: 22px;
+      }
+
+      .hero-meta,
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .spec-panel,
+      .evidence-grid,
+      .result-list,
+      .log-list,
+      .glossary {
+        grid-template-columns: 1fr;
+      }
+
+      .section-number {
+        display: none;
+      }
+
+      .phase {
+        grid-template-columns: 43px minmax(0, 1fr);
+        gap: 12px;
+      }
+
+      .phase-status {
+        display: none;
+      }
+
+      .term,
+      .term:nth-child(2n),
+      .term:nth-last-child(-n + 2) {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .term:last-child {
+        border-bottom: 0;
+      }
+
+      footer {
+        display: block;
+      }
+    }
+
+    @media print {
+      body {
+        color: #101b22;
+        background: white;
+      }
+
+      body::before,
+      .sidebar,
+      .mobile-header {
+        display: none;
+      }
+
+      .layout {
+        display: block;
+      }
+
+      main {
+        width: 100%;
+        padding: 20px;
+      }
+
+      .hero,
+      .card,
+      .node,
+      .phase,
+      .mission,
+      .term,
+      .spec-main,
+      .security-note {
+        color: #101b22;
+        border-color: #cad9e0;
+        background: white;
+        box-shadow: none;
+      }
+
+      p,
+      .card p,
+      .card li,
+      .phase p,
+      .term dd {
+        color: #425a67;
+      }
+
+      section {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="mobile-header">
+    <strong>SOC LAB</strong>
+    <span>Proyecto completado</span>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <a class="brand" href="#resumen">
+        <span class="brand-mark">W</span>
+        <span>
+          <strong>SOC LAB</strong>
+          <small>Proyecto de Miguel</small>
+        </span>
+      </a>
+
+      <div class="nav-label">Proyecto</div>
+      <nav class="nav" aria-label="Navegación principal">
+        <a class="active" href="#resumen"><span>◈</span> Resumen</a>
+        <a href="#arquitectura"><span>⌘</span> Arquitectura</a>
+        <a href="#roadmap"><span>◎</span> Hoja de ruta</a>
+        <a href="#mision"><span>✓</span> Próxima misión</a>
+        <a href="#bitacora"><span>▤</span> Bitácora</a>
+      </nav>
+
+      <div class="nav-label">Resultados</div>
+      <nav class="nav" aria-label="Navegación de resultados">
+        <a href="#escenarios"><span>⚑</span> Detecciones</a>
+        <a href="#portfolio"><span>▣</span> Portafolio</a>
+        <a href="#glosario"><span>?</span> Glosario</a>
+      </nav>
+
+      <div class="sidebar-status">
+        <span><i class="status-dot"></i> Laboratorio activo</span>
+        <p>Laboratorio, investigaciones, regla propia y documentación profesional completados.</p>
+      </div>
+    </aside>
+
+    <main>
+      <section class="hero" id="resumen">
+        <span class="eyebrow">Proyecto principal · Blue Team</span>
+        <h1>Laboratorio SOC con <span>Wazuh</span></h1>
+        <p class="hero-copy">
+          Un entorno defensivo realista para monitorizar Windows y Linux, detectar actividad
+          sospechosa, investigar alertas y responder a incidentes con MITRE ATT&amp;CK.
+        </p>
+
+        <div class="hero-meta">
+          <div class="metric"><strong>3</strong><span>Sistemas conectados</span></div>
+          <div class="metric"><strong>2</strong><span>Agentes activos</span></div>
+          <div class="metric"><strong>4/4</strong><span>Escenarios validados</span></div>
+          <div class="metric"><strong>3</strong><span>Informes profesionales</span></div>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress-head">
+            <span>Progreso global</span>
+            <strong id="progress-text">Fase 9 de 9 · 100%</strong>
+          </div>
+          <div class="progress" aria-label="Progreso del proyecto">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <div>
+            <span class="label">Valor profesional</span>
+            <h2>Qué demuestra este proyecto</h2>
+            <p>No es solo instalar una herramienta: es demostrar un proceso defensivo completo.</p>
+          </div>
+          <span class="section-number">01</span>
+        </div>
+
+        <div class="grid-4">
+          <article class="card">
+            <span class="card-icon">⌁</span>
+            <h3>Monitorización</h3>
+            <p>Centralizar eventos procedentes de varios sistemas y comprobar su estado.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon">!</span>
+            <h3>Detección</h3>
+            <p>Reconocer actividad anómala mediante reglas, telemetría y correlación.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon">⌕</span>
+            <h3>Investigación</h3>
+            <p>Reconstruir usuario, proceso, equipo, dirección IP, hora y alcance.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon">✓</span>
+            <h3>Respuesta</h3>
+            <p>Proponer contención, recuperación, mejoras y documentación del incidente.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="arquitectura">
+        <div class="section-heading">
+          <div>
+            <span class="label">Diseño técnico</span>
+            <h2>Arquitectura del laboratorio</h2>
+            <p>El servidor Wazuh será el centro. Windows y Linux enviarán sus eventos para analizarlos desde un único panel.</p>
+          </div>
+          <span class="section-number">02</span>
+        </div>
+
+        <div class="architecture">
+          <article class="node">
+            <span class="node-tag">Endpoint 01</span>
+            <h3>Windows 11</h3>
+            <p>El ordenador real actuará como equipo monitorizado para ahorrar memoria.</p>
+            <div class="chips">
+              <span class="chip">Wazuh Agent</span>
+              <span class="chip">Sysmon</span>
+              <span class="chip">PowerShell</span>
+            </div>
+          </article>
+
+          <div class="flow" aria-hidden="true"><span>Eventos</span></div>
+
+          <article class="node central">
+            <span class="node-tag">Servidor central</span>
+            <h3>SOC-WAZUH-SERVER</h3>
+            <p>Recibe, almacena y analiza la telemetría. El Dashboard mostrará las alertas y permitirá investigarlas.</p>
+            <div class="chips">
+              <span class="chip">Manager</span>
+              <span class="chip">Indexer</span>
+              <span class="chip">Dashboard</span>
+            </div>
+          </article>
+
+          <div class="flow" aria-hidden="true"><span>Eventos</span></div>
+
+          <article class="node">
+            <span class="node-tag">Endpoint 02</span>
+            <h3>Ubuntu Linux</h3>
+            <p>Segundo servidor virtual para observar autenticación, archivos y actividad del sistema.</p>
+            <div class="chips">
+              <span class="chip">Wazuh Agent</span>
+              <span class="chip">SSH</span>
+              <span class="chip">FIM</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="spec-panel">
+          <article class="spec-main">
+            <span class="label">Configuración del servidor central</span>
+            <h3>SOC-WAZUH-SERVER</h3>
+            <p>Ubuntu Server 24.04.4 LTS · Usuario inicial: <strong>vboxuser</strong></p>
+            <div class="specs">
+              <div class="spec"><strong>4</strong><span>vCPU recomendadas</span></div>
+              <div class="spec"><strong>6–8 GB</strong><span>RAM</span></div>
+              <div class="spec"><strong>50–60 GB</strong><span>Disco dinámico</span></div>
+            </div>
+          </article>
+          <aside class="security-note">
+            <span class="label">Seguridad de credenciales</span>
+            <h3>No publicar contraseñas</h3>
+            <p>
+              La contraseña temporal está guardada únicamente en la descripción local de
+              VirtualBox. Debe cambiarse y nunca aparecer en GitHub, capturas o documentación pública.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="roadmap">
+        <div class="section-heading">
+          <div>
+            <span class="label">Plan de ejecución</span>
+            <h2>Nueve fases, un SOC completo</h2>
+            <p>Cada fase produce un resultado verificable antes de avanzar a la siguiente.</p>
+          </div>
+          <span class="section-number">03</span>
+        </div>
+
+        <div class="timeline">
+          <article class="phase done">
+            <span class="phase-number">01</span>
+            <div><h3>Preparar Ubuntu Server</h3><p>Base, red privada, actualizaciones e instantánea completadas.</p></div>
+            <span class="phase-status">Completada</span>
+          </article>
+          <article class="phase done">
+            <span class="phase-number">02</span>
+            <div><h3>Instalar Wazuh</h3><p>Wazuh 4.14.6 y primer acceso al Dashboard validados.</p></div>
+            <span class="phase-status">Completada</span>
+          </article>
+          <article class="phase done">
+            <span class="phase-number">03</span>
+            <div><h3>Conectar Windows</h3><p>Agente MAIKEL activo en 192.168.228.1.</p></div>
+            <span class="phase-status">Completada</span>
+          </article>
+          <article class="phase done">
+            <span class="phase-number">04</span>
+            <div><h3>Añadir Sysmon</h3><p>Procesos, conexiones y archivos enviados a Wazuh.</p></div>
+            <span class="phase-status">Completada</span>
+          </article>
+          <article class="phase done">
+            <span class="phase-number">05</span>
+            <div><h3>Conectar Linux</h3><p>SOC-LINUX-CLIENT activo y FIM validado en tiempo real.</p></div>
+            <span class="phase-status">Completada</span>
+          </article>
+          <article class="phase done">
+            <span class="phase-number">06</span>
+            <div><h3>Simular incidentes</h3><p>FIM, PowerShell, fuerza bruta SSH y tráfico de red validados.</p></div>
+            <span class="phase-status">Completada · 4/4</span>
+          </article>
+          <article class="phase done">
+            <span class="phase-number">07</span>
+            <div><h3>Investigar y responder</h3><p>Informes de fuerza bruta SSH, PowerShell codificado e integridad de archivos completados.</p></div>
+            <span class="phase-status">Completada · 3/3</span>
+          </article>
+          <article class="phase done">
+            <span class="phase-number">08</span>
+            <div><h3>Crear reglas propias</h3><p>Regla 100100 validada con coincidencia específica y prueba negativa.</p></div>
+            <span class="phase-status">Completada</span>
+          </article>
+          <article class="phase done">
+            <span class="phase-number">09</span>
+            <div><h3>Publicar el caso de estudio</h3><p>README, capturas, informes, resultados y conclusiones.</p></div>
+            <span class="phase-status">Completada</span>
+          </article>
+        </div>
+      </section>
+
+      <section id="mision">
+        <div class="section-heading">
+          <div>
+            <span class="label">Estado actual</span>
+            <h2>Tu próxima misión</h2>
+            <p>El laboratorio está preparado como caso de estudio profesional y pieza principal del portafolio.</p>
+          </div>
+          <span class="section-number">04</span>
+        </div>
+
+        <article class="mission">
+          <header class="mission-head">
+            <div>
+              <h3>Proyecto SOC completado</h3>
+              <p>Arquitectura, detecciones, investigaciones, regla propia y evidencias reunidas en una entrega reproducible.</p>
+            </div>
+            <span class="live-badge">Ahora</span>
+          </header>
+
+          <div class="checklist" id="checklist">
+            <label class="task">
+              <input type="checkbox" data-task="publish-readme" checked disabled>
+              <span><strong>Preparar el README principal</strong><small>Resumen, arquitectura, tecnologías, escenarios, resultados y aprendizajes.</small></span>
+            </label>
+            <label class="task">
+              <input type="checkbox" data-task="publish-evidence-review" checked disabled>
+              <span><strong>Revisar las evidencias</strong><small>Comprobar nombres, privacidad, enlaces, hashes y archivos descargables.</small></span>
+            </label>
+            <label class="task">
+              <input type="checkbox" data-task="publish-case-study" checked disabled>
+              <span><strong>Crear el caso de estudio</strong><small>Explicar el proceso defensivo completo y enlazar los tres informes.</small></span>
+            </label>
+            <label class="task">
+              <input type="checkbox" data-task="publish-portfolio" checked disabled>
+              <span><strong>Añadirlo al portafolio</strong><small>Crear una entrada destacada con capturas y valor profesional.</small></span>
+            </label>
+            <label class="task">
+              <input type="checkbox" data-task="publish-github" checked disabled>
+              <span><strong>Publicar en GitHub</strong><small>Crear un commit limpio, subir los archivos y comprobar los enlaces públicos.</small></span>
+            </label>
+          </div>
+
+          <div class="terminal">
+            <div class="terminal-bar"><i></i><i></i><i></i></div>
+            <pre><span># Laboratorio SOC · entrega final</span>
+Escenarios     4/4 validados
+Informes       3/3 completados
+Regla propia   100100 · prueba positiva y negativa
+Evidencias     Capturas, CSV y hashes SHA-256
+Portafolio     Proyecto principal integrado
+Repositorio    github.com/Mpinedo04/mi-portafolio</pre>
+          </div>
+        </article>
+      </section>
+
+      <section id="bitacora">
+        <div class="section-heading">
+          <div>
+            <span class="label">Evidencias del proyecto</span>
+            <h2>Bitácora de implementación</h2>
+            <p>Cada hito quedará registrado con resultados reales, una explicación y su evidencia.</p>
+          </div>
+          <span class="section-number">05</span>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <span class="label">Hito 01 · Validado</span>
+            <h3>Comprobación del servidor base</h3>
+            <p>
+              Ubuntu reconoce correctamente los recursos asignados. La capacidad es suficiente
+              para continuar con el laboratorio Wazuh de un solo nodo.
+            </p>
+            <div class="result-list">
+              <div class="result"><strong>10.0.2.15/24</strong><span>IP temporal mediante NAT</span></div>
+              <div class="result"><strong>4 vCPU</strong><span>Procesadores asignados</span></div>
+              <div class="result"><strong>7,8 GiB</strong><span>Memoria RAM reconocida</span></div>
+              <div class="result"><strong>59 GB</strong><span>Partición principal</span></div>
+              <div class="result"><strong>54 GB libres</strong><span>Solo un 5 % utilizado</span></div>
+              <div class="result"><strong>Ubuntu 24.04.1</strong><span>Actualizar antes de Wazuh</span></div>
+              <div class="result"><strong>0 B swap</strong><span>Pendiente de valorar</span></div>
+              <div class="result"><strong>Kernel 6.8.0-136</strong><span>Arquitectura x86-64</span></div>
+              <div class="result"><strong>Oracle VirtualBox</strong><span>Virtualización confirmada</span></div>
+            </div>
+          </article>
+
+          <figure class="evidence-shot">
+            <button
+              class="zoom-trigger"
+              type="button"
+              data-zoom="assets/lab-soc/evidencias/01-validacion-servidor-ubuntu.png"
+              data-caption="Evidencia 01 · Validación del servidor Ubuntu"
+              aria-label="Ampliar evidencia de la validación del servidor Ubuntu"
+              aria-haspopup="dialog">
+              <img
+                src="assets/lab-soc/evidencias/01-validacion-servidor-ubuntu.png"
+                alt="Terminal de Ubuntu mostrando hostnamectl, memoria y almacenamiento del servidor Wazuh">
+            </button>
+            <figcaption>
+              Evidencia 01 · Salida de <code>hostnamectl</code>, <code>free -h</code> y <code>df -h</code>.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <span class="label">Hito 02 · Validado</span>
+            <h3>Red privada con IP fija</h3>
+            <p>
+              Se sustituyeron dos interfaces antiguas que impedían arrancar la máquina.
+              El servidor mantiene Internet mediante NAT y utiliza una segunda interfaz
+              aislada para comunicarse con Windows.
+            </p>
+            <div class="result-list">
+              <div class="result"><strong>enp0s3 · UP</strong><span>NAT para acceder a Internet</span></div>
+              <div class="result"><strong>10.0.2.15/24</strong><span>Dirección asignada por NAT</span></div>
+              <div class="result"><strong>enp0s8 · UP</strong><span>Interfaz privada del SOC</span></div>
+              <div class="result"><strong>192.168.228.10/24</strong><span>IP fija del servidor Wazuh</span></div>
+              <div class="result"><strong>192.168.228.1/24</strong><span>Adaptador privado de Windows</span></div>
+              <div class="result"><strong>3 de 3 respuestas</strong><span>Ping desde Windows sin pérdidas</span></div>
+            </div>
+          </article>
+
+          <figure class="evidence-shot">
+            <button
+              class="zoom-trigger"
+              type="button"
+              data-zoom="assets/lab-soc/evidencias/02-red-privada-ip-fija.png"
+              data-caption="Evidencia 02 · Red privada e IP fija del servidor"
+              aria-label="Ampliar evidencia de la red privada del servidor"
+              aria-haspopup="dialog">
+              <img
+                src="assets/lab-soc/evidencias/02-red-privada-ip-fija.png"
+                alt="Terminal de Ubuntu mostrando las interfaces NAT y privada activas">
+            </button>
+            <figcaption>
+              Evidencia 02 · <code>enp0s3</code> conserva NAT y <code>enp0s8</code> utiliza la IP fija del SOC.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <span class="label">Hito 03 · Validado</span>
+            <h3>Ubuntu actualizado y reiniciado</h3>
+            <p>
+              El sistema se actualizó antes de desplegar Wazuh. Tras el reinicio,
+              la dirección privada permaneció configurada y Windows siguió alcanzando
+              el servidor correctamente.
+            </p>
+            <div class="result-list">
+              <div class="result"><strong>Ubuntu 24.04.4 LTS</strong><span>Versión actual del sistema</span></div>
+              <div class="result"><strong>Kernel 6.8.0-136</strong><span>Núcleo activo tras reiniciar</span></div>
+              <div class="result"><strong>Actualización completa</strong><span>Paquetes instalados con APT</span></div>
+              <div class="result"><strong>Red persistente</strong><span>La IP fija responde tras reiniciar</span></div>
+            </div>
+          </article>
+
+          <figure class="evidence-shot">
+            <button
+              class="zoom-trigger"
+              type="button"
+              data-zoom="assets/lab-soc/evidencias/03-ubuntu-actualizado-24-04-4.png"
+              data-caption="Evidencia 03 · Ubuntu Server actualizado a 24.04.4 LTS"
+              aria-label="Ampliar evidencia de Ubuntu actualizado"
+              aria-haspopup="dialog">
+              <img
+                src="assets/lab-soc/evidencias/03-ubuntu-actualizado-24-04-4.png"
+                alt="Terminal de Ubuntu mostrando la versión 24.04.4 LTS después de actualizar">
+            </button>
+            <figcaption>
+              Evidencia 03 · Versión del sistema comprobada con <code>hostnamectl</code> después del reinicio.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <span class="label">Hito 04 · Validado</span>
+            <h3>Wazuh 4.14.6 desplegado</h3>
+            <p>
+              La instalación all-in-one terminó correctamente. Desde Windows se verificó
+              la disponibilidad del Dashboard, el Manager, el servicio de enrolamiento
+              y la API sin utilizar credenciales.
+            </p>
+            <div class="result-list">
+              <div class="result"><strong>HTTPS 443 · Activo</strong><span>Dashboard accesible desde Windows</span></div>
+              <div class="result"><strong>HTTP 302</strong><span>Redirección normal hacia la interfaz web</span></div>
+              <div class="result"><strong>TCP 1514 · Activo</strong><span>Recepción de eventos de agentes</span></div>
+              <div class="result"><strong>TCP 1515 · Activo</strong><span>Enrolamiento de nuevos agentes</span></div>
+              <div class="result"><strong>TCP 55000 · Activo</strong><span>API de administración de Wazuh</span></div>
+              <div class="result"><strong>Versión 4.14.6</strong><span>Instalación asistida all-in-one</span></div>
+            </div>
+          </article>
+
+          <aside class="security-note">
+            <span class="label">Punto de parada seguro</span>
+            <h3>Sesión 1 completada</h3>
+            <p>
+              El servidor central está instalado y responde por la red privada. Las
+              credenciales no se han añadido a la documentación. La siguiente sesión
+              comenzará con el primer acceso al Dashboard.
+            </p>
+          </aside>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <span class="label">Hito 05 · Validado</span>
+            <h3>Primer acceso al Dashboard</h3>
+            <p>
+              Se inició sesión correctamente desde Windows mediante la red privada.
+              El panel cargó sus módulos principales y confirmó que el servidor está
+              preparado para registrar los primeros endpoints.
+            </p>
+            <div class="result-list">
+              <div class="result"><strong>Dashboard operativo</strong><span>Sesión administrativa validada</span></div>
+              <div class="result"><strong>0 agentes</strong><span>Estado esperado antes del despliegue</span></div>
+              <div class="result"><strong>0 críticas y altas</strong><span>Sin alertas graves iniciales</span></div>
+              <div class="result"><strong>13 alertas bajas</strong><span>Actividad básica del servidor</span></div>
+              <div class="result"><strong>MITRE ATT&amp;CK</strong><span>Módulo disponible en el panel</span></div>
+              <div class="result"><strong>FIM y vulnerabilidades</strong><span>Capacidades listas para agentes</span></div>
+            </div>
+          </article>
+
+          <figure class="evidence-shot">
+            <button
+              class="zoom-trigger"
+              type="button"
+              data-zoom="assets/lab-soc/evidencias/04-dashboard-primer-acceso.png"
+              data-caption="Evidencia 04 · Primer acceso al Dashboard de Wazuh"
+              aria-label="Ampliar evidencia del primer acceso al Dashboard"
+              aria-haspopup="dialog">
+              <img
+                src="assets/lab-soc/evidencias/04-dashboard-primer-acceso.png"
+                alt="Dashboard de Wazuh abierto desde Windows sin agentes registrados">
+            </button>
+            <figcaption>
+              Evidencia 04 · Dashboard accesible desde Windows, todavía sin agentes registrados.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <span class="label">Hito 06 · Validado</span>
+            <h3>Agente Windows instalado</h3>
+            <p>
+              El equipo físico <code>MAIKEL</code> se instaló como primer endpoint del SOC.
+              El servicio arranca automáticamente y mantiene una conexión activa con el
+              Wazuh Manager mediante la red privada.
+            </p>
+            <div class="result-list">
+              <div class="result"><strong>wazuhsvc · Running</strong><span>Servicio iniciado correctamente</span></div>
+              <div class="result"><strong>Inicio automático</strong><span>Persistirá después de reiniciar Windows</span></div>
+              <div class="result"><strong>MAIKEL</strong><span>Nombre registrado para el endpoint</span></div>
+              <div class="result"><strong>Grupo default</strong><span>Configuración inicial del agente</span></div>
+              <div class="result"><strong>TCP 1514</strong><span>Canal de eventos hacia el Manager</span></div>
+              <div class="result"><strong>Established</strong><span>Conexión Windows–Wazuh confirmada</span></div>
+            </div>
+          </article>
+
+          <figure class="evidence-shot">
+            <button
+              class="zoom-trigger"
+              type="button"
+              data-zoom="assets/lab-soc/evidencias/05-windows-agent-servicio-activo.png"
+              data-caption="Evidencia 05 · Servicio Wazuh Agent activo en Windows"
+              aria-label="Ampliar evidencia del agente Wazuh en Windows"
+              aria-haspopup="dialog">
+              <img
+                src="assets/lab-soc/evidencias/05-windows-agent-servicio-activo.png"
+                alt="PowerShell de Windows mostrando el servicio wazuhsvc en estado Running">
+            </button>
+            <figcaption>
+              Evidencia 05 · Servicio <code>wazuhsvc</code> activo tras la instalación silenciosa.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <span class="label">Hito 07 · Validado</span>
+            <h3>Sysmon integrado con Wazuh</h3>
+            <p>
+              Windows 11 utiliza Sysmon con una configuración inicial propia para registrar
+              procesos, conexiones de red y creación de archivos. El agente envía el canal
+              operativo de Sysmon al Manager para su análisis centralizado.
+            </p>
+            <div class="result-list">
+              <div class="result"><strong>Sysmon · Running</strong><span>Servicio y controlador activos</span></div>
+              <div class="result"><strong>wazuhsvc · Running</strong><span>Recolección continua de eventos</span></div>
+              <div class="result"><strong>Event ID 1</strong><span>Creación de procesos</span></div>
+              <div class="result"><strong>Event ID 3</strong><span>Conexiones de red</span></div>
+              <div class="result"><strong>Event ID 11</strong><span>Creación de archivos</span></div>
+              <div class="result"><strong>SHA-256</strong><span>Hash configurado para ejecutables</span></div>
+            </div>
+          </article>
+
+          <figure class="evidence-shot">
+            <button
+              class="zoom-trigger"
+              type="button"
+              data-zoom="assets/lab-soc/evidencias/06-sysmon-servicios-activos.png"
+              data-caption="Evidencia 06 · Sysmon y Wazuh Agent activos en Windows"
+              aria-label="Ampliar evidencia de Sysmon y Wazuh Agent activos"
+              aria-haspopup="dialog">
+              <img
+                src="assets/lab-soc/evidencias/06-sysmon-servicios-activos.png"
+                alt="PowerShell mostrando los servicios Sysmon y Wazuh en estado Running">
+            </button>
+            <figcaption>
+              Evidencia 06 · Configuración validada y ambos servicios en estado <code>Running</code>.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <span class="label">Hito 08 · Validado</span>
+            <h3>Dos endpoints activos</h3>
+            <p>
+              El servidor Linux secundario se instaló desde una ISO limpia, recibió una IP fija
+              en la red privada y quedó registrado junto al equipo Windows en Wazuh 4.14.6.
+            </p>
+            <div class="result-list">
+              <div class="result"><strong>MAIKEL · 001</strong><span>Windows 11 en 192.168.228.1</span></div>
+              <div class="result"><strong>SOC-LINUX-CLIENT · 002</strong><span>Ubuntu en 192.168.228.20</span></div>
+              <div class="result"><strong>2 activos</strong><span>Sin agentes desconectados</span></div>
+              <div class="result"><strong>Grupo default</strong><span>Configuración inicial compartida</span></div>
+              <div class="result"><strong>Wazuh 4.14.6</strong><span>Servidor y agentes compatibles</span></div>
+              <div class="result"><strong>APT hold</strong><span>Versión del agente Linux protegida</span></div>
+            </div>
+          </article>
+
+          <figure class="evidence-shot">
+            <button
+              class="zoom-trigger"
+              type="button"
+              data-zoom="assets/lab-soc/evidencias/07-endpoints-activos.png"
+              data-caption="Evidencia 07 · Windows y Linux activos en el Dashboard"
+              aria-label="Ampliar evidencia de los dos endpoints activos"
+              aria-haspopup="dialog">
+              <img
+                src="assets/lab-soc/evidencias/07-endpoints-activos.png"
+                alt="Dashboard de Wazuh mostrando los agentes MAIKEL y SOC-LINUX-CLIENT activos">
+            </button>
+            <figcaption>
+              Evidencia 07 · Los dos endpoints aparecen activos, con IP, sistema y versión correctos.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <span class="label">Hito 09 · Detección validada</span>
+            <h3>Ciclo completo de integridad de archivos</h3>
+            <p>
+              FIM vigiló <code>/opt/soc-lab</code> en tiempo real y reconstruyó la creación,
+              modificación, cambio de permisos y eliminación de un archivo de prueba.
+            </p>
+            <div class="result-list">
+              <div class="result"><strong>Regla 554 · Nivel 5</strong><span>Archivo añadido</span></div>
+              <div class="result"><strong>Regla 550 · Nivel 7</strong><span>Contenido y permisos modificados</span></div>
+              <div class="result"><strong>Regla 553 · Nivel 7</strong><span>Archivo eliminado</span></div>
+              <div class="result"><strong>syscheck.diff</strong><span>Contenido añadido recuperado</span></div>
+              <div class="result"><strong>vboxuser</strong><span>Usuario asociado a los cambios</span></div>
+              <div class="result"><strong>4 alertas</strong><span>Cronología completa del ejercicio</span></div>
+            </div>
+          </article>
+
+          <figure class="evidence-shot">
+            <button
+              class="zoom-trigger"
+              type="button"
+              data-zoom="assets/lab-soc/evidencias/08-fim-ciclo-archivo.png"
+              data-caption="Evidencia 08 · Alertas FIM de creación, modificación y eliminación"
+              aria-label="Ampliar evidencia del ciclo de integridad de archivos"
+              aria-haspopup="dialog">
+              <img
+                src="assets/lab-soc/evidencias/08-fim-ciclo-archivo.png"
+                alt="Tabla de Wazuh con cuatro alertas FIM y el contenido modificado">
+            </button>
+            <figcaption>
+              Evidencia 08 · Reglas 554, 550 y 553 sobre <code>configuracion.txt</code>.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <span class="label">Hito 10 · Detección validada</span>
+            <h3>PowerShell codificado detectado</h3>
+            <p>
+              Se ejecutó una carga inocua codificada en Base64. Sysmon registró la línea de
+              comandos y Wazuh la elevó como actividad sospechosa, conservando usuario,
+              proceso padre y correspondencia con MITRE ATT&amp;CK.
+            </p>
+            <div class="result-list">
+              <div class="result"><strong>Regla 92057</strong><span>PowerShell con comando Base64</span></div>
+              <div class="result"><strong>Nivel 12</strong><span>Severidad alta</span></div>
+              <div class="result"><strong>MAIKEL\Propietario</strong><span>Usuario que ejecutó la prueba</span></div>
+              <div class="result"><strong>powershell.exe</strong><span>Proceso hijo y proceso padre</span></div>
+              <div class="result"><strong>T1059.001</strong><span>MITRE ATT&amp;CK · PowerShell</span></div>
+              <div class="result"><strong>Carga verificada</strong><span>Solo imprimía un mensaje de laboratorio</span></div>
+            </div>
+          </article>
+
+          <aside class="security-note">
+            <span class="label">Evidencia exportada</span>
+            <h3>Alerta completa en CSV</h3>
+            <p>
+              La exportación conserva la línea de comandos completa. Al decodificarla se obtuvo
+              <code>Write-Output "PRUEBA SOC: PowerShell codificado"</code>, confirmando que la
+              simulación era segura y que la detección fue precisa.
+            </p>
+            <a class="resource" href="assets/lab-soc/evidencias/09-alerta-powershell-base64.csv" download>Descargar evidencia CSV ↓</a>
+          </aside>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <span class="label">Hito 11 · Regla propia validada</span>
+            <h3>Detección personalizada para un archivo protegido</h3>
+            <p>
+              La regla local <code>100100</code> eleva a nivel 12 únicamente las modificaciones de
+              <code>/opt/soc-lab/configuracion.txt</code>. Conserva la diferencia de contenido y
+              relaciona el comportamiento con MITRE ATT&amp;CK T1565.001.
+            </p>
+            <div class="result-list">
+              <div class="result"><strong>Regla 100100</strong><span>ID reservado para reglas personalizadas</span></div>
+              <div class="result"><strong>Nivel 12</strong><span>Archivo considerado sensible</span></div>
+              <div class="result"><strong>1 coincidencia</strong><span>Ruta protegida detectada correctamente</span></div>
+              <div class="result"><strong>syscheck.diff</strong><span>Cambio exacto conservado</span></div>
+              <div class="result"><strong>T1565.001</strong><span>Stored Data Manipulation</span></div>
+              <div class="result"><strong>Sintaxis válida</strong><span>wazuh-analysisd devolvió código 0</span></div>
+            </div>
+            <a class="resource" href="config/fim_soc_lab.xml" download>Descargar regla XML ↓</a>
+            <a class="resource" href="assets/lab-soc/evidencias/20-alerta-regla-100100.csv" download>Descargar alerta CSV ↓</a>
+          </article>
+
+          <figure class="evidence-shot">
+            <button
+              class="zoom-trigger"
+              type="button"
+              data-zoom="assets/lab-soc/evidencias/19-regla-personalizada-100100.png"
+              data-caption="Evidencia 19 · Regla personalizada 100100, nivel 12"
+              aria-label="Ampliar evidencia de la regla personalizada"
+              aria-haspopup="dialog">
+              <img
+                src="assets/lab-soc/evidencias/19-regla-personalizada-100100.png"
+                alt="Alerta de Wazuh generada por la regla personalizada 100100">
+            </button>
+            <figcaption>
+              Evidencia 19 · La modificación protegida activó la regla 100100 con el cambio completo.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <span class="label">Hito 12 · Precisión comprobada</span>
+            <h3>Prueba negativa sin falsos positivos</h3>
+            <p>
+              Se creó y modificó <code>archivo-no-protegido.txt</code> dentro de la misma carpeta.
+              Wazuh generó sus reglas estándar, pero la condición de ruta evitó que se activara la
+              regla personalizada.
+            </p>
+            <div class="result-list">
+              <div class="result"><strong>Regla 554 · Nivel 5</strong><span>Archivo alternativo creado</span></div>
+              <div class="result"><strong>Regla 550 · Nivel 7</strong><span>Archivo alternativo modificado</span></div>
+              <div class="result"><strong>Regla 100100</strong><span>Sin nuevas coincidencias</span></div>
+              <div class="result"><strong>Resultado</strong><span>Alcance específico y menor ruido</span></div>
+            </div>
+            <a class="resource" href="assets/lab-soc/evidencias/23-eventos-archivo-no-protegido.csv" download>Descargar prueba negativa CSV ↓</a>
+          </article>
+
+          <figure class="evidence-shot">
+            <button
+              class="zoom-trigger"
+              type="button"
+              data-zoom="assets/lab-soc/evidencias/22-prueba-negativa-archivo-no-protegido.png"
+              data-caption="Evidencia 22 · Prueba negativa con reglas estándar 554 y 550"
+              aria-label="Ampliar evidencia de la prueba negativa"
+              aria-haspopup="dialog">
+              <img
+                src="assets/lab-soc/evidencias/22-prueba-negativa-archivo-no-protegido.png"
+                alt="Eventos estándar de creación y modificación sin activar la regla 100100">
+            </button>
+            <figcaption>
+              Evidencia 22 · El archivo alternativo produjo 554 y 550, nunca 100100.
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="log-list" aria-label="Cronología de implementación">
+          <article class="log-entry">
+            <time datetime="2026-07-28">28 jul 2026 · Paso 01</time>
+            <strong>Máquina virtual creada</strong>
+            <span>Ubuntu Server preparado en VirtualBox con 4 vCPU, 8 GB de RAM y disco dinámico.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-07-28">28 jul 2026 · Paso 02</time>
+            <strong>Acceso recuperado</strong>
+            <span>Se identificó <code>vboxuser</code> como usuario generado por la instalación desatendida.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-07-28">28 jul 2026 · Paso 03</time>
+            <strong>Teclado configurado</strong>
+            <span>Se seleccionó la distribución española para trabajar correctamente desde la consola.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-07-28">28 jul 2026 · Paso 04</time>
+            <strong>Servidor validado</strong>
+            <span>Red NAT, sistema, memoria y almacenamiento comprobados antes de instalar Wazuh.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-07-28">28 jul 2026 · Paso 05</time>
+            <strong>Red privada recuperada</strong>
+            <span>Se creó una interfaz nueva y se fijó <code>192.168.228.10</code> mediante Netplan.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-07-28">28 jul 2026 · Paso 06</time>
+            <strong>Sistema actualizado</strong>
+            <span>Ubuntu alcanzó la versión 24.04.4 LTS y conservó la conectividad después de reiniciar.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-07-28">28 jul 2026 · Paso 07</time>
+            <strong>Base protegida</strong>
+            <span>Se creó la instantánea <code>00-base-ubuntu-red-lista</code> antes de instalar Wazuh.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-07-28">28 jul 2026 · Paso 08</time>
+            <strong>Wazuh desplegado</strong>
+            <span>Manager, Indexer, Dashboard y API de la versión 4.14.6 respondieron correctamente.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-08-05">5 ago 2026 · Paso 09</time>
+            <strong>Dashboard validado</strong>
+            <span>Se completó el primer acceso administrativo desde Windows y la Fase 2 quedó cerrada.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-08-05">5 ago 2026 · Paso 10</time>
+            <strong>Windows conectado</strong>
+            <span>El servicio Wazuh Agent quedó activo y enlazado con el Manager mediante TCP 1514.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-08-05">5 ago 2026 · Paso 11</time>
+            <strong>Sysmon integrado</strong>
+            <span>Windows comenzó a enviar creación de procesos, conexiones y archivos al canal central de Wazuh.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-08-06">6 ago 2026 · Paso 12</time>
+            <strong>Linux conectado</strong>
+            <span>SOC-LINUX-CLIENT quedó activo en 192.168.228.20 con el agente Wazuh 4.14.6.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-08-06">6 ago 2026 · Paso 13</time>
+            <strong>FIM validado</strong>
+            <span>Se detectaron en tiempo real la creación, modificación, cambio de permisos y eliminación de un archivo.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-08-06">6 ago 2026 · Paso 14</time>
+            <strong>PowerShell sospechoso detectado</strong>
+            <span>La regla 92057 generó una alerta de nivel 12 y la relacionó con MITRE ATT&amp;CK T1059.001.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-08-06">6 ago 2026 · Paso 15</time>
+            <strong>Fuerza bruta SSH detectada</strong>
+            <span>Wazuh agrupó ocho fallos de autenticación desde 192.168.228.1 y activó la regla 5712, nivel 10, asociada a MITRE T1110.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-08-06">6 ago 2026 · Paso 16</time>
+            <strong>Respuesta activa validada</strong>
+            <span>La regla 651 confirmó el bloqueo temporal con firewall-drop; tras 60 segundos se retiró la regla y se recuperó el acceso al puerto 22.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-08-06">6 ago 2026 · Paso 17</time>
+            <strong>Correlación de red con Wireshark</strong>
+            <span>Se relacionó el flujo 192.168.228.1:58846 → 192.168.228.20:22 con los eventos SSH del agente Linux.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-08-06">6 ago 2026 · Paso 18</time>
+            <strong>Primer informe profesional terminado</strong>
+            <span>SOC-2026-001 documenta resumen ejecutivo, cronología, MITRE, evidencias, contención, recuperación y recomendaciones.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-08-06">6 ago 2026 · Paso 19</time>
+            <strong>Segundo informe profesional terminado</strong>
+            <span>SOC-2026-002 analiza la alerta 92057, decodifica de forma segura el comando PowerShell y justifica el cierre sin aislamiento.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-08-06">6 ago 2026 · Paso 20</time>
+            <strong>Tercer informe profesional terminado</strong>
+            <span>SOC-2026-003 reconstruye el ciclo FIM, diferencia contenido y atributos, y utiliza un mapeo MITRE condicionado por el contexto.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-08-06">6 ago 2026 · Paso 21</time>
+            <strong>Primera regla personalizada validada</strong>
+            <span>La regla 100100 elevó el archivo protegido a nivel 12 y la prueba negativa confirmó que otro archivo solo activaba las reglas estándar 554 y 550.</span>
+          </article>
+          <article class="log-entry">
+            <time datetime="2026-08-06">6 ago 2026 · Paso 22</time>
+            <strong>Caso de estudio preparado para publicación</strong>
+            <span>README, guía visual, tres informes, evidencias, regla XML y tarjeta destacada del portafolio quedaron integrados y revisados.</span>
+          </article>
+        </div>
+
+        <div class="next-action">
+          <b>→</b>
+          <div>
+            <strong>Proyecto completado: laboratorio SOC con Wazuh</strong>
+            <span>La entrega demuestra monitorización, detección, investigación, respuesta, ajuste de reglas y comunicación profesional de resultados.</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="escenarios">
+        <div class="section-heading">
+          <div>
+            <span class="label">Casos prácticos</span>
+            <h2>Detecciones que construiremos</h2>
+            <p>Pruebas seguras que producirán alertas, evidencias y una investigación documentada.</p>
+          </div>
+          <span class="section-number">06</span>
+        </div>
+
+        <div class="grid-4">
+          <article class="card scenario completed">
+            <span class="card-icon">01</span>
+            <h3>Fuerza bruta</h3>
+            <p>Varios accesos SSH fallidos contra el servidor Linux del laboratorio.</p>
+            <span class="mitre">MITRE · T1110 · Validada</span>
+          </article>
+          <article class="card scenario completed">
+            <span class="card-icon">02</span>
+            <h3>Cambio de archivos</h3>
+            <p>Wazuh detectó creación, modificación, permisos y eliminación en tiempo real.</p>
+            <span class="mitre">FIM · Integridad</span>
+          </article>
+          <article class="card scenario completed">
+            <span class="card-icon">03</span>
+            <h3>PowerShell inusual</h3>
+            <p>Regla 92057, nivel 12, con proceso, usuario, comando Base64 y proceso padre.</p>
+            <span class="mitre">MITRE · T1059.001 · Validada</span>
+          </article>
+          <article class="card scenario completed">
+            <span class="card-icon">04</span>
+            <h3>Tráfico de red</h3>
+            <p>Flujo SSH correlacionado por IP, puertos, hora y evento entre Wazuh y Wireshark.</p>
+            <span class="mitre">Wazuh + Wireshark · Validada</span>
+          </article>
+        </div>
+      </section>
+
+      <section id="portfolio">
+        <div class="section-heading">
+          <div>
+            <span class="label">Entrega profesional</span>
+            <h2>Qué verá un reclutador</h2>
+            <p>El resultado final será un caso de estudio, no una simple colección de capturas.</p>
+          </div>
+          <span class="section-number">07</span>
+        </div>
+
+        <div class="grid-4">
+          <article class="card output">
+            <h3>Arquitectura</h3>
+            <p>Diagrama, decisiones técnicas, recursos y diseño seguro de la red.</p>
+          </article>
+          <article class="card output">
+            <h3>Detecciones</h3>
+            <p><strong>Regla 100100 lista:</strong> nivel 12, MITRE T1565.001 y prueba negativa sin falsos positivos.</p>
+            <div class="report-links">
+              <a href="config/fim_soc_lab.xml" download>Descargar regla XML ↓</a>
+              <a href="assets/lab-soc/evidencias/20-alerta-regla-100100.csv" download>Descargar alerta positiva CSV ↓</a>
+              <a href="assets/lab-soc/evidencias/23-eventos-archivo-no-protegido.csv" download>Descargar prueba negativa CSV ↓</a>
+            </div>
+          </article>
+          <article class="card output">
+            <h3>Investigaciones</h3>
+            <p><strong>3/3 informes listos:</strong> fuerza bruta SSH, PowerShell codificado e integridad de archivos.</p>
+            <div class="report-links">
+              <a href="INFORME_INCIDENTE_SSH_SOC-2026-001.html">SOC-2026-001 · Abrir informe →</a>
+              <a href="INFORME_INCIDENTE_POWERSHELL_SOC-2026-002.html">SOC-2026-002 · Abrir informe →</a>
+              <a href="INFORME_INCIDENTE_FIM_SOC-2026-003.html">SOC-2026-003 · Abrir informe →</a>
+            </div>
+          </article>
+          <article class="card output">
+            <h3>Respuesta</h3>
+            <p>Contención, recuperación, recomendaciones y mejoras futuras.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="glosario">
+        <div class="section-heading">
+          <div>
+            <span class="label">Referencia rápida</span>
+            <h2>Glosario esencial</h2>
+            <p>Los términos que utilizaremos durante el proyecto, explicados sin complicaciones.</p>
+          </div>
+          <span class="section-number">08</span>
+        </div>
+
+        <dl class="glossary">
+          <div class="term"><dt>SOC</dt><dd>Entorno desde el que se supervisa y responde a la seguridad de una organización.</dd></div>
+          <div class="term"><dt>SIEM</dt><dd>Centraliza registros, aplica reglas y genera alertas para su investigación.</dd></div>
+          <div class="term"><dt>Wazuh Agent</dt><dd>Programa que recoge información del endpoint y la envía al Manager.</dd></div>
+          <div class="term"><dt>Sysmon</dt><dd>Amplía la información que Windows registra sobre procesos, conexiones y cambios.</dd></div>
+          <div class="term"><dt>MITRE ATT&amp;CK</dt><dd>Catálogo para clasificar tácticas y técnicas observadas durante un ataque.</dd></div>
+          <div class="term"><dt>Wireshark</dt><dd>Microscopio de red: permite examinar el tráfico paquete por paquete.</dd></div>
+        </dl>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <div>
+            <span class="label">Fuentes fiables</span>
+            <h2>Documentación oficial</h2>
+          </div>
+          <span class="section-number">09</span>
+        </div>
+        <div class="resources">
+          <a class="resource" href="https://documentation.wazuh.com/current/getting-started/index.html" target="_blank" rel="noreferrer">Wazuh · Introducción ↗</a>
+          <a class="resource" href="https://documentation.wazuh.com/current/quickstart.html" target="_blank" rel="noreferrer">Wazuh · Instalación ↗</a>
+          <a class="resource" href="https://documentation.wazuh.com/current/user-manual/ruleset/mitre.html" target="_blank" rel="noreferrer">Wazuh + MITRE ↗</a>
+          <a class="resource" href="https://documentation.ubuntu.com/server/tutorial/basic-installation/" target="_blank" rel="noreferrer">Ubuntu Server ↗</a>
+          <a class="resource" href="https://learn.microsoft.com/windows-server/administration/windows-commands/sysmon" target="_blank" rel="noreferrer">Microsoft Sysmon ↗</a>
+        </div>
+      </section>
+
+      <footer>
+        <span>Laboratorio SOC con Wazuh · Miguel Pinedo</span>
+        <span>Proyecto educativo · Solo sistemas propios y autorizados</span>
+      </footer>
+    </main>
+  </div>
+
+  <dialog class="image-modal" id="image-modal" aria-label="Visor de evidencias">
+    <button class="modal-close" id="modal-close" type="button" aria-label="Cerrar imagen">×</button>
+    <img id="modal-image" src="" alt="">
+    <p id="modal-caption"></p>
+  </dialog>
+
+  <script>
+    const storageKey = "soc-wazuh-checklist";
+    const inputs = [...document.querySelectorAll("[data-task]")];
+    const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+
+    inputs.forEach((input) => {
+      input.checked = saved[input.dataset.task] ?? input.defaultChecked;
+      input.addEventListener("change", () => {
+        const state = Object.fromEntries(inputs.map((item) => [item.dataset.task, item.checked]));
+        localStorage.setItem(storageKey, JSON.stringify(state));
+      });
+    });
+
+    const links = [...document.querySelectorAll(".nav a")];
+    const sections = links
+      .map((link) => document.querySelector(link.getAttribute("href")))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (!visible) return;
+
+      links.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${visible.target.id}`);
+      });
+    }, { rootMargin: "-25% 0px -60% 0px", threshold: [0.05, 0.3, 0.6] });
+
+    sections.forEach((section) => observer.observe(section));
+
+    const imageModal = document.querySelector("#image-modal");
+    const modalImage = document.querySelector("#modal-image");
+    const modalCaption = document.querySelector("#modal-caption");
+    const modalClose = document.querySelector("#modal-close");
+
+    document.querySelectorAll("[data-zoom]").forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const sourceImage = trigger.querySelector("img");
+        modalImage.src = trigger.dataset.zoom;
+        modalImage.alt = sourceImage?.alt || "Evidencia ampliada";
+        modalCaption.textContent = trigger.dataset.caption || "";
+        imageModal.showModal();
+      });
+    });
+
+    modalClose.addEventListener("click", () => imageModal.close());
+
+    imageModal.addEventListener("click", (event) => {
+      if (event.target === imageModal) imageModal.close();
+    });
+
+    imageModal.addEventListener("close", () => {
+      modalImage.src = "";
+    });
+  </script>
+</body>
+</html>

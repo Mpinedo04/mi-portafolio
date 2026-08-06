@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Sysmon schemaversion="4.90">
+  <HashAlgorithms>SHA256</HashAlgorithms>
+
+  <!--
+    Configuracion inicial para el laboratorio SOC.
+    Registra los eventos fundamentales sin habilitar categorias especialmente ruidosas.
+  -->
+  <EventFiltering>
+    <!-- Event ID 1: creacion de procesos -->
+    <ProcessCreate onmatch="exclude" />
+
+    <!-- Event ID 3: conexiones de red -->
+    <NetworkConnect onmatch="exclude" />
+
+    <!-- Event ID 11: creacion de archivos -->
+    <FileCreate onmatch="exclude" />
+  </EventFiltering>
+</Sysmon>

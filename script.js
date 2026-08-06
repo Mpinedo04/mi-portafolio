@@ -68,11 +68,14 @@ document.addEventListener("click", (event) => {
 
   const href = link.getAttribute("href");
   if (!href || href.startsWith("#") || href.startsWith("mailto:")) return;
-  if (link.href.includes("github.com")) return;
+  if (link.target === "_blank" || link.hasAttribute("download")) return;
   if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
 
+  const destination = new URL(link.href, window.location.href);
+  if (destination.origin !== window.location.origin) return;
+
   event.preventDefault();
-  goWithTransition(link.href);
+  goWithTransition(destination.href);
 });
 
 document.querySelectorAll(".project-card[data-demo-url]").forEach((card) => {
