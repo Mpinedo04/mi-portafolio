@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Página no encontrada - Miguel Pinedo Cybersecurity Portfolio">
+  <title>404 · Ruta no encontrada - Miguel Pinedo</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=7">
+  <style>
+    .error-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 140px);
+      text-align: center;
+      padding: 6rem 1.5rem 3rem;
+      position: relative;
+      z-index: 1;
+    }
+    .error-code {
+      font-family: var(--serif);
+      font-size: clamp(5rem, 12vw, 9rem);
+      font-weight: 400;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.03em;
+    }
+    .error-code span {
+      color: var(--accent-strong);
+      font-style: italic;
+    }
+    .error-desc {
+      color: var(--slate);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="cyber-bg" aria-hidden="true"></canvas>
+
+  <nav>
+    <div class="nav-left">
+      <a class="nav-logo" href="portfolio-cyber.html">root@miguel<span>:~$</span></a>
+      <span class="nav-divider" aria-hidden="true"></span>
+      <a class="nav-cv" href="assets/CV_Miguel_Pinedo_moderno.pdf" target="_blank" rel="noopener noreferrer" aria-label="Abrir CV de Miguel Pinedo en PDF">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span>CV</span>
+        <span class="cv-badge">PDF</span>
+      </a>
+    </div>
+    <ul>
+      <li><a href="sobre-mi.html">sobre mi</a></li>
+      <li><a href="proyectos.html">proyectos</a></li>
+      <li><a href="estudios.html">estudios</a></li>
+      <li><a href="contacto.html">contacto</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="error-wrap">
+      <p class="section-label">// ERROR 404 · RUTA NO ENCONTRADA</p>
+      <h1 class="error-code">4<span>0</span>4</h1>
+      <p class="error-desc">El nodo o endpoint solicitado no existe, ha sido segmentado o no se encuentra en el mapa de red activo.</p>
+      
+      <div class="terminal" style="margin: 0 auto 2.5rem;">
+        <div class="terminal-bar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+          <span class="terminal-title">route_error.log - bash</span>
+        </div>
+        <div class="terminal-body" style="min-height: 110px; text-align: left;">
+          <span class="t-line"><span class="t-prompt">&gt; </span><span class="t-cmd">traceroute target_node</span></span>
+          <span class="t-line"><span class="t-warn">[!] Destination unreachable: 404_NOT_FOUND</span></span>
+          <span class="t-line"><span class="t-prompt">&gt; </span><span class="t-out">initiating secure fallback protocol...</span></span>
+        </div>
+      </div>
+
+      <a class="btn-primary" href="portfolio-cyber.html">Volver al inicio seguro →</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>(c) 2026 Miguel Pinedo</p>
+    <p>disenado &amp; construido manualmente</p>
+  </footer>
+
+  <script src="script.js?v=4"></script>
+</body>
+</html>
