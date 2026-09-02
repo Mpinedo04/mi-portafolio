@@ -1,22 +1,139 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" role="img" aria-labelledby="title desc">
-  <title id="title">Linux server management</title>
-  <desc id="desc">Stylized terminal and Linux server nodes in a cyber grid.</desc>
-  <rect width="640" height="380" fill="#0d0d12"/>
-  <path d="M0 60h640M0 120h640M0 180h640M0 240h640M0 300h640M70 0v380M140 0v380M210 0v380M280 0v380M350 0v380M420 0v380M490 0v380M560 0v380" stroke="#ccd6f6" stroke-opacity=".08"/>
-  <circle cx="172" cy="110" r="122" fill="#00ff88" opacity=".07"/>
-  <rect x="82" y="78" width="280" height="210" rx="12" fill="#13131a" stroke="#00ff88" stroke-opacity=".62" stroke-width="2"/>
-  <rect x="82" y="78" width="280" height="42" rx="12" fill="#1a1a24"/>
-  <circle cx="108" cy="100" r="6" fill="#ff5f57"/>
-  <circle cx="130" cy="100" r="6" fill="#ffbd2e"/>
-  <circle cx="152" cy="100" r="6" fill="#28ca41"/>
-  <text x="108" y="158" fill="#00ff88" font-family="monospace" font-size="22">&gt; ssh root@node</text>
-  <text x="108" y="196" fill="#ccd6f6" font-family="monospace" font-size="20">systemctl status</text>
-  <text x="108" y="234" fill="#8892b0" font-family="monospace" font-size="18">ufw / bash / cron</text>
-  <g fill="none" stroke="#00ff88" stroke-linecap="round" stroke-width="2">
-    <circle cx="462" cy="130" r="36" stroke-opacity=".7"/>
-    <circle cx="522" cy="222" r="36" stroke-opacity=".55"/>
-    <circle cx="428" cy="260" r="28" stroke-opacity=".45"/>
-    <path d="M482 160l22 32M488 236l-34 14M434 224l18-58" stroke-opacity=".35"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" width="100%" height="100%">
+  <defs>
+    <linearGradient id="l2-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e16"/>
+      <stop offset="50%" stop-color="#10151f"/>
+      <stop offset="100%" stop-color="#0d121c"/>
+    </linearGradient>
+    <linearGradient id="l2-card" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(20, 27, 41, 0.85)"/>
+      <stop offset="100%" stop-color="rgba(12, 17, 26, 0.95)"/>
+    </linearGradient>
+    <radialGradient id="l2-glow" cx="30%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#c9a86a" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#c9a86a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="l2-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="640" height="380" fill="url(#l2-bg)"/>
+
+  <g stroke="rgba(214, 222, 235, 0.045)" stroke-width="1">
+    <line x1="0" y1="38" x2="640" y2="38"/>
+    <line x1="0" y1="95" x2="640" y2="95"/>
+    <line x1="0" y1="152" x2="640" y2="152"/>
+    <line x1="0" y1="209" x2="640" y2="209"/>
+    <line x1="0" y1="266" x2="640" y2="266"/>
+    <line x1="0" y1="323" x2="640" y2="323"/>
+    <line x1="80" y1="0" x2="80" y2="380"/>
+    <line x1="190" y1="0" x2="190" y2="380"/>
+    <line x1="300" y1="0" x2="300" y2="380"/>
+    <line x1="410" y1="0" x2="410" y2="380"/>
+    <line x1="520" y1="0" x2="520" y2="380"/>
   </g>
-  <text x="82" y="336" fill="#8892b0" font-family="monospace" font-size="18">SYS-02 / bash / services / security</text>
+
+  <circle cx="180" cy="150" r="160" fill="url(#l2-glow)"/>
+
+  <g font-family="ui-monospace, monospace" font-size="9" letter-spacing="1.5" fill="#667089">
+    <text x="36" y="28">SYS-02 // LINUX BASTION &amp; HARDENED KERNEL</text>
+    <text x="495" y="28">SYSTEMD · eBPF · SSH</text>
+    <circle cx="24" cy="25" r="3" fill="#85bda1"/>
+  </g>
+
+  <!-- LEFT: Interactive Terminal Console -->
+  <g filter="url(#l2-shadow)">
+    <rect x="36" y="46" width="310" height="282" rx="10" fill="url(#l2-card)" stroke="rgba(201, 168, 106, 0.22)" stroke-width="1.2"/>
+    
+    <!-- Window Bar -->
+    <rect x="36" y="46" width="310" height="32" rx="10" fill="rgba(201, 168, 106, 0.08)"/>
+    <line x1="36" y1="78" x2="346" y2="78" stroke="rgba(201, 168, 106, 0.18)" stroke-width="1"/>
+    
+    <!-- Window Dots -->
+    <circle cx="54" cy="62" r="3.5" fill="#667089"/>
+    <circle cx="66" cy="62" r="3.5" fill="#667089"/>
+    <circle cx="78" cy="62" r="3.5" fill="#85bda1"/>
+    <text x="96" y="66" fill="#e2c893" font-family="ui-monospace, monospace" font-size="9.5" font-weight="600" letter-spacing="1">root@sec-node: /etc/systemd</text>
+
+    <!-- Console Text Output -->
+    <g font-family="ui-monospace, monospace" font-size="9" line-height="1.5">
+      <text x="50" y="104" fill="#c9a86a">&gt; systemctl is-active sshd ufw auditd</text>
+      
+      <g transform="translate(50, 118)">
+        <rect width="282" height="22" rx="4" fill="rgba(133, 189, 161, 0.1)"/>
+        <circle cx="8" cy="11" r="3" fill="#85bda1"/>
+        <text x="18" y="14" fill="#85bda1" font-weight="600">sshd.service       [ACTIVE · PORT 2222]</text>
+      </g>
+
+      <g transform="translate(50, 144)">
+        <rect width="282" height="22" rx="4" fill="rgba(133, 189, 161, 0.1)"/>
+        <circle cx="8" cy="11" r="3" fill="#85bda1"/>
+        <text x="18" y="14" fill="#85bda1" font-weight="600">ufw.service        [ACTIVE · DEFAULT DROP]</text>
+      </g>
+
+      <g transform="translate(50, 170)">
+        <rect width="282" height="22" rx="4" fill="rgba(133, 189, 161, 0.1)"/>
+        <circle cx="8" cy="11" r="3" fill="#85bda1"/>
+        <text x="18" y="14" fill="#85bda1" font-weight="600">auditd.service     [ACTIVE · CIS RULES ON]</text>
+      </g>
+
+      <text x="50" y="214" fill="#939cb0">&gt; checksec --kernel</text>
+      <text x="50" y="232" fill="#e9eaf0">Kernel 6.8 · ASLR: ON · SMEP: ON</text>
+      <text x="50" y="248" fill="#e9eaf0">AppArmor: ENFORCING · Rootless: TRUE</text>
+      <text x="50" y="264" fill="#e9eaf0">SSH Key-Exchange: ed25519-sk (Hardware)</text>
+
+      <!-- Terminal Prompt Cursor -->
+      <text x="50" y="294" fill="#c9a86a">&gt; <tspan fill="#e2c893">status: 0 vulnerabilities detected</tspan></text>
+      <rect x="290" y="284" width="7" height="12" fill="#c9a86a"/>
+    </g>
+  </g>
+
+  <!-- RIGHT: Kernel Security Rings & I/O Telemetry -->
+  <g filter="url(#l2-shadow)" transform="translate(362, 46)">
+    <rect width="242" height="282" rx="10" fill="url(#l2-card)" stroke="rgba(201, 168, 106, 0.22)" stroke-width="1.2"/>
+    
+    <rect width="242" height="32" rx="10" fill="rgba(201, 168, 106, 0.08)"/>
+    <line x1="0" y1="32" x2="242" y2="32" stroke="rgba(201, 168, 106, 0.18)" stroke-width="1"/>
+    <text x="14" y="21" fill="#e2c893" font-family="ui-monospace, monospace" font-size="9.5" font-weight="600" letter-spacing="1.5">KERNEL RING MONITOR</text>
+
+    <!-- Concentric Protection Rings -->
+    <g transform="translate(121, 126)">
+      <!-- Outer Ring (User Space) -->
+      <circle r="68" fill="none" stroke="rgba(201, 168, 106, 0.2)" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <!-- Mid Ring (AppArmor / eBPF) -->
+      <circle r="48" fill="rgba(201, 168, 106, 0.06)" stroke="rgba(201, 168, 106, 0.45)" stroke-width="1.5"/>
+      <!-- Inner Core (Kernel Space) -->
+      <circle r="26" fill="rgba(133, 189, 161, 0.15)" stroke="#85bda1" stroke-width="1.8"/>
+      
+      <text y="-4" fill="#e2c893" font-family="ui-monospace, monospace" font-size="8" font-weight="700" text-anchor="middle">RING 0</text>
+      <text y="8" fill="#85bda1" font-family="ui-monospace, monospace" font-size="7" text-anchor="middle">KERNEL</text>
+
+      <!-- Satellite Orbiters -->
+      <circle cx="48" cy="0" r="3.5" fill="#e2c893"/>
+      <circle cx="-34" cy="34" r="3.5" fill="#85bda1"/>
+      <circle cx="0" cy="-68" r="3.5" fill="#c9a86a"/>
+    </g>
+
+    <!-- Security Tags -->
+    <g transform="translate(14, 212)">
+      <rect width="102" height="22" rx="4" fill="rgba(10, 14, 22, 0.8)" stroke="rgba(214, 222, 235, 0.08)"/>
+      <text x="8" y="14" fill="#939cb0" font-family="ui-monospace, monospace" font-size="8">eBPF HOOKS: <tspan fill="#85bda1">ON</tspan></text>
+
+      <rect x="112" width="102" height="22" rx="4" fill="rgba(10, 14, 22, 0.8)" stroke="rgba(214, 222, 235, 0.08)"/>
+      <text x="120" y="14" fill="#939cb0" font-family="ui-monospace, monospace" font-size="8">BASTION: <tspan fill="#e2c893">LOCK</tspan></text>
+    </g>
+
+    <!-- Telemetry Sine Chart -->
+    <g transform="translate(14, 246)">
+      <rect width="214" height="66" rx="6" fill="rgba(10, 14, 22, 0.7)" stroke="rgba(201, 168, 106, 0.15)"/>
+      <text x="10" y="16" fill="#667089" font-family="ui-monospace, monospace" font-size="7.5">SYSCALL ANOMALY TELEMETRY</text>
+      <path d="M12 48 Q 40 30, 70 48 T 130 48 T 180 36 T 202 48" fill="none" stroke="#c9a86a" stroke-width="1.8"/>
+      <path d="M12 48 Q 40 30, 70 48 T 130 48 T 180 36 T 202 48 L 202 58 L 12 58 Z" fill="rgba(201, 168, 106, 0.08)"/>
+      <circle cx="180" cy="36" r="3" fill="#e2c893"/>
+      <text x="156" y="58" fill="#85bda1" font-family="ui-monospace, monospace" font-size="8" font-weight="600">0 ANOMALIES</text>
+    </g>
+  </g>
+
+  <path d="M12 12 h14 v-2 h-14 v14 h2 z M628 12 h-14 v-2 h14 v14 h-2 z M12 368 h14 v2 h-14 v-14 h2 z M628 368 h-14 v2 h14 v-14 h-2 z" fill="rgba(201, 168, 106, 0.4)"/>
 </svg>

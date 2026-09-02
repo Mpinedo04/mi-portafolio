@@ -1,20 +1,136 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" role="img" aria-labelledby="title desc">
-  <title id="title">Systems audit</title>
-  <desc id="desc">Stylized audit dashboard with risk indicators and log checks.</desc>
-  <rect width="640" height="380" fill="#0d0d12"/>
-  <path d="M0 76h640M0 152h640M0 228h640M0 304h640M91 0v380M182 0v380M273 0v380M364 0v380M455 0v380M546 0v380" stroke="#ccd6f6" stroke-opacity=".08"/>
-  <rect x="78" y="62" width="484" height="250" rx="14" fill="#13131a" stroke="#00ff88" stroke-opacity=".56" stroke-width="2"/>
-  <g fill="none" stroke-linecap="round" stroke-width="2">
-    <path d="M118 126h176M118 172h132M118 218h202M118 264h156" stroke="#ccd6f6" stroke-opacity=".38"/>
-    <path d="M430 118l24 24 50-58" stroke="#00ff88" stroke-width="8"/>
-    <circle cx="466" cy="196" r="66" stroke="#00ff88" stroke-opacity=".48"/>
-    <path d="M466 130v66l42 36" stroke="#00ff88" stroke-opacity=".45"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" width="100%" height="100%">
+  <defs>
+    <linearGradient id="a3-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e16"/>
+      <stop offset="50%" stop-color="#10151f"/>
+      <stop offset="100%" stop-color="#0d121c"/>
+    </linearGradient>
+    <linearGradient id="a3-card" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(20, 27, 41, 0.85)"/>
+      <stop offset="100%" stop-color="rgba(12, 17, 26, 0.95)"/>
+    </linearGradient>
+    <radialGradient id="a3-radar" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c9a86a" stop-opacity="0.22"/>
+      <stop offset="70%" stop-color="#c9a86a" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#c9a86a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="a3-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="640" height="380" fill="url(#a3-bg)"/>
+
+  <g stroke="rgba(214, 222, 235, 0.045)" stroke-width="1">
+    <line x1="0" y1="38" x2="640" y2="38"/>
+    <line x1="0" y1="95" x2="640" y2="95"/>
+    <line x1="0" y1="152" x2="640" y2="152"/>
+    <line x1="0" y1="209" x2="640" y2="209"/>
+    <line x1="0" y1="266" x2="640" y2="266"/>
+    <line x1="0" y1="323" x2="640" y2="323"/>
+    <line x1="80" y1="0" x2="80" y2="380"/>
+    <line x1="190" y1="0" x2="190" y2="380"/>
+    <line x1="300" y1="0" x2="300" y2="380"/>
+    <line x1="410" y1="0" x2="410" y2="380"/>
+    <line x1="520" y1="0" x2="520" y2="380"/>
   </g>
-  <g fill="#00ff88">
-    <rect x="118" y="113" width="12" height="12" opacity=".9"/>
-    <rect x="118" y="159" width="12" height="12" opacity=".55"/>
-    <rect x="118" y="205" width="12" height="12" opacity=".75"/>
-    <rect x="118" y="251" width="12" height="12" opacity=".4"/>
+
+  <g font-family="ui-monospace, monospace" font-size="9" letter-spacing="1.5" fill="#667089">
+    <text x="36" y="28">AUD-03 // CONTINUOUS LOG &amp; INTEGRITY AUDIT</text>
+    <text x="490" y="28">FIM · SYSMON · CIS</text>
+    <circle cx="24" cy="25" r="3" fill="#85bda1"/>
   </g>
-  <text x="78" y="336" fill="#8892b0" font-family="monospace" font-size="18">AUD-03 / logs / config / exposure</text>
+
+  <!-- LEFT: Radar Detection Core -->
+  <g filter="url(#a3-shadow)" transform="translate(36, 46)">
+    <rect width="254" height="282" rx="10" fill="url(#a3-card)" stroke="rgba(201, 168, 106, 0.22)" stroke-width="1.2"/>
+    
+    <rect width="254" height="32" rx="10" fill="rgba(201, 168, 106, 0.08)"/>
+    <line x1="0" y1="32" x2="254" y2="32" stroke="rgba(201, 168, 106, 0.18)" stroke-width="1"/>
+    <text x="14" y="21" fill="#e2c893" font-family="ui-monospace, monospace" font-size="9.5" font-weight="600" letter-spacing="1.5">THREAT &amp; COMPLIANCE SCOPE</text>
+
+    <!-- Radar Scope Center -->
+    <g transform="translate(127, 138)">
+      <circle r="86" fill="url(#a3-radar)"/>
+      <circle r="86" fill="none" stroke="rgba(201, 168, 106, 0.25)" stroke-width="1.2"/>
+      <circle r="60" fill="none" stroke="rgba(201, 168, 106, 0.35)" stroke-width="1" stroke-dasharray="3 3"/>
+      <circle r="32" fill="none" stroke="rgba(201, 168, 106, 0.45)" stroke-width="1.2"/>
+      <circle r="4" fill="#e2c893"/>
+
+      <!-- Crosshairs -->
+      <line x1="-96" y1="0" x2="96" y2="0" stroke="rgba(201, 168, 106, 0.3)" stroke-width="1"/>
+      <line x1="0" y1="-96" x2="0" y2="96" stroke="rgba(201, 168, 106, 0.3)" stroke-width="1"/>
+
+      <!-- Radar Sweep Vector -->
+      <path d="M0 0 L 60 -60 A 86 86 0 0 0 -60 -60 Z" fill="rgba(201, 168, 106, 0.12)"/>
+      <line x1="0" y1="0" x2="60" y2="-60" stroke="#e2c893" stroke-width="1.8"/>
+
+      <!-- Identified Target Blips -->
+      <g transform="translate(38, -32)">
+        <circle r="4" fill="#85bda1"/>
+        <circle r="9" fill="none" stroke="#85bda1" stroke-width="1" opacity="0.6"/>
+      </g>
+      <g transform="translate(-46, 28)">
+        <circle r="3.5" fill="#c9a86a"/>
+        <circle r="8" fill="none" stroke="#c9a86a" stroke-width="1" opacity="0.6"/>
+      </g>
+    </g>
+
+    <!-- Radar Metrics -->
+    <g transform="translate(14, 238)">
+      <rect width="226" height="34" rx="5" fill="rgba(10, 14, 22, 0.8)" stroke="rgba(201, 168, 106, 0.15)"/>
+      <text x="12" y="15" fill="#939cb0" font-family="ui-monospace, monospace" font-size="8">INTEGRITY CHECK: <tspan fill="#85bda1" font-weight="600">PASSED 100%</tspan></text>
+      <text x="12" y="27" fill="#667089" font-family="ui-monospace, monospace" font-size="7.5">EVENT STREAM: 1,480 EPS · 0 COMPROMISE</text>
+    </g>
+  </g>
+
+  <!-- RIGHT: Realtime Log Ingestion Stream -->
+  <g filter="url(#a3-shadow)" transform="translate(306, 46)">
+    <rect width="298" height="282" rx="10" fill="url(#a3-card)" stroke="rgba(201, 168, 106, 0.22)" stroke-width="1.2"/>
+    
+    <rect width="298" height="32" rx="10" fill="rgba(201, 168, 106, 0.08)"/>
+    <line x1="0" y1="32" x2="298" y2="32" stroke="rgba(201, 168, 106, 0.18)" stroke-width="1"/>
+    <text x="16" y="21" fill="#e2c893" font-family="ui-monospace, monospace" font-size="9.5" font-weight="600" letter-spacing="1.5">REAL-TIME AUDIT FEED</text>
+    
+    <!-- Score Badge -->
+    <rect x="228" y="9" width="56" height="15" rx="4" fill="rgba(133, 189, 161, 0.15)" stroke="rgba(133, 189, 161, 0.3)"/>
+    <text x="256" y="20" fill="#85bda1" font-family="ui-monospace, monospace" font-size="8" text-anchor="middle">SCORE: A+</text>
+
+    <!-- Event 1: FIM Validation -->
+    <g transform="translate(16, 46)">
+      <rect width="266" height="48" rx="6" fill="rgba(10, 14, 22, 0.85)" stroke="rgba(214, 222, 235, 0.08)"/>
+      <circle cx="14" cy="18" r="3.5" fill="#85bda1"/>
+      <text x="26" y="18" fill="#e9eaf0" font-family="ui-monospace, monospace" font-size="9" font-weight="600">[FIM] SYS32 INTEGRITY VERIFIED</text>
+      <text x="26" y="32" fill="#667089" font-family="ui-monospace, monospace" font-size="7.5">HASH MATCH: sha256:e3b0c44298fc1c149af...</text>
+      <text x="26" y="42" fill="#85bda1" font-family="ui-monospace, monospace" font-size="7.5">RESULT: 0 UNAUTHORIZED MUTATIONS</text>
+    </g>
+
+    <!-- Event 2: Sysmon Process Correlation -->
+    <g transform="translate(16, 102)">
+      <rect width="266" height="48" rx="6" fill="rgba(10, 14, 22, 0.85)" stroke="rgba(214, 222, 235, 0.08)"/>
+      <circle cx="14" cy="18" r="3.5" fill="#c9a86a"/>
+      <text x="26" y="18" fill="#e9eaf0" font-family="ui-monospace, monospace" font-size="9" font-weight="600">[SYSMON] EID 1 &amp; 3 TREE AUDIT</text>
+      <text x="26" y="32" fill="#667089" font-family="ui-monospace, monospace" font-size="7.5">PARENT: explorer.exe -&gt; powershell.exe</text>
+      <text x="26" y="42" fill="#e2c893" font-family="ui-monospace, monospace" font-size="7.5">COMMANDLINE BASE64: DECODED &amp; SAFE</text>
+    </g>
+
+    <!-- Event 3: Permissions & Hardening -->
+    <g transform="translate(16, 158)">
+      <rect width="266" height="48" rx="6" fill="rgba(10, 14, 22, 0.85)" stroke="rgba(214, 222, 235, 0.08)"/>
+      <circle cx="14" cy="18" r="3.5" fill="#85bda1"/>
+      <text x="26" y="18" fill="#e9eaf0" font-family="ui-monospace, monospace" font-size="9" font-weight="600">[AUTH] PRIVILEGE ESCALATION AUDIT</text>
+      <text x="26" y="32" fill="#667089" font-family="ui-monospace, monospace" font-size="7.5">SUID BITS SCAN: 0 MISCONFIGURATIONS</text>
+      <text x="26" y="42" fill="#85bda1" font-family="ui-monospace, monospace" font-size="7.5">SUDOERS: STRICT RESTRICTION ACTIVE</text>
+    </g>
+
+    <!-- Exposure Summary -->
+    <g transform="translate(16, 214)">
+      <rect width="266" height="56" rx="6" fill="rgba(201, 168, 106, 0.08)" stroke="rgba(201, 168, 106, 0.25)"/>
+      <text x="14" y="20" fill="#e2c893" font-family="ui-monospace, monospace" font-size="9" font-weight="600">SYSTEM EXPOSURE INDEX: ZERO</text>
+      <text x="14" y="36" fill="#939cb0" font-family="ui-monospace, monospace" font-size="8">Attack Surface: Minimal · Unused Daemons: Purged</text>
+      <text x="14" y="48" fill="#85bda1" font-family="ui-monospace, monospace" font-size="8">Continuous Compliance: Enforcing</text>
+    </g>
+  </g>
+
+  <path d="M12 12 h14 v-2 h-14 v14 h2 z M628 12 h-14 v-2 h14 v14 h-2 z M12 368 h14 v2 h-14 v-14 h2 z M628 368 h-14 v2 h14 v-14 h-2 z" fill="rgba(201, 168, 106, 0.4)"/>
 </svg>

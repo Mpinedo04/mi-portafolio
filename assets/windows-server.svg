@@ -1,25 +1,149 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" role="img" aria-labelledby="title desc">
-  <title id="title">Windows Server administration</title>
-  <desc id="desc">Stylized cyber panel with server racks and Windows-like tiles.</desc>
-  <rect width="640" height="380" fill="#0d0d12"/>
-  <path d="M0 74h640M0 148h640M0 222h640M0 296h640M80 0v380M160 0v380M240 0v380M320 0v380M400 0v380M480 0v380M560 0v380" stroke="#ccd6f6" stroke-opacity=".08"/>
-  <circle cx="512" cy="88" r="112" fill="#00ff88" opacity=".08"/>
-  <g fill="none" stroke="#00ff88" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="78" y="74" width="190" height="232" rx="10" stroke-opacity=".65" stroke-width="2"/>
-    <path d="M102 118h142M102 162h142M102 206h142M102 250h142" stroke-opacity=".35"/>
-    <circle cx="118" cy="118" r="5" fill="#00ff88"/>
-    <circle cx="118" cy="162" r="5" fill="#00ff88" opacity=".7"/>
-    <circle cx="118" cy="206" r="5" fill="#00ff88" opacity=".5"/>
-    <circle cx="118" cy="250" r="5" fill="#00ff88" opacity=".85"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" width="100%" height="100%">
+  <defs>
+    <linearGradient id="w1-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e16"/>
+      <stop offset="50%" stop-color="#10151f"/>
+      <stop offset="100%" stop-color="#0d121c"/>
+    </linearGradient>
+    <linearGradient id="w1-card" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(20, 27, 41, 0.85)"/>
+      <stop offset="100%" stop-color="rgba(12, 17, 26, 0.95)"/>
+    </linearGradient>
+    <radialGradient id="w1-glow" cx="75%" cy="35%" r="50%">
+      <stop offset="0%" stop-color="#c9a86a" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#c9a86a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="w1-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="640" height="380" fill="url(#w1-bg)"/>
+
+  <g stroke="rgba(214, 222, 235, 0.045)" stroke-width="1">
+    <line x1="0" y1="38" x2="640" y2="38"/>
+    <line x1="0" y1="95" x2="640" y2="95"/>
+    <line x1="0" y1="152" x2="640" y2="152"/>
+    <line x1="0" y1="209" x2="640" y2="209"/>
+    <line x1="0" y1="266" x2="640" y2="266"/>
+    <line x1="0" y1="323" x2="640" y2="323"/>
+    <line x1="80" y1="0" x2="80" y2="380"/>
+    <line x1="190" y1="0" x2="190" y2="380"/>
+    <line x1="300" y1="0" x2="300" y2="380"/>
+    <line x1="410" y1="0" x2="410" y2="380"/>
+    <line x1="520" y1="0" x2="520" y2="380"/>
   </g>
-  <g transform="translate(348 86)">
-    <rect width="196" height="196" rx="14" fill="#13131a" stroke="#00ff88" stroke-opacity=".65" stroke-width="2"/>
-    <rect x="31" y="31" width="58" height="58" fill="#00ff88" opacity=".78"/>
-    <rect x="107" y="31" width="58" height="58" fill="#00ff88" opacity=".42"/>
-    <rect x="31" y="107" width="58" height="58" fill="#00ff88" opacity=".42"/>
-    <rect x="107" y="107" width="58" height="58" fill="#00ff88" opacity=".78"/>
+
+  <circle cx="480" cy="140" r="160" fill="url(#w1-glow)"/>
+
+  <g font-family="ui-monospace, monospace" font-size="9" letter-spacing="1.5" fill="#667089">
+    <text x="36" y="28">SYS-01 // WINDOWS ENTERPRISE ARCHITECTURE</text>
+    <text x="485" y="28">ACTIVE DIRECTORY · GPO</text>
+    <circle cx="24" cy="25" r="3" fill="#85bda1"/>
   </g>
-  <path d="M268 190h80" stroke="#00ff88" stroke-opacity=".45" stroke-width="2"/>
-  <circle cx="306" cy="190" r="4" fill="#00ff88"/>
-  <text x="80" y="336" fill="#8892b0" font-family="monospace" font-size="18">SYS-01 / roles / AD / hardening</text>
+
+  <!-- LEFT: Server Blade Rack Module -->
+  <g filter="url(#w1-shadow)">
+    <rect x="36" y="46" width="234" height="282" rx="10" fill="url(#w1-card)" stroke="rgba(201, 168, 106, 0.22)" stroke-width="1.2"/>
+    
+    <rect x="36" y="46" width="234" height="32" rx="10" fill="rgba(201, 168, 106, 0.08)"/>
+    <line x1="36" y1="78" x2="270" y2="78" stroke="rgba(201, 168, 106, 0.18)" stroke-width="1"/>
+    <text x="48" y="67" fill="#e2c893" font-family="ui-monospace, monospace" font-size="9.5" font-weight="600" letter-spacing="1.5">SERVER-NODE // 01</text>
+    <circle cx="248" cy="62" r="3.5" fill="#85bda1"/>
+    <circle cx="236" cy="62" r="3.5" fill="#c9a86a" opacity="0.6"/>
+
+    <g transform="translate(48, 90)">
+      <rect width="210" height="48" rx="6" fill="rgba(10, 14, 22, 0.75)" stroke="rgba(214, 222, 235, 0.08)"/>
+      <circle cx="14" cy="24" r="3" fill="#85bda1"/>
+      <text x="26" y="21" fill="#e9eaf0" font-family="ui-monospace, monospace" font-size="9.5" font-weight="600">DC-PRIMARY.CORP</text>
+      <text x="26" y="35" fill="#667089" font-family="ui-monospace, monospace" font-size="8">ROLES: AD DS · DNS · KERBEROS</text>
+      <line x1="162" y1="24" x2="198" y2="24" stroke="rgba(201, 168, 106, 0.25)" stroke-width="3" stroke-linecap="round"/>
+      <line x1="162" y1="24" x2="188" y2="24" stroke="#c9a86a" stroke-width="3" stroke-linecap="round"/>
+    </g>
+
+    <g transform="translate(48, 146)">
+      <rect width="210" height="48" rx="6" fill="rgba(10, 14, 22, 0.75)" stroke="rgba(214, 222, 235, 0.08)"/>
+      <circle cx="14" cy="24" r="3" fill="#85bda1"/>
+      <text x="26" y="21" fill="#e9eaf0" font-family="ui-monospace, monospace" font-size="9.5" font-weight="600">GPO::HARDENING-V4</text>
+      <text x="26" y="35" fill="#667089" font-family="ui-monospace, monospace" font-size="8">POLICIES: 142 ENFORCED (0 DRIFT)</text>
+      <line x1="162" y1="24" x2="198" y2="24" stroke="rgba(133, 189, 161, 0.25)" stroke-width="3" stroke-linecap="round"/>
+      <line x1="162" y1="24" x2="194" y2="24" stroke="#85bda1" stroke-width="3" stroke-linecap="round"/>
+    </g>
+
+    <g transform="translate(48, 202)">
+      <rect width="210" height="48" rx="6" fill="rgba(10, 14, 22, 0.75)" stroke="rgba(214, 222, 235, 0.08)"/>
+      <circle cx="14" cy="24" r="3" fill="#c9a86a"/>
+      <text x="26" y="21" fill="#e9eaf0" font-family="ui-monospace, monospace" font-size="9.5" font-weight="600">AD CS / ROOT-CA</text>
+      <text x="26" y="35" fill="#667089" font-family="ui-monospace, monospace" font-size="8">SHA-384 · ENCRYPTION OK</text>
+      <line x1="162" y1="24" x2="198" y2="24" stroke="rgba(201, 168, 106, 0.25)" stroke-width="3" stroke-linecap="round"/>
+      <line x1="162" y1="24" x2="180" y2="24" stroke="#c9a86a" stroke-width="3" stroke-linecap="round"/>
+    </g>
+
+    <g transform="translate(48, 258)">
+      <rect width="210" height="58" rx="6" fill="rgba(201, 168, 106, 0.05)" stroke="rgba(201, 168, 106, 0.15)"/>
+      <text x="12" y="22" fill="#939cb0" font-family="ui-monospace, monospace" font-size="8.5">CPU 12% · RAM 24% · UPTIME 99.98%</text>
+      <text x="12" y="42" fill="#85bda1" font-family="ui-monospace, monospace" font-size="9" font-weight="600">STATUS: ALL ROLES OPTIMAL</text>
+    </g>
+  </g>
+
+  <!-- BUS LINES -->
+  <g stroke="rgba(201, 168, 106, 0.35)" stroke-width="1.2" stroke-dasharray="3 3" fill="none">
+    <path d="M270 114 C 295 114, 295 106, 318 106"/>
+    <path d="M270 170 C 295 170, 295 168, 318 168"/>
+    <path d="M270 226 C 295 226, 295 242, 318 242"/>
+  </g>
+  <circle cx="318" cy="106" r="2.5" fill="#c9a86a"/>
+  <circle cx="318" cy="168" r="2.5" fill="#85bda1"/>
+  <circle cx="318" cy="242" r="2.5" fill="#c9a86a"/>
+
+  <!-- RIGHT: Active Directory Hierarchy -->
+  <g filter="url(#w1-shadow)" transform="translate(318, 46)">
+    <rect width="286" height="282" rx="10" fill="url(#w1-card)" stroke="rgba(201, 168, 106, 0.22)" stroke-width="1.2"/>
+    
+    <rect width="286" height="32" rx="10" fill="rgba(201, 168, 106, 0.08)"/>
+    <line x1="0" y1="32" x2="286" y2="32" stroke="rgba(201, 168, 106, 0.18)" stroke-width="1"/>
+    <text x="16" y="21" fill="#e2c893" font-family="ui-monospace, monospace" font-size="9.5" font-weight="600" letter-spacing="1.5">IDENTITY &amp; GPO TOPOLOGY</text>
+    <rect x="214" y="9" width="58" height="15" rx="4" fill="rgba(133, 189, 161, 0.15)" stroke="rgba(133, 189, 161, 0.3)"/>
+    <text x="243" y="20" fill="#85bda1" font-family="ui-monospace, monospace" font-size="8" text-anchor="middle">SYNCED</text>
+
+    <g transform="translate(16, 46)">
+      <rect width="136" height="28" rx="5" fill="rgba(201, 168, 106, 0.15)" stroke="rgba(201, 168, 106, 0.4)"/>
+      <path d="M12 14 l3 3 6-6" stroke="#e2c893" stroke-width="1.5" fill="none"/>
+      <text x="28" y="18" fill="#e9eaf0" font-family="ui-monospace, monospace" font-size="9" font-weight="600">DC=corp,DC=local</text>
+    </g>
+
+    <path d="M84 74 v 24 h 26" stroke="rgba(201, 168, 106, 0.35)" stroke-width="1.2" fill="none"/>
+    <path d="M84 98 v 50 h 26" stroke="rgba(201, 168, 106, 0.35)" stroke-width="1.2" fill="none"/>
+    <path d="M84 148 v 50 h 26" stroke="rgba(201, 168, 106, 0.35)" stroke-width="1.2" fill="none"/>
+
+    <g transform="translate(110, 84)">
+      <rect width="160" height="30" rx="5" fill="rgba(10, 14, 22, 0.85)" stroke="rgba(214, 222, 235, 0.1)"/>
+      <circle cx="12" cy="15" r="3" fill="#cf8d97"/>
+      <text x="22" y="14" fill="#e9eaf0" font-family="ui-monospace, monospace" font-size="8.5" font-weight="600">OU=Tier0-DomainAdmins</text>
+      <text x="22" y="24" fill="#667089" font-family="ui-monospace, monospace" font-size="7.5">MFA STRICT · NO INTERNET</text>
+    </g>
+
+    <g transform="translate(110, 134)">
+      <rect width="160" height="30" rx="5" fill="rgba(10, 14, 22, 0.85)" stroke="rgba(214, 222, 235, 0.1)"/>
+      <circle cx="12" cy="15" r="3" fill="#85bda1"/>
+      <text x="22" y="14" fill="#e9eaf0" font-family="ui-monospace, monospace" font-size="8.5" font-weight="600">OU=Secured-Endpoints</text>
+      <text x="22" y="24" fill="#667089" font-family="ui-monospace, monospace" font-size="7.5">APPLOCKER + LAPS ENABLED</text>
+    </g>
+
+    <g transform="translate(110, 184)">
+      <rect width="160" height="30" rx="5" fill="rgba(10, 14, 22, 0.85)" stroke="rgba(214, 222, 235, 0.1)"/>
+      <circle cx="12" cy="15" r="3" fill="#c9a86a"/>
+      <text x="22" y="14" fill="#e9eaf0" font-family="ui-monospace, monospace" font-size="8.5" font-weight="600">OU=Infra-Servers</text>
+      <text x="22" y="24" fill="#667089" font-family="ui-monospace, monospace" font-size="7.5">SMBv1 OFF · AUDIT FULL</text>
+    </g>
+
+    <g transform="translate(16, 226)">
+      <rect width="254" height="44" rx="6" fill="rgba(201, 168, 106, 0.08)" stroke="rgba(201, 168, 106, 0.25)"/>
+      <path d="M18 13 c0-5 6-7 6-7 s6 2 6 7 c0 4-6 7-6 7 s-6-3-6-7 z" fill="none" stroke="#e2c893" stroke-width="1.4"/>
+      <text x="38" y="18" fill="#e2c893" font-family="ui-monospace, monospace" font-size="9" font-weight="600">CIS LEVEL 1 BENCHMARK</text>
+      <text x="38" y="33" fill="#939cb0" font-family="ui-monospace, monospace" font-size="8">Hardening: 100% · GPO Audit: Active</text>
+    </g>
+  </g>
+
+  <path d="M12 12 h14 v-2 h-14 v14 h2 z M628 12 h-14 v-2 h14 v14 h-2 z M12 368 h14 v2 h-14 v-14 h2 z M628 368 h-14 v2 h14 v-14 h-2 z" fill="rgba(201, 168, 106, 0.4)"/>
 </svg>

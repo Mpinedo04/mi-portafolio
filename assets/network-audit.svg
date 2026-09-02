@@ -1,27 +1,154 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" role="img" aria-labelledby="title desc">
-  <title id="title">Network audit</title>
-  <desc id="desc">Stylized network topology scan with connected nodes.</desc>
-  <rect width="640" height="380" fill="#0d0d12"/>
-  <path d="M0 64h640M0 128h640M0 192h640M0 256h640M0 320h640M80 0v380M160 0v380M240 0v380M320 0v380M400 0v380M480 0v380M560 0v380" stroke="#ccd6f6" stroke-opacity=".08"/>
-  <circle cx="320" cy="188" r="144" fill="#00ff88" opacity=".06"/>
-  <g stroke="#00ff88" stroke-linecap="round" stroke-width="2">
-    <path d="M178 164l126-58 148 70 20 92-168-30-126-74Z" fill="none" stroke-opacity=".32"/>
-    <path d="M304 106v132M452 176l-148 62M178 164l126 74M472 268l-20-92" fill="none" stroke-opacity=".45"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" width="100%" height="100%">
+  <defs>
+    <linearGradient id="n4-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e16"/>
+      <stop offset="50%" stop-color="#10151f"/>
+      <stop offset="100%" stop-color="#0d121c"/>
+    </linearGradient>
+    <linearGradient id="n4-card" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(20, 27, 41, 0.85)"/>
+      <stop offset="100%" stop-color="rgba(12, 17, 26, 0.95)"/>
+    </linearGradient>
+    <radialGradient id="n4-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c9a86a" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#c9a86a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="n4-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="640" height="380" fill="url(#n4-bg)"/>
+
+  <g stroke="rgba(214, 222, 235, 0.045)" stroke-width="1">
+    <line x1="0" y1="38" x2="640" y2="38"/>
+    <line x1="0" y1="95" x2="640" y2="95"/>
+    <line x1="0" y1="152" x2="640" y2="152"/>
+    <line x1="0" y1="209" x2="640" y2="209"/>
+    <line x1="0" y1="266" x2="640" y2="266"/>
+    <line x1="0" y1="323" x2="640" y2="323"/>
+    <line x1="80" y1="0" x2="80" y2="380"/>
+    <line x1="190" y1="0" x2="190" y2="380"/>
+    <line x1="300" y1="0" x2="300" y2="380"/>
+    <line x1="410" y1="0" x2="410" y2="380"/>
+    <line x1="520" y1="0" x2="520" y2="380"/>
   </g>
-  <g fill="#13131a" stroke="#00ff88" stroke-width="2">
-    <circle cx="178" cy="164" r="30"/>
-    <circle cx="304" cy="106" r="34"/>
-    <circle cx="452" cy="176" r="32"/>
-    <circle cx="472" cy="268" r="28"/>
-    <circle cx="304" cy="238" r="38"/>
+
+  <circle cx="210" cy="180" r="180" fill="url(#n4-glow)"/>
+
+  <g font-family="ui-monospace, monospace" font-size="9" letter-spacing="1.5" fill="#667089">
+    <text x="36" y="28">NET-04 // SEGMENTED TOPOLOGY &amp; PACKET ANALYSIS</text>
+    <text x="475" y="28">NMAP · WIRESHARK · VLAN</text>
+    <circle cx="24" cy="25" r="3" fill="#85bda1"/>
   </g>
-  <g fill="#00ff88">
-    <circle cx="178" cy="164" r="6"/>
-    <circle cx="304" cy="106" r="7"/>
-    <circle cx="452" cy="176" r="6"/>
-    <circle cx="472" cy="268" r="5"/>
-    <circle cx="304" cy="238" r="8"/>
+
+  <!-- LEFT: Network Topology Mesh -->
+  <g filter="url(#n4-shadow)" transform="translate(36, 46)">
+    <rect width="320" height="282" rx="10" fill="url(#n4-card)" stroke="rgba(201, 168, 106, 0.22)" stroke-width="1.2"/>
+    
+    <rect width="320" height="32" rx="10" fill="rgba(201, 168, 106, 0.08)"/>
+    <line x1="0" y1="32" x2="320" y2="32" stroke="rgba(201, 168, 106, 0.18)" stroke-width="1"/>
+    <text x="14" y="21" fill="#e2c893" font-family="ui-monospace, monospace" font-size="9.5" font-weight="600" letter-spacing="1.5">TOPOLOGY &amp; SEGMENTATION</text>
+
+    <!-- Mesh Connector Lines -->
+    <g stroke="rgba(201, 168, 106, 0.35)" stroke-width="1.4" fill="none">
+      <path d="M160 76 L 68 140 L 160 200 L 252 140 Z"/>
+      <line x1="160" y1="76" x2="160" y2="200"/>
+      <line x1="68" y1="140" x2="252" y2="140"/>
+      <path d="M160 200 L 160 252" stroke-dasharray="3 3"/>
+    </g>
+
+    <!-- Mesh Nodes -->
+    <!-- Gateway Node (Top) -->
+    <g transform="translate(160, 76)">
+      <circle r="18" fill="rgba(10, 14, 22, 0.9)" stroke="#c9a86a" stroke-width="1.8"/>
+      <circle r="5" fill="#e2c893"/>
+      <text y="-24" fill="#e2c893" font-family="ui-monospace, monospace" font-size="8" font-weight="700" text-anchor="middle">GATEWAY FIREWALL</text>
+      <text y="-14" fill="#667089" font-family="ui-monospace, monospace" font-size="7" text-anchor="middle">10.0.0.1</text>
+    </g>
+
+    <!-- DMZ Web Node (Left) -->
+    <g transform="translate(68, 140)">
+      <circle r="16" fill="rgba(10, 14, 22, 0.9)" stroke="#85bda1" stroke-width="1.5"/>
+      <circle r="4" fill="#85bda1"/>
+      <text x="-24" y="26" fill="#85bda1" font-family="ui-monospace, monospace" font-size="7.5" font-weight="600">VLAN 10: DMZ</text>
+    </g>
+
+    <!-- SOC SIEM Collector (Right) -->
+    <g transform="translate(252, 140)">
+      <circle r="16" fill="rgba(10, 14, 22, 0.9)" stroke="#c9a86a" stroke-width="1.5"/>
+      <circle r="4" fill="#c9a86a"/>
+      <text x="-20" y="26" fill="#e2c893" font-family="ui-monospace, monospace" font-size="7.5" font-weight="600">WAZUH SIEM</text>
+    </g>
+
+    <!-- Core Database Subnet (Center) -->
+    <g transform="translate(160, 200)">
+      <circle r="16" fill="rgba(10, 14, 22, 0.9)" stroke="#85bda1" stroke-width="1.5"/>
+      <circle r="4" fill="#85bda1"/>
+      <text y="28" fill="#85bda1" font-family="ui-monospace, monospace" font-size="7.5" font-weight="600" text-anchor="middle">VLAN 20: SECURED</text>
+    </g>
+
+    <!-- Packet Stream Indicator -->
+    <g transform="translate(16, 246)">
+      <rect width="288" height="26" rx="5" fill="rgba(201, 168, 106, 0.08)" stroke="rgba(201, 168, 106, 0.2)"/>
+      <circle cx="12" cy="13" r="3" fill="#85bda1"/>
+      <text x="24" y="16" fill="#e2c893" font-family="ui-monospace, monospace" font-size="8" font-weight="600">ISOLATION: FULL · UNTRUSTED INGRESS DROPPED</text>
+    </g>
   </g>
-  <path d="M114 86h126M114 108h82M114 130h150" stroke="#ccd6f6" stroke-opacity=".24" stroke-linecap="round"/>
-  <text x="78" y="336" fill="#8892b0" font-family="monospace" font-size="18">NET-04 / ports / traffic / topology</text>
+
+  <!-- RIGHT: Port Matrix & Wireshark Stream -->
+  <g filter="url(#n4-shadow)" transform="translate(370, 46)">
+    <rect width="234" height="282" rx="10" fill="url(#n4-card)" stroke="rgba(201, 168, 106, 0.22)" stroke-width="1.2"/>
+    
+    <rect width="234" height="32" rx="10" fill="rgba(201, 168, 106, 0.08)"/>
+    <line x1="0" y1="32" x2="234" y2="32" stroke="rgba(201, 168, 106, 0.18)" stroke-width="1"/>
+    <text x="14" y="21" fill="#e2c893" font-family="ui-monospace, monospace" font-size="9.5" font-weight="600" letter-spacing="1.5">PORT SECURITY MATRIX</text>
+
+    <!-- Ports Grid -->
+    <g transform="translate(14, 46)" font-family="ui-monospace, monospace" font-size="8">
+      <!-- Port 22 -->
+      <g>
+        <rect width="206" height="26" rx="4" fill="rgba(10, 14, 22, 0.8)" stroke="rgba(214, 222, 235, 0.08)"/>
+        <text x="10" y="17" fill="#e9eaf0" font-weight="600">PORT 22 / SSH</text>
+        <rect x="138" y="5" width="58" height="16" rx="3" fill="rgba(201, 168, 106, 0.15)"/>
+        <text x="167" y="16" fill="#c9a86a" font-size="7.5" text-anchor="middle">FILTERED</text>
+      </g>
+
+      <!-- Port 443 -->
+      <g transform="translate(0, 32)">
+        <rect width="206" height="26" rx="4" fill="rgba(10, 14, 22, 0.8)" stroke="rgba(214, 222, 235, 0.08)"/>
+        <text x="10" y="17" fill="#e9eaf0" font-weight="600">PORT 443 / HTTPS</text>
+        <rect x="138" y="5" width="58" height="16" rx="3" fill="rgba(133, 189, 161, 0.15)"/>
+        <text x="167" y="16" fill="#85bda1" font-size="7.5" text-anchor="middle">TLS 1.3</text>
+      </g>
+
+      <!-- Port 1514 -->
+      <g transform="translate(0, 64)">
+        <rect width="206" height="26" rx="4" fill="rgba(10, 14, 22, 0.8)" stroke="rgba(214, 222, 235, 0.08)"/>
+        <text x="10" y="17" fill="#e9eaf0" font-weight="600">PORT 1514 / WAZUH</text>
+        <rect x="138" y="5" width="58" height="16" rx="3" fill="rgba(133, 189, 161, 0.15)"/>
+        <text x="167" y="16" fill="#85bda1" font-size="7.5" text-anchor="middle">ACTIVE</text>
+      </g>
+
+      <!-- Port 3389 -->
+      <g transform="translate(0, 96)">
+        <rect width="206" height="26" rx="4" fill="rgba(10, 14, 22, 0.8)" stroke="rgba(214, 222, 235, 0.08)"/>
+        <text x="10" y="17" fill="#e9eaf0" font-weight="600">PORT 3389 / RDP</text>
+        <rect x="138" y="5" width="58" height="16" rx="3" fill="rgba(207, 141, 151, 0.15)"/>
+        <text x="167" y="16" fill="#cf8d97" font-size="7.5" text-anchor="middle">BLOCKED</text>
+      </g>
+    </g>
+
+    <!-- Wireshark Stream Preview -->
+    <g transform="translate(14, 182)">
+      <rect width="206" height="88" rx="6" fill="rgba(10, 14, 22, 0.85)" stroke="rgba(201, 168, 106, 0.18)"/>
+      <text x="8" y="16" fill="#667089" font-family="ui-monospace, monospace" font-size="7.5">WIRESHARK TCP STREAM</text>
+      <text x="8" y="32" fill="#85bda1" font-family="ui-monospace, monospace" font-size="8">[SYN] 192.168.1.5 -&gt; 10.0.0.1</text>
+      <text x="8" y="46" fill="#85bda1" font-family="ui-monospace, monospace" font-size="8">[SYN-ACK] 10.0.0.1 -&gt; OK</text>
+      <text x="8" y="60" fill="#c9a86a" font-family="ui-monospace, monospace" font-size="8">[ENCRYPTED] TLSv1.3 Application</text>
+      <text x="8" y="74" fill="#667089" font-family="ui-monospace, monospace" font-size="7.5">0 Cleartext Credentials Leaked</text>
+    </g>
+  </g>
+
+  <path d="M12 12 h14 v-2 h-14 v14 h2 z M628 12 h-14 v-2 h14 v14 h-2 z M12 368 h14 v2 h-14 v-14 h2 z M628 368 h-14 v2 h14 v-14 h-2 z" fill="rgba(201, 168, 106, 0.4)"/>
 </svg>

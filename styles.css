@@ -724,41 +724,12 @@ h2 {
   position: relative;
 }
 
-.capability-visual::before {
-  background-image:
-    linear-gradient(rgba(214, 222, 235, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(214, 222, 235, 0.025) 1px, transparent 1px);
-  background-size: 28px 28px;
-  content: "";
-  inset: 0;
-  opacity: 0.5;
-  pointer-events: none;
-  position: absolute;
-  z-index: 1;
-}
-
-.capability-visual::after {
-  background: linear-gradient(to bottom, rgba(10, 14, 22, 0.05), transparent 46%, rgba(10, 14, 22, 0.66));
-  content: "";
-  inset: 0;
-  pointer-events: none;
-  position: absolute;
-  z-index: 2;
-}
-
 .capability-visual img {
   aspect-ratio: 16 / 9;
   border-bottom: 1px solid var(--border);
   display: block;
-  filter: contrast(1.02) saturate(0.96);
   object-fit: cover;
-  transform: scale(1.025);
   width: 100%;
-}
-
-.capability-card.is-active .capability-visual img {
-  animation: capabilityVisualDrift 9s ease-in-out infinite alternate;
-  animation-delay: calc(var(--card-index, 0) * -0.9s);
 }
 
 .capability-motion {
@@ -770,8 +741,7 @@ h2 {
 }
 
 .motion-scan {
-  background:
-    linear-gradient(90deg, transparent 2%, rgba(201, 168, 106, 0.55) 50%, transparent 98%);
+  background: linear-gradient(90deg, transparent 2%, rgba(201, 168, 106, 0.45) 50%, transparent 98%);
   height: 1px;
   left: 5%;
   opacity: 0;
@@ -785,79 +755,9 @@ h2 {
   animation-delay: calc(var(--card-index, 0) * -0.48s);
 }
 
-.motion-orbit {
-  border: 1px solid rgba(201, 168, 106, 0.18);
-  border-left-color: rgba(201, 168, 106, 0.55);
-  border-radius: 50%;
-  height: 86px;
-  left: calc(68% - 43px);
-  opacity: 0.55;
-  position: absolute;
-  top: calc(48% - 43px);
-  width: 86px;
-}
-
-.motion-orbit::before {
-  background: var(--accent);
-  border-radius: 50%;
-  content: "";
-  height: 4px;
-  left: 8px;
-  position: absolute;
-  top: 8px;
-  width: 4px;
-}
-
-.motion-orbit::after {
-  background: linear-gradient(90deg, rgba(201, 168, 106, 0.45), transparent);
-  content: "";
-  height: 1px;
-  left: 50%;
-  position: absolute;
-  top: 50%;
-  transform-origin: left center;
-  width: 42%;
-}
-
-.capability-card.is-active .motion-orbit {
-  animation: telemetryOrbit 6.5s linear infinite;
-  animation-delay: calc(var(--card-index, 0) * -0.65s);
-}
-
-.capability-card[data-node="SYS-02"] .motion-orbit {
-  left: calc(28% - 43px);
-  top: calc(46% - 43px);
-}
-
-.capability-card[data-node="AUD-03"] .motion-orbit {
-  height: 104px;
-  left: calc(50% - 52px);
-  top: calc(50% - 52px);
-  width: 104px;
-}
-
-.capability-card[data-node="NET-04"] .motion-orbit {
-  height: 116px;
-  left: calc(58% - 58px);
-  top: calc(48% - 58px);
-  width: 116px;
-}
-
-.capability-card[data-node="SQL-05"] .motion-orbit {
-  height: 110px;
-  left: calc(72% - 55px);
-  top: calc(48% - 55px);
-  width: 110px;
-}
-
+.motion-orbit,
 .motion-packet {
-  background: var(--accent);
-  border-radius: 50%;
-  box-shadow: -12px 0 18px rgba(201, 168, 106, 0.2);
-  height: 4px;
-  opacity: 0;
-  position: absolute;
-  width: 4px;
+  display: none;
 }
 
 .capability-card.is-active .packet-one {

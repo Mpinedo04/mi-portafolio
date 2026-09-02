@@ -1,20 +1,134 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" role="img" aria-labelledby="title desc">
-  <title id="title">SQL audit</title>
-  <desc id="desc">Stylized database audit panel with query and permission signals.</desc>
-  <rect width="640" height="380" fill="#0d0d12"/>
-  <path d="M0 70h640M0 140h640M0 210h640M0 280h640M85 0v380M170 0v380M255 0v380M340 0v380M425 0v380M510 0v380M595 0v380" stroke="#ccd6f6" stroke-opacity=".08"/>
-  <g fill="#13131a" stroke="#00ff88" stroke-width="2">
-    <ellipse cx="208" cy="104" rx="100" ry="34" stroke-opacity=".7"/>
-    <path d="M108 104v146c0 19 45 34 100 34s100-15 100-34V104" stroke-opacity=".7"/>
-    <ellipse cx="208" cy="176" rx="100" ry="34" stroke-opacity=".42"/>
-    <ellipse cx="208" cy="250" rx="100" ry="34" stroke-opacity=".42"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" width="100%" height="100%">
+  <defs>
+    <linearGradient id="s5-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e16"/>
+      <stop offset="50%" stop-color="#10151f"/>
+      <stop offset="100%" stop-color="#0d121c"/>
+    </linearGradient>
+    <linearGradient id="s5-card" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(20, 27, 41, 0.85)"/>
+      <stop offset="100%" stop-color="rgba(12, 17, 26, 0.95)"/>
+    </linearGradient>
+    <radialGradient id="s5-glow" cx="40%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#c9a86a" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#c9a86a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="s5-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="640" height="380" fill="url(#s5-bg)"/>
+
+  <g stroke="rgba(214, 222, 235, 0.045)" stroke-width="1">
+    <line x1="0" y1="38" x2="640" y2="38"/>
+    <line x1="0" y1="95" x2="640" y2="95"/>
+    <line x1="0" y1="152" x2="640" y2="152"/>
+    <line x1="0" y1="209" x2="640" y2="209"/>
+    <line x1="0" y1="266" x2="640" y2="266"/>
+    <line x1="0" y1="323" x2="640" y2="323"/>
+    <line x1="80" y1="0" x2="80" y2="380"/>
+    <line x1="190" y1="0" x2="190" y2="380"/>
+    <line x1="300" y1="0" x2="300" y2="380"/>
+    <line x1="410" y1="0" x2="410" y2="380"/>
+    <line x1="520" y1="0" x2="520" y2="380"/>
   </g>
-  <rect x="366" y="82" width="172" height="210" rx="12" fill="#13131a" stroke="#00ff88" stroke-opacity=".58" stroke-width="2"/>
-  <text x="392" y="130" fill="#00ff88" font-family="monospace" font-size="20">SELECT *</text>
-  <text x="392" y="168" fill="#ccd6f6" font-family="monospace" font-size="18">FROM users</text>
-  <text x="392" y="206" fill="#8892b0" font-family="monospace" font-size="18">WHERE role</text>
-  <path d="M386 244h112M386 266h82" stroke="#00ff88" stroke-opacity=".35" stroke-linecap="round" stroke-width="2"/>
-  <path d="M308 190h58" stroke="#00ff88" stroke-opacity=".4" stroke-width="2"/>
-  <circle cx="338" cy="190" r="5" fill="#00ff88"/>
-  <text x="78" y="336" fill="#8892b0" font-family="monospace" font-size="18">SQL-05 / permissions / exposure / risk</text>
+
+  <circle cx="160" cy="180" r="160" fill="url(#s5-glow)"/>
+
+  <g font-family="ui-monospace, monospace" font-size="9" letter-spacing="1.5" fill="#667089">
+    <text x="36" y="28">SQL-05 // DATABASE HARDENING &amp; INJECTION FIREWALL</text>
+    <text x="475" y="28">RBAC · TDE · AST PARSER</text>
+    <circle cx="24" cy="25" r="3" fill="#85bda1"/>
+  </g>
+
+  <!-- LEFT: 3D Database Cluster Cylinder -->
+  <g filter="url(#s5-shadow)" transform="translate(36, 46)">
+    <rect width="250" height="282" rx="10" fill="url(#s5-card)" stroke="rgba(201, 168, 106, 0.22)" stroke-width="1.2"/>
+    
+    <rect width="250" height="32" rx="10" fill="rgba(201, 168, 106, 0.08)"/>
+    <line x1="0" y1="32" x2="250" y2="32" stroke="rgba(201, 168, 106, 0.18)" stroke-width="1"/>
+    <text x="14" y="21" fill="#e2c893" font-family="ui-monospace, monospace" font-size="9.5" font-weight="600" letter-spacing="1.5">SECURE DB CLUSTER</text>
+
+    <!-- 3D Database Vault Layers -->
+    <g transform="translate(125, 68)">
+      <!-- Disc 1 Top -->
+      <g>
+        <ellipse cx="0" cy="0" rx="76" ry="24" fill="rgba(10, 14, 22, 0.9)" stroke="#c9a86a" stroke-width="1.6"/>
+        <ellipse cx="0" cy="0" rx="52" ry="16" fill="none" stroke="rgba(201, 168, 106, 0.35)" stroke-width="1"/>
+        <circle cx="0" cy="0" r="4" fill="#e2c893"/>
+      </g>
+
+      <!-- Disc 1 Body -->
+      <path d="M -76 0 v 34 c 0 14 34 24 76 24 s 76 -10 76 -24 v -34" fill="rgba(20, 27, 41, 0.85)" stroke="#c9a86a" stroke-width="1.6"/>
+      <ellipse cx="0" cy="34" rx="76" ry="24" fill="none" stroke="rgba(201, 168, 106, 0.4)" stroke-width="1"/>
+
+      <!-- Disc 2 Body -->
+      <path d="M -76 34 v 34 c 0 14 34 24 76 24 s 76 -10 76 -24 v -34" fill="rgba(14, 20, 32, 0.85)" stroke="#c9a86a" stroke-width="1.6"/>
+      <ellipse cx="0" cy="68" rx="76" ry="24" fill="none" stroke="rgba(201, 168, 106, 0.4)" stroke-width="1"/>
+
+      <!-- Disc 3 Body -->
+      <path d="M -76 68 v 34 c 0 14 34 24 76 24 s 76 -10 76 -24 v -34" fill="rgba(10, 14, 22, 0.85)" stroke="#c9a86a" stroke-width="1.6"/>
+      <ellipse cx="0" cy="102" rx="76" ry="24" fill="none" stroke="#85bda1" stroke-width="1.6"/>
+
+      <!-- Data Encryption Lock Icon in center -->
+      <g transform="translate(0, 52)">
+        <circle r="14" fill="rgba(10, 14, 22, 0.95)" stroke="#e2c893" stroke-width="1.3"/>
+        <path d="M -4 2 h 8 v 5 h -8 z M -3 2 v -3 c 0 -2 1 -3 3 -3 s 3 1 3 3 v 3" fill="none" stroke="#e2c893" stroke-width="1.2"/>
+      </g>
+    </g>
+
+    <!-- Encryption Indicators -->
+    <g transform="translate(14, 226)">
+      <rect width="222" height="42" rx="5" fill="rgba(10, 14, 22, 0.8)" stroke="rgba(201, 168, 106, 0.15)"/>
+      <text x="12" y="16" fill="#e2c893" font-family="ui-monospace, monospace" font-size="8.5" font-weight="600">TDE: AES-256 ENCRYPTION AT REST</text>
+      <text x="12" y="30" fill="#85bda1" font-family="ui-monospace, monospace" font-size="8">Row-Level Security (RLS) Active · 0 Public IP</text>
+    </g>
+  </g>
+
+  <!-- RIGHT: SQL Firewall & Injection Barrier -->
+  <g filter="url(#s5-shadow)" transform="translate(302, 46)">
+    <rect width="302" height="282" rx="10" fill="url(#s5-card)" stroke="rgba(201, 168, 106, 0.22)" stroke-width="1.2"/>
+    
+    <rect width="302" height="32" rx="10" fill="rgba(201, 168, 106, 0.08)"/>
+    <line x1="0" y1="32" x2="302" y2="32" stroke="rgba(201, 168, 106, 0.18)" stroke-width="1"/>
+    <text x="16" y="21" fill="#e2c893" font-family="ui-monospace, monospace" font-size="9.5" font-weight="600" letter-spacing="1.5">SQL AST INJECTION FIREWALL</text>
+
+    <!-- Query 1: Clean Prepared Statement (Pass) -->
+    <g transform="translate(16, 46)">
+      <rect width="270" height="52" rx="6" fill="rgba(10, 14, 22, 0.85)" stroke="rgba(133, 189, 161, 0.3)"/>
+      <circle cx="14" cy="18" r="3.5" fill="#85bda1"/>
+      <text x="26" y="18" fill="#85bda1" font-family="ui-monospace, monospace" font-size="9" font-weight="600">PREPARED STATEMENT [CLEAN · ALLOWED]</text>
+      <text x="26" y="32" fill="#e9eaf0" font-family="ui-monospace, monospace" font-size="8">SELECT id, role, hash FROM users WHERE id = ?</text>
+      <text x="26" y="44" fill="#667089" font-family="ui-monospace, monospace" font-size="7.5">Param: [int: 402] · AST Validation: VALID</text>
+    </g>
+
+    <!-- Query 2: SQL Injection Attempt (Blocked) -->
+    <g transform="translate(16, 106)">
+      <rect width="270" height="52" rx="6" fill="rgba(10, 14, 22, 0.85)" stroke="rgba(207, 141, 151, 0.3)"/>
+      <circle cx="14" cy="18" r="3.5" fill="#cf8d97"/>
+      <text x="26" y="18" fill="#cf8d97" font-family="ui-monospace, monospace" font-size="9" font-weight="600">SQLi ATTACK DETECTED [BLOCKED]</text>
+      <text x="26" y="32" fill="#cf8d97" font-family="ui-monospace, monospace" font-size="8">SELECT * FROM users WHERE user='' OR '1'='1'</text>
+      <text x="26" y="44" fill="#667089" font-family="ui-monospace, monospace" font-size="7.5">Action: DROP CONNECTION &amp; LOG IP TO WAZUH</text>
+    </g>
+
+    <!-- RBAC & Privilege Control -->
+    <g transform="translate(16, 166)">
+      <rect width="270" height="48" rx="6" fill="rgba(10, 14, 22, 0.85)" stroke="rgba(214, 222, 235, 0.08)"/>
+      <circle cx="14" cy="18" r="3.5" fill="#c9a86a"/>
+      <text x="26" y="18" fill="#e2c893" font-family="ui-monospace, monospace" font-size="9" font-weight="600">LEAST PRIVILEGE RBAC</text>
+      <text x="26" y="32" fill="#939cb0" font-family="ui-monospace, monospace" font-size="7.5">App User: SELECT, INSERT, UPDATE only</text>
+      <text x="26" y="42" fill="#667089" font-family="ui-monospace, monospace" font-size="7.5">DROP TABLE / GRANT / ALTER: DENIED</text>
+    </g>
+
+    <!-- Performance & Latency Telemetry -->
+    <g transform="translate(16, 222)">
+      <rect width="270" height="48" rx="6" fill="rgba(201, 168, 106, 0.08)" stroke="rgba(201, 168, 106, 0.25)"/>
+      <text x="14" y="18" fill="#e2c893" font-family="ui-monospace, monospace" font-size="9" font-weight="600">AUDIT METRICS &amp; PERFORMANCE</text>
+      <text x="14" y="32" fill="#939cb0" font-family="ui-monospace, monospace" font-size="8">Query Latency: 0.42ms · SSL/TLS: Required</text>
+      <text x="14" y="44" fill="#85bda1" font-family="ui-monospace, monospace" font-size="8">Exposure: Internal VPC Only (0 Public Endpoints)</text>
+    </g>
+  </g>
+
+  <path d="M12 12 h14 v-2 h-14 v14 h2 z M628 12 h-14 v-2 h14 v14 h-2 z M12 368 h14 v2 h-14 v-14 h2 z M628 368 h-14 v2 h14 v-14 h-2 z" fill="rgba(201, 168, 106, 0.4)"/>
 </svg>
