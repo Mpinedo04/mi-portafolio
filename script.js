@@ -197,7 +197,7 @@ function drawGrid() {
       const glow = Math.max(0, 1 - dist / 185);
 
       if (glow > 0.03) {
-        ctx.fillStyle = `rgba(0, 255, 136, ${0.08 + glow * 0.42})`;
+        ctx.fillStyle = `rgba(201, 168, 106, ${0.08 + glow * 0.42})`;
         ctx.beginPath();
         ctx.arc(x, y, 1.2 + glow * 2.4, 0, Math.PI * 2);
         ctx.fill();
@@ -238,7 +238,7 @@ function drawNetwork() {
     const a = networkNodes[i];
     const mouseA = Math.max(0, 1 - Math.hypot(pointer.x - a.x, pointer.y - a.y) / 260);
 
-    ctx.fillStyle = `rgba(0, 255, 136, ${0.09 + mouseA * 0.38})`;
+    ctx.fillStyle = `rgba(201, 168, 106, ${0.09 + mouseA * 0.38})`;
     ctx.beginPath();
     ctx.arc(a.x, a.y, 1.5 + mouseA * 1.2, 0, Math.PI * 2);
     ctx.fill();
@@ -252,7 +252,7 @@ function drawNetwork() {
       const strength = Math.max(0, 1 - cursorDistance / 250);
 
       if (nodeDistance < 215 && strength > 0.03) {
-        ctx.strokeStyle = `rgba(0, 255, 136, ${strength * 0.18})`;
+        ctx.strokeStyle = `rgba(201, 168, 106, ${strength * 0.18})`;
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
@@ -272,16 +272,16 @@ function drawRadar() {
   const endY = pointer.y + Math.sin(radarAngle) * radius;
   const gradient = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, radius);
 
-  gradient.addColorStop(0, "rgba(0, 255, 136, 0.055)");
-  gradient.addColorStop(0.58, "rgba(0, 255, 136, 0.018)");
-  gradient.addColorStop(1, "rgba(0, 255, 136, 0)");
+  gradient.addColorStop(0, "rgba(201, 168, 106, 0.055)");
+  gradient.addColorStop(0.58, "rgba(201, 168, 106, 0.018)");
+  gradient.addColorStop(1, "rgba(201, 168, 106, 0)");
 
   ctx.fillStyle = gradient;
   ctx.beginPath();
   ctx.arc(pointer.x, pointer.y, radius, 0, Math.PI * 2);
   ctx.fill();
 
-  ctx.strokeStyle = "rgba(0, 255, 136, 0.22)";
+  ctx.strokeStyle = "rgba(201, 168, 106, 0.22)";
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.moveTo(pointer.x, pointer.y);
@@ -300,7 +300,7 @@ function drawMicroGlitch() {
     const length = 18 + Math.random() * 64;
     const alpha = Math.min(0.22, pointer.speed / 420);
 
-    ctx.fillStyle = `rgba(0, 255, 136, ${alpha})`;
+    ctx.fillStyle = `rgba(201, 168, 106, ${alpha})`;
     ctx.fillRect(x, y, length, 1);
   }
 }
