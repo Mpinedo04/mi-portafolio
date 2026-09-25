@@ -185,88 +185,235 @@ nav {
 .nav-left {
   align-items: center;
   display: flex;
-  gap: 1rem;
+  gap: 1.1rem;
 }
 
+/* --- Terminal Logo --- */
 .nav-logo {
-  color: var(--accent-strong);
+  align-items: center;
+  background: rgba(16, 21, 31, 0.65);
+  border: 1px solid rgba(201, 168, 106, 0.22);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  color: var(--white);
+  display: inline-flex;
   font-family: var(--mono);
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: 1px;
+  gap: 0.25rem;
+  letter-spacing: 0.6px;
+  padding: 0.35rem 0.75rem;
+  position: relative;
   text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+/* Pulsing terminal live indicator */
+.nav-status-dot {
+  background: #85bda1;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #85bda1;
+  display: inline-block;
+  height: 6px;
+  margin-right: 0.35rem;
+  position: relative;
+  width: 6px;
+}
+
+.nav-status-dot::after {
+  animation: navPulse 2.4s infinite ease-out;
+  border: 1px solid #85bda1;
+  border-radius: 50%;
+  content: "";
+  height: 100%;
+  left: -1px;
+  position: absolute;
+  top: -1px;
+  width: 100%;
+}
+
+@keyframes navPulse {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(2.8);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.8);
+  }
+}
+
+.nav-logo .logo-user {
+  color: var(--accent-strong);
+  font-weight: 600;
   transition: color 0.2s;
 }
 
-.nav-logo span {
+.nav-logo .logo-at {
   color: var(--faint);
+  opacity: 0.8;
+}
+
+.nav-logo .logo-host {
+  color: var(--white);
+  font-weight: 500;
   transition: color 0.2s;
+}
+
+.nav-logo .logo-prompt {
+  color: var(--accent);
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.nav-logo .nav-cursor {
+  animation: cursorBlink 1.05s infinite steps(2, start);
+  color: var(--accent-strong);
+  font-weight: 700;
+  margin-left: 1px;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .nav-logo:hover {
-  color: var(--white);
+  background: rgba(201, 168, 106, 0.08);
+  border-color: rgba(201, 168, 106, 0.55);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), 0 0 16px rgba(201, 168, 106, 0.16), inset 0 1px 0 rgba(201, 168, 106, 0.25);
+  transform: translateY(-1px);
 }
 
-.nav-logo:hover span {
-  color: var(--accent);
+.nav-logo:hover .logo-user {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(226, 200, 147, 0.6);
 }
 
+.nav-logo:hover .nav-status-dot {
+  background: #9de2bd;
+  box-shadow: 0 0 12px #9de2bd;
+}
+
+/* --- Glowing Laser Divider --- */
 .nav-divider {
-  background: var(--border-strong);
+  background: linear-gradient(180deg, transparent, rgba(201, 168, 106, 0.4), transparent);
   display: inline-block;
-  height: 14px;
+  height: 20px;
   width: 1px;
 }
 
+/* --- High-Impact Cyber CV Button --- */
 .nav-cv {
   align-items: center;
-  background: rgba(201, 168, 106, 0.06);
-  border: 1px solid rgba(201, 168, 106, 0.22);
+  background: linear-gradient(135deg, rgba(201, 168, 106, 0.14) 0%, rgba(16, 21, 31, 0.88) 100%);
+  border: 1px solid rgba(201, 168, 106, 0.42);
   border-radius: 999px;
-  color: var(--light);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4), 0 0 14px rgba(201, 168, 106, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  color: var(--white);
   display: inline-flex;
+  font-family: var(--sans);
   font-size: 11px;
-  font-weight: 500;
-  gap: 0.42rem;
+  font-weight: 600;
+  gap: 0.48rem;
   letter-spacing: 1.2px;
-  padding: 0.3rem 0.8rem;
+  overflow: hidden;
+  padding: 0.35rem 0.9rem;
+  position: relative;
   text-decoration: none;
   text-transform: uppercase;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.nav-cv svg {
-  color: var(--accent);
+/* Continuous light sweep shimmer across CV button */
+.nav-cv::before {
+  animation: cvShine 4.5s infinite ease-in-out;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(226, 200, 147, 0.32) 50%,
+    rgba(255, 255, 255, 0) 70%,
+    transparent 100%
+  );
+  content: "";
+  height: 100%;
+  left: -150%;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  transform: skewX(-25deg);
+  width: 100%;
+}
+
+@keyframes cvShine {
+  0%, 65% {
+    left: -150%;
+  }
+  85%, 100% {
+    left: 150%;
+  }
+}
+
+.nav-cv .cv-icon {
+  color: var(--accent-strong);
   flex-shrink: 0;
-  height: 12px;
-  stroke-width: 2;
+  height: 12.5px;
+  stroke-width: 2.2;
   transition: transform 0.25s ease, color 0.25s ease;
-  width: 12px;
+  width: 12.5px;
+  filter: drop-shadow(0 0 4px rgba(201, 168, 106, 0.4));
 }
 
+.nav-cv .cv-text {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Golden PDF Seal Badge */
 .nav-cv .cv-badge {
-  background: rgba(201, 168, 106, 0.15);
-  border-radius: 3px;
-  color: var(--accent-strong);
+  background: linear-gradient(135deg, #c9a86a, #eddcb2);
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(201, 168, 106, 0.4);
+  color: #0b0f17;
   font-family: var(--mono);
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  padding: 1px 4px;
-  line-height: 1.2;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  line-height: 1;
+  padding: 2.5px 5.5px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Hover & Focus Effects */
 .nav-cv:hover {
-  background: rgba(201, 168, 106, 0.14);
-  border-color: rgba(201, 168, 106, 0.55);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3), 0 0 12px rgba(201, 168, 106, 0.12);
-  color: var(--white);
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, rgba(201, 168, 106, 0.24) 0%, rgba(20, 27, 40, 0.95) 100%);
+  border-color: rgba(226, 200, 147, 0.85);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5), 0 0 24px rgba(201, 168, 106, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  color: #fff;
+  transform: translateY(-2px);
 }
 
-.nav-cv:hover svg {
-  color: var(--accent-strong);
-  transform: translateY(1px);
+.nav-cv:hover .cv-icon {
+  color: #fff;
+  filter: drop-shadow(0 0 6px rgba(226, 200, 147, 0.8));
+  transform: translateY(1.5px);
+}
+
+.nav-cv:hover .cv-badge {
+  box-shadow: 0 0 14px rgba(226, 200, 147, 0.75);
+  transform: scale(1.05);
+}
+
+.nav-cv:active {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(201, 168, 106, 0.2);
+  transform: translateY(0) scale(0.98);
 }
 
 nav ul {
@@ -1343,6 +1490,17 @@ footer p {
     display: flex;
     justify-content: space-between;
     width: 100%;
+  }
+
+  .nav-logo {
+    font-size: 11.5px;
+    padding: 0.28rem 0.55rem;
+  }
+
+  .nav-cv {
+    font-size: 10px;
+    gap: 0.4rem;
+    padding: 0.28rem 0.75rem;
   }
 
   .nav-divider {
