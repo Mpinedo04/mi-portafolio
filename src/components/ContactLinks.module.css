@@ -1,0 +1,2 @@
+.links { display: flex; flex-wrap: wrap; gap: 12px; }
+.links svg { width: 17px; height: 17px; margin-right: 8px; fill: none; stroke: currentColor; stroke-width: 1.6; vertical-align: middle; }

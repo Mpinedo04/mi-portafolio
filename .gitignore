@@ -1,7 +1,13 @@
 repos-github/
 node_modules/
+.next/
+.env*
+!.env.example
 
 .DS_Store
 Thumbs.db
 
 *.log
+
+# Copias de seguridad locales
+*.zip

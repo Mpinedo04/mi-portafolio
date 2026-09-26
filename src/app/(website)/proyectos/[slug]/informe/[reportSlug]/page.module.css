@@ -1,0 +1,17 @@
+.main { padding-top: 6rem; }
+.article { max-width: 940px; margin: 0 auto; padding: 2rem 3rem 5rem; position: relative; z-index: 1; }
+.title { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.15; margin: .7rem 0 1rem; }
+.breadcrumbs { align-items: center; color: var(--faint); display: flex; flex-wrap: wrap; font: 10px var(--mono); gap: .7rem; margin: 0 0 3rem; text-transform: uppercase; }
+.breadcrumbs a { color: var(--accent); text-decoration: none; }
+.breadcrumbs a:hover { color: var(--accent-strong); }
+.back { border-top: 1px solid var(--border); margin-top: 3rem; padding-top: 2rem; }
+@media (max-width: 768px) { .article { padding: 1rem 1.4rem 3.5rem; } .main { padding-top: 5rem; } }
+.print { background: none; border: 1px solid var(--border-green); border-radius: 999px; color: var(--accent-strong); cursor: pointer; font: 10px var(--mono); letter-spacing: .08em; margin-left: auto; padding: .35rem .8rem; text-transform: uppercase; transition: background .2s, color .2s; }
+.print:hover { background: rgba(201, 168, 106, .12); color: var(--white); }
+
+@media print {
+  .main { padding-top: 0; }
+  .article { max-width: none; padding: 0; }
+  .breadcrumbs, .back { display: none; }
+  .title { color: #111; }
+}

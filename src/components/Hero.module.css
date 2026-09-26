@@ -1,0 +1,549 @@
+/* ---------- layout del hero ---------- */
+
+.hero {
+  position: relative;
+  z-index: 1;
+}
+
+.copy {
+  min-width: 0;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 2.6rem;
+  min-width: 0;
+  width: min(560px, 100%);
+}
+
+.stage > :global(.terminal) {
+  width: 100%;
+}
+
+@media (min-width: 1100px) {
+  :global(#hero).hero {
+    align-items: center;
+    column-gap: clamp(3rem, 6vw, 7rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(430px, 540px);
+  }
+
+  .stage {
+    margin-top: 0;
+    width: 100%;
+  }
+}
+
+.interactiveText {
+  cursor: crosshair;
+}
+
+.interactiveText:hover :global(.sr-only) + span {
+  filter: drop-shadow(0 0 22px rgba(201, 168, 106, 0.08));
+}
+
+.tagline {
+  margin-bottom: 0 !important;
+  min-height: 1.7em;
+}
+
+.taglineCaret {
+  animation: caretBlink 0.9s steps(2, start) infinite;
+  background: var(--accent);
+  display: inline-block;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: -0.15em;
+  width: 0.5em;
+}
+
+.hint {
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding-left: 0.2rem;
+}
+
+.hint em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.hint button {
+  background: none;
+  border: 0;
+  border-bottom: 1px dotted var(--accent);
+  color: var(--accent-strong);
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+
+/* ---------- ventana ---------- */
+
+.terminalWindow {
+  display: flex;
+  flex-direction: column;
+  transition: border-color 220ms ease, box-shadow 260ms ease, background-color 260ms ease;
+}
+
+.floating {
+  backdrop-filter: blur(1.5px) saturate(1.3);
+  background: rgba(13, 18, 28, 0.68) !important;
+  border-color: rgba(201, 168, 106, 0.32) !important;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(201, 168, 106, 0.06), 0 0 40px rgba(201, 168, 106, 0.08) !important;
+  left: 0;
+  margin: 0 !important;
+  max-width: calc(100vw - 16px);
+  position: fixed !important;
+  top: 0;
+  transform-origin: 50% 20px;
+  will-change: transform;
+  z-index: 1101;
+}
+
+.dragging {
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.62), 0 0 0 1px rgba(226, 200, 147, 0.2), 0 0 60px rgba(201, 168, 106, 0.18) !important;
+}
+
+.terminalBar {
+  cursor: grab;
+  min-height: 40px;
+  touch-action: none;
+  user-select: none;
+}
+
+.dragging .terminalBar {
+  cursor: grabbing;
+}
+
+.terminalTitle {
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.grip {
+  display: grid;
+  gap: 2px;
+  grid-template-columns: repeat(3, 3px);
+  margin-left: 0.4rem;
+  opacity: 0.45;
+}
+
+.grip i {
+  background: var(--faint);
+  border-radius: 50%;
+  height: 3px;
+  width: 3px;
+}
+
+.grip i:nth-child(n) {
+  box-shadow: 0 5px 0 var(--faint);
+}
+
+.terminalBar:hover .grip {
+  opacity: 0.9;
+}
+
+.windowControls {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.12rem;
+  margin-left: -0.25rem;
+}
+
+.windowControl {
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  height: 23px;
+  padding: 0;
+  place-items: center;
+  transition: background 160ms ease, transform 160ms ease;
+  width: 23px;
+}
+
+.windowControl:hover {
+  background: rgba(255, 255, 255, 0.09);
+  transform: scale(1.08);
+}
+
+.windowControl:active {
+  transform: scale(0.93);
+}
+
+.windowControl:focus-visible,
+.openTerminal:focus-visible,
+.quick:focus-visible,
+.runLink:focus-visible,
+.skip:focus-visible,
+.maximizedBackdrop:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+}
+
+.controlDot {
+  align-items: center;
+  border-radius: 50%;
+  display: flex;
+  height: 10px;
+  justify-content: center;
+  width: 10px;
+}
+
+.closeDot { background: #ff625b; }
+.minimizeDot { background: #f3bd4f; }
+.maximizeDot { background: #48c774; }
+
+.controlDot > span {
+  color: rgba(16, 20, 27, 0.9);
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 140ms ease;
+}
+
+.windowControls:hover .controlDot > span,
+.windowControl:focus-visible .controlDot > span {
+  opacity: 1;
+}
+
+/* ---------- cuerpo ---------- */
+
+.terminalBody {
+  cursor: text;
+  height: 318px;
+  min-height: 0 !important;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  position: relative;
+  scrollbar-color: rgba(201, 168, 106, 0.3) transparent;
+  scrollbar-width: thin;
+}
+
+.line {
+  min-height: 1.8em;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.prompt {
+  white-space: pre;
+}
+
+.promptUser { color: var(--accent-strong); }
+.promptPath { color: var(--faint); }
+.cmdText { color: var(--light); }
+
+.out { color: var(--slate); }
+.ok { color: var(--accent-strong); }
+.warn { color: var(--sage); }
+.err { color: #ff8f7e; }
+.info { color: var(--light); }
+.dim { color: var(--faint); }
+.hl { color: var(--white); background: rgba(201, 168, 106, 0.18); border-radius: 2px; padding: 0 3px; }
+
+.blockCursor {
+  animation: caretBlink 1s steps(2, start) infinite;
+  background: var(--accent);
+  display: inline-block;
+  height: 14px;
+  margin-left: 2px;
+  vertical-align: middle;
+  width: 8px;
+}
+
+.runLink {
+  background: none;
+  border: 0;
+  border-bottom: 1px dotted rgba(226, 200, 147, 0.45);
+  color: var(--accent-strong);
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  text-decoration: none;
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+  white-space: pre;
+}
+
+.runLink:hover {
+  background: rgba(201, 168, 106, 0.1);
+  border-bottom-color: var(--accent-strong);
+  color: #fff;
+}
+
+.inputRow {
+  align-items: baseline;
+  display: flex;
+}
+
+.input {
+  background: transparent;
+  border: 0;
+  caret-color: var(--accent);
+  color: var(--light);
+  flex: 1;
+  font: inherit;
+  min-width: 0;
+  outline: none;
+  padding: 0;
+}
+
+.input::placeholder {
+  color: rgba(147, 156, 176, 0.38);
+}
+
+.inputBusy {
+  opacity: 0.45;
+}
+
+.skip {
+  background: rgba(13, 18, 28, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  bottom: 0.7rem;
+  color: var(--faint);
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.65rem;
+  position: sticky;
+  float: right;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.skip:hover {
+  border-color: var(--border-green);
+  color: var(--accent-strong);
+}
+
+.quickBar {
+  align-items: center;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.6rem 1.1rem 0.7rem;
+}
+
+.quickLabel {
+  color: var(--faint);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  margin-right: 0.2rem;
+  text-transform: uppercase;
+}
+
+.quick {
+  background: rgba(201, 168, 106, 0.06);
+  border: 1px solid rgba(201, 168, 106, 0.2);
+  border-radius: 6px;
+  color: var(--light);
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 0.2rem 0.55rem;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms ease;
+}
+
+.quick:hover:not(:disabled) {
+  background: rgba(201, 168, 106, 0.14);
+  border-color: rgba(226, 200, 147, 0.55);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.quick:disabled {
+  cursor: progress;
+  opacity: 0.45;
+}
+
+/* ---------- maximizada ---------- */
+
+.maximizedBackdrop {
+  backdrop-filter: blur(10px);
+  background: rgba(3, 6, 12, 0.74);
+  border: 0;
+  cursor: default;
+  inset: 0;
+  padding: 0;
+  position: fixed;
+  z-index: 1100;
+}
+
+.maximized {
+  border-color: rgba(201, 168, 106, 0.46) !important;
+  border-radius: 15px;
+  bottom: 16px;
+  box-shadow: 0 30px 110px rgba(0, 0, 0, 0.58), 0 0 45px rgba(201, 168, 106, 0.1);
+  left: 16px;
+  margin: 0 !important;
+  max-width: none;
+  position: fixed !important;
+  right: 16px;
+  top: 16px;
+  transform: none !important;
+  width: auto !important;
+  z-index: 1101;
+}
+
+.maximized .terminalBody {
+  flex: 1;
+  height: auto;
+}
+
+/* ---------- hueco de acoplado y lanzador ---------- */
+
+.dock {
+  align-items: center;
+  border: 1px dashed transparent;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  transition: border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+  width: 100%;
+}
+
+.dockActive {
+  border-color: rgba(201, 168, 106, 0.16);
+}
+
+.dock[data-near] {
+  background: rgba(201, 168, 106, 0.05);
+  border-color: rgba(226, 200, 147, 0.6);
+  box-shadow: inset 0 0 40px rgba(201, 168, 106, 0.08);
+}
+
+.dockLabel {
+  color: rgba(102, 112, 137, 0.75);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  transition: color 200ms ease;
+}
+
+.dock[data-near] .dockLabel {
+  color: var(--accent-strong);
+}
+
+.openTerminal {
+  align-items: center;
+  align-self: flex-start;
+  animation: launcherPulse 3.4s ease-in-out infinite;
+  background: rgba(13, 18, 28, 0.92);
+  border: 1px solid rgba(201, 168, 106, 0.5);
+  border-radius: 999px;
+  color: var(--light);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--mono);
+  font-size: 12px;
+  gap: 0.75rem;
+  letter-spacing: 0.04em;
+  padding: 0.7rem 1rem;
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.openTerminal:hover {
+  animation: none;
+  background: rgba(25, 32, 46, 0.98);
+  border-color: var(--accent-strong);
+  box-shadow: 0 0 28px rgba(201, 168, 106, 0.2);
+  transform: translateY(-2px);
+}
+
+.openTerminalIcon {
+  color: var(--accent-strong);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* ---------- elementos empujados y escáner (fuera del hero) ---------- */
+
+:global([data-field-block]),
+:global(header nav ul a),
+:global(header .nav-cv),
+:global(header .nav-logo) {
+  transition-property: color, background, border-color, box-shadow, transform, filter;
+}
+
+:global(header nav ul a) {
+  display: inline-block;
+}
+
+:global([data-scan]) {
+  box-shadow: 0 0 0 1px rgba(133, 189, 161, 0.7), 0 0 24px rgba(133, 189, 161, 0.35) !important;
+}
+
+:global(.hero-scanline) {
+  background: linear-gradient(180deg, transparent, rgba(226, 200, 147, 0.95) 12%, #fff6dc 50%, rgba(133, 189, 161, 0.95) 88%, transparent);
+  box-shadow: 0 0 14px rgba(226, 200, 147, 0.9), 0 0 42px rgba(201, 168, 106, 0.5);
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  width: 2px;
+  z-index: 1102;
+}
+
+:global(.hero-scanline)::before {
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 106, 0.12));
+  content: '';
+  inset: 0 0 0 -140px;
+  position: absolute;
+}
+
+@keyframes caretBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes launcherPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 168, 106, 0); }
+  50% { box-shadow: 0 0 0 5px rgba(201, 168, 106, 0.07); }
+}
+
+@media (max-width: 720px) {
+  .terminalBody {
+    font-size: 12px !important;
+    height: 280px;
+    padding: 1rem 1.1rem !important;
+  }
+
+  .input {
+    font-size: 16px;
+  }
+
+  .maximized {
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    top: 8px;
+  }
+
+  .grip {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .openTerminal,
+  .taglineCaret,
+  .blockCursor {
+    animation: none;
+  }
+
+  .terminalWindow,
+  .windowControl,
+  .quick {
+    transition-duration: 0.01ms;
+  }
+}

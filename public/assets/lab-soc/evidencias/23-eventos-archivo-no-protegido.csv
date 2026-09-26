@@ -1,0 +1,7 @@
+timestamp,agent.name,rule.description,rule.level,rule.id,rule.mitre.id,syscheck.path,syscheck.event,syscheck.diff
+"Aug 6, 2026 @ 18:30:53.720",SOC-LINUX-CLIENT,Integrity checksum changed.,7,550,"[""T1565.001""]",/opt/soc-lab/archivo-no-protegido.txt,modified,"1c1
+< estado=inicial
+---
+> estado=modificado
+"
+"Aug 6, 2026 @ 18:30:48.678",SOC-LINUX-CLIENT,File added to the system.,5,554,,/opt/soc-lab/archivo-no-protegido.txt,added,

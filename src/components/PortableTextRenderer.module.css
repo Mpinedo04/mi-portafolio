@@ -1,0 +1,19 @@
+.content { color: var(--light); line-height: 1.8; overflow-wrap: anywhere; }
+.content :global(h1), .content :global(h2), .content :global(h3) { color: var(--white); margin: 2.2em 0 .7em; }
+.content :global(p), .content :global(ul), .content :global(ol) { margin: 0 0 1.15em; }
+.content :global(a) { color: var(--accent-strong); }
+.content :global(code) { color: var(--sage); font-family: var(--mono); }
+.content :global(blockquote) { border-left: 2px solid var(--green); padding-left: 1.2rem; margin: 1.5rem 0; }
+.codeFigure { margin: 1.8rem 0; border: 1px solid var(--border-strong); border-radius: 10px; overflow: hidden; background: var(--bg2); }
+.codeFigure figcaption { padding: .6rem 1rem; border-bottom: 1px solid var(--border); color: var(--slate); font: .78rem var(--mono); }
+.codeFigure pre { margin: 0; padding: 1.1rem; overflow-x: auto; color: var(--sage); font: .86rem/1.65 var(--mono); }
+.figure { margin: 2rem 0; }
+.figure img { width: 100%; height: auto; border: 1px solid var(--border-strong); border-radius: 10px; }
+.figure figcaption { color: var(--slate); font: .82rem var(--mono); margin-top: .7rem; }
+.tableWrap { overflow-x: auto; margin: 1.5rem 0; }
+.tableWrap table { width: 100%; border-collapse: collapse; }
+.tableWrap th, .tableWrap td { border: 1px solid var(--border-strong); padding: .65rem .8rem; text-align: left; }
+.download a { display: inline-flex; padding: .65rem .9rem; border: 1px solid var(--border-green); border-radius: 6px; text-decoration: none; }
+.content :global(h2) { font-size: clamp(1.45rem, 2.4vw, 1.9rem); margin-bottom: .2em; }
+.content :global(h2) + :global(p) > :global(em):only-child { color: var(--slate); display: block; font-family: var(--mono); font-size: .82rem; font-style: normal; letter-spacing: .06em; margin-bottom: 1.4rem; }
+.tableWrap tr:first-child th { color: var(--accent-strong); font-weight: 500; }

@@ -1,0 +1,12 @@
+.section { max-width: 920px; margin: 0 auto; }
+.intro { color: var(--slate); margin: -1.6rem 0 2rem; }
+.list { border-top: 1px solid var(--border-strong); margin-bottom: 2rem; }
+.report { align-items: center; border-bottom: 1px solid var(--border); display: grid; gap: 1.3rem; grid-template-columns: 3rem minmax(0,1fr) auto; padding: 1.3rem .3rem; text-decoration: none; transition: background .2s, padding .2s; }
+.report:hover { background: rgba(201,168,106,.035); padding-left: .8rem; padding-right: .8rem; }
+.number { color: var(--accent); font: 11px var(--mono); }
+.text { display: grid; gap: .3rem; }
+.text strong { color: var(--white); font-family: var(--serif); font-size: 1.12rem; font-weight: 450; }
+.text small { color: var(--faint); font-size: 12px; line-height: 1.6; }
+.arrow { color: var(--accent-strong); }
+.empty { color: var(--slate); margin: 2rem 0; }
+@media (max-width: 768px) { .section { padding-left: 1.4rem; padding-right: 1.4rem; } .report { grid-template-columns: 2rem minmax(0,1fr) auto; gap: .8rem; } }

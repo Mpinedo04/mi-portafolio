@@ -1,0 +1,236 @@
+.widget {
+  align-items: center;
+  bottom: 14px;
+  color: var(--accent-strong);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  position: fixed;
+  right: 5px;
+  top: 82px;
+  width: 18px;
+  z-index: 90;
+}
+
+.widget::before {
+  background: radial-gradient(ellipse, rgba(201, 168, 106, 0.15), rgba(133, 189, 161, 0.05) 48%, transparent 74%);
+  content: '';
+  filter: blur(9px);
+  inset: 8px -5px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.rail {
+  align-self: stretch;
+  border-radius: 999px;
+  cursor: pointer;
+  flex: 1;
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+  pointer-events: auto;
+  position: relative;
+  touch-action: none;
+  width: 16px;
+}
+
+.rail::before {
+  background: rgba(10, 14, 22, 0.34);
+  border: 1px solid rgba(201, 168, 106, 0.18);
+  border-radius: inherit;
+  bottom: 0;
+  content: '';
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  transition: background 180ms ease, border-color 180ms ease, width 180ms ease;
+  width: 8px;
+}
+
+.rail:hover::before {
+  background: rgba(16, 21, 31, 0.66);
+  border-color: rgba(201, 168, 106, 0.34);
+  width: 10px;
+}
+
+.railLine {
+  animation: railSignal 5.5s linear infinite;
+  background: linear-gradient(180deg, transparent, rgba(226, 200, 147, 0.8), rgba(133, 189, 161, 0.56), transparent);
+  background-size: 100% 220%;
+  border-radius: 999px;
+  inset: 6px auto;
+  left: 50%;
+  opacity: 0.38;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 1px;
+}
+
+.marker {
+  background: var(--accent-strong);
+  box-shadow: 0 0 6px rgba(226, 200, 147, 0.72);
+  height: 3px;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-50%) rotate(45deg);
+  width: 3px;
+  z-index: 1;
+}
+
+.markerTop { top: 3px; }
+
+.markerBottom {
+  background: var(--sage);
+  bottom: 3px;
+  box-shadow: 0 0 6px rgba(133, 189, 161, 0.76);
+}
+
+.thumb {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: grab;
+  display: flex;
+  justify-content: center;
+  left: 50%;
+  min-height: 42px;
+  padding: 0;
+  position: absolute;
+  touch-action: none;
+  transform: translateX(-50%);
+  width: 16px;
+  z-index: 2;
+}
+
+.thumb::before {
+  border: 1px solid rgba(226, 200, 147, 0.5);
+  border-radius: inherit;
+  content: '';
+  inset: -3px -3px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 180ms ease, inset 180ms ease;
+}
+
+.thumb:hover,
+.thumb:focus-visible {
+  outline-offset: 5px;
+}
+
+.thumbFace {
+  align-items: center;
+  background: linear-gradient(180deg, #e2c893, #c9a86a 55%, #85bda1);
+  border: 1px solid rgba(255, 242, 211, 0.66);
+  border-radius: 999px;
+  box-shadow: 0 0 7px rgba(226, 200, 147, 0.4), inset 0 0 4px rgba(255, 255, 255, 0.34);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  min-height: 42px;
+  pointer-events: none;
+  transition: box-shadow 180ms ease, filter 180ms ease, width 180ms ease;
+  width: 8px;
+}
+
+.thumb:hover .thumbFace,
+.thumb:focus-visible .thumbFace {
+  filter: brightness(1.12);
+  box-shadow: 0 0 12px rgba(226, 200, 147, 0.74), 0 0 23px rgba(133, 189, 161, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.52);
+  width: 12px;
+}
+
+.thumb:hover::before,
+.thumb:focus-visible::before {
+  animation: thumbHalo 1.8s ease-in-out infinite;
+  inset: -5px -4px;
+  opacity: 1;
+}
+
+.thumb:active { cursor: grabbing; }
+
+.thumb:focus-visible {
+  outline: 2px solid #fff4d6;
+  outline-offset: 5px;
+}
+
+.thumbCore {
+  background: linear-gradient(180deg, transparent, #fff8e8 22%, #fff8e8 78%, transparent);
+  border-radius: 999px;
+  box-shadow: 0 0 5px rgba(255, 248, 232, 0.78);
+  height: 48%;
+  min-height: 15px;
+  opacity: 0.82;
+  pointer-events: none;
+  width: 1px;
+}
+
+.thumbValue {
+  background: rgba(10, 14, 22, 0.94);
+  border: 1px solid rgba(201, 168, 106, 0.34);
+  border-radius: 5px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.24);
+  color: var(--accent-strong);
+  font: 9px/1 var(--mono);
+  left: auto;
+  opacity: 0;
+  padding: 5px 6px;
+  pointer-events: none;
+  position: absolute;
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translate(3px, -50%);
+  transition: opacity 140ms ease, transform 140ms ease;
+  white-space: nowrap;
+}
+
+.thumb:hover .thumbValue,
+.thumb:focus-visible .thumbValue {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+@keyframes railSignal {
+  0% { background-position: 0 0; opacity: 0.22; }
+  50% { background-position: 0 100%; opacity: 0.62; }
+  100% { background-position: 0 0; opacity: 0.22; }
+}
+
+@keyframes thumbHalo {
+  0%, 100% { opacity: 0.32; transform: scale(0.94); }
+  50% { opacity: 0.8; transform: scale(1.08); }
+}
+
+/* En móvil se desplaza con el dedo: el carril pasa a ser un indicador fino
+   pegado al borde que no tapa el contenido ni captura toques. */
+@media (max-width: 768px) {
+  .widget {
+    bottom: 10px;
+    right: 0;
+    top: 104px;
+    width: 6px;
+  }
+
+  .rail { pointer-events: none; width: 6px; }
+  .rail::before { width: 2px; }
+  .thumb { pointer-events: none; width: 6px; }
+  .thumbFace { width: 3px; }
+  .thumbValue,
+  .marker { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .railLine,
+  .thumb::before { animation: none; }
+
+  .rail::before,
+  .thumbFace,
+  .thumb::before,
+  .thumbValue { transition: none; }
+}

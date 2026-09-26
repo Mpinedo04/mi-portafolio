@@ -1,0 +1,6 @@
+timestamp,agent.name,rule.description,rule.level,rule.id,rule.mitre.id,syscheck.path,syscheck.event,syscheck.diff
+"Aug 6, 2026 @ 18:19:09.331",SOC-LINUX-CLIENT,SOC LAB: archivo de configuración protegido modificado: /opt/soc-lab/configuracion.txt,12,100100,"[""T1565.001""]",/opt/soc-lab/configuracion.txt,modified,"1c1
+< estado=inicial
+---
+> estado=regla-personalizada
+"

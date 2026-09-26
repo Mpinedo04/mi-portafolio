@@ -1,5 +1,21 @@
 # Miguel Pinedo · Portafolio de Ciberseguridad
 
+## Aplicación web
+
+El portafolio está migrado a Next.js con App Router y conserva el diseño, el CSS y los recursos del sitio original. El contenido funciona con datos locales de respaldo; Sanity añade edición y previsualización cuando se configura un proyecto.
+
+```powershell
+npm install
+Copy-Item .env.example .env.local
+npm run dev
+```
+
+Abre [http://localhost:3000](http://localhost:3000). El panel de edición está en `/admin` y muestra los pasos de configuración si todavía no hay un proyecto Sanity configurado.
+
+Para activar el CMS, crea un proyecto Sanity y completa `.env.local` con `NEXT_PUBLIC_SANITY_PROJECT_ID`, `SANITY_API_READ_TOKEN`, `SANITY_API_WRITE_TOKEN` y `SANITY_REVALIDATE_SECRET`. El token de lectura debe tener solo el rol `Viewer`; se usa para la vista previa de borradores. Después, ejecuta `npm run seed:sanity` para importar el contenido inicial. No compartas ni subas `.env.local`.
+
+Las rutas antiguas `.html` redirigen a las páginas nuevas. La versión estática anterior se puede consultar en el historial de git.
+
 ![Estado](https://img.shields.io/badge/estado-proyecto%20completado-36d399?style=flat-square)
 ![Wazuh](https://img.shields.io/badge/Wazuh-4.14.6-00a9e0?style=flat-square)
 ![Blue Team](https://img.shields.io/badge/Blue%20Team-SOC-6d9eff?style=flat-square)
@@ -11,17 +27,19 @@ Portafolio personal centrado en ciberseguridad defensiva, administración de sis
 
 ## Laboratorio SOC con Wazuh
 
-![Alerta de la regla personalizada 100100](assets/lab-soc/evidencias/19-regla-personalizada-100100.png)
+![Alerta de la regla personalizada 100100](public/assets/lab-soc/evidencias/19-regla-personalizada-100100.png)
 
 El laboratorio reproduce el flujo de trabajo de un analista defensivo: recolección de telemetría, detección, investigación, correspondencia con MITRE ATT&CK, contención y documentación profesional.
 
 ### Accesos rápidos
 
-- [Abrir la guía visual completa](GUIA_LAB_SOC_WAZUH.html)
-- [Informe SOC-2026-001 · Fuerza bruta SSH](INFORME_INCIDENTE_SSH_SOC-2026-001.html)
-- [Informe SOC-2026-002 · PowerShell codificado](INFORME_INCIDENTE_POWERSHELL_SOC-2026-002.html)
-- [Informe SOC-2026-003 · Integridad de archivos](INFORME_INCIDENTE_FIM_SOC-2026-003.html)
-- [Regla personalizada 100100](config/fim_soc_lab.xml)
+Los informes se publican en la web dentro de `/proyectos/laboratorio-soc-wazuh/informe/`:
+
+- Guía visual completa · `guia-lab-soc-wazuh`
+- Informe SOC-2026-001 · Fuerza bruta SSH · `incidente-ssh-soc-2026-001`
+- Informe SOC-2026-002 · PowerShell codificado · `incidente-powershell-soc-2026-002`
+- Informe SOC-2026-003 · Integridad de archivos · `incidente-fim-soc-2026-003`
+- [Regla personalizada 100100](public/config/fim_soc_lab.xml)
 
 ## Arquitectura
 
@@ -99,11 +117,11 @@ sequenceDiagram
 
 | Detección | Evidencia |
 | --- | --- |
-| Fuerza bruta y respuesta activa | [Alerta 5712](assets/lab-soc/evidencias/11-wazuh-fuerza-bruta-5712.png) · [firewall-drop](assets/lab-soc/evidencias/12-active-response-firewall-drop.png) |
-| PowerShell | [Alerta 92057](assets/lab-soc/evidencias/17-wazuh-powershell-92057.png) · [CSV](assets/lab-soc/evidencias/18-alerta-powershell-92057.csv) |
-| Regla personalizada | [Alerta 100100](assets/lab-soc/evidencias/19-regla-personalizada-100100.png) · [CSV](assets/lab-soc/evidencias/20-alerta-regla-100100.csv) |
-| Prueba negativa | [Reglas estándar 554/550](assets/lab-soc/evidencias/22-prueba-negativa-archivo-no-protegido.png) · [CSV](assets/lab-soc/evidencias/23-eventos-archivo-no-protegido.csv) |
-| Tráfico SSH | [Captura de Wireshark](assets/lab-soc/evidencias/10-wireshark-correlacion-ssh.png) · [Correlación Wazuh](assets/lab-soc/evidencias/16-correlacion-ssh-wazuh.csv) |
+| Fuerza bruta y respuesta activa | [Alerta 5712](public/assets/lab-soc/evidencias/11-wazuh-fuerza-bruta-5712.png) · [firewall-drop](public/assets/lab-soc/evidencias/12-active-response-firewall-drop.png) |
+| PowerShell | [Alerta 92057](public/assets/lab-soc/evidencias/17-wazuh-powershell-92057.png) · [CSV](public/assets/lab-soc/evidencias/18-alerta-powershell-92057.csv) |
+| Regla personalizada | [Alerta 100100](public/assets/lab-soc/evidencias/19-regla-personalizada-100100.png) · [CSV](public/assets/lab-soc/evidencias/20-alerta-regla-100100.csv) |
+| Prueba negativa | [Reglas estándar 554/550](public/assets/lab-soc/evidencias/22-prueba-negativa-archivo-no-protegido.png) · [CSV](public/assets/lab-soc/evidencias/23-eventos-archivo-no-protegido.csv) |
+| Tráfico SSH | [Captura de Wireshark](public/assets/lab-soc/evidencias/10-wireshark-correlacion-ssh.png) · [Correlación Wazuh](public/assets/lab-soc/evidencias/16-correlacion-ssh-wazuh.csv) |
 
 ## Capacidades demostradas
 
@@ -122,25 +140,27 @@ sequenceDiagram
 
 ```text
 .
-├── GUIA_LAB_SOC_WAZUH.html
-├── INFORME_INCIDENTE_SSH_SOC-2026-001.html
-├── INFORME_INCIDENTE_POWERSHELL_SOC-2026-002.html
-├── INFORME_INCIDENTE_FIM_SOC-2026-003.html
-├── config/
-│   ├── fim_soc_lab.xml
-│   └── sysmon-lab.xml
-└── assets/lab-soc/evidencias/
+├── public/
+│   ├── assets/lab-soc/evidencias/   capturas y CSV del laboratorio
+│   └── config/                      fim_soc_lab.xml · sysmon-lab.xml
+├── src/
+│   ├── app/(website)/               páginas del sitio (App Router)
+│   ├── app/(admin)/admin/           Sanity Studio embebido
+│   ├── components/hero/             terminal interactiva y motor físico del hero
+│   ├── data/                        contenido local de respaldo e informes en JSON
+│   └── sanity/                      cliente, consultas y esquemas
+└── scripts/seed-sanity.mjs          importa el contenido inicial a Sanity
 ```
 
 ## Tecnologías
 
-`Wazuh` · `Sysmon` · `Ubuntu Server` · `Windows 11` · `VirtualBox` · `Wireshark` · `PowerShell` · `Bash` · `MITRE ATT&CK` · `HTML` · `CSS` · `JavaScript`
+`Wazuh` · `Sysmon` · `Ubuntu Server` · `Windows 11` · `VirtualBox` · `Wireshark` · `PowerShell` · `Bash` · `MITRE ATT&CK` · `Next.js` · `React` · `Sanity` · `CSS Modules`
 
 ## Autor
 
 **Miguel Pinedo**
 
 - [GitHub](https://github.com/Mpinedo04)
-- [Contacto](contacto.html)
-- [Currículum](assets/CV_Miguel_Pinedo_moderno.pdf)
+- Contacto: página `/contacto` del sitio
+- [Currículum](public/assets/CV_Miguel_Pinedo_moderno.pdf)
 

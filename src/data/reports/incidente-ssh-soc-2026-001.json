@@ -1,0 +1,1676 @@
+{
+  "title": "SOC-2026-001 · Fuerza bruta SSH y respuesta activa",
+  "slug": "incidente-ssh-soc-2026-001",
+  "seo": {
+    "metaTitle": "SOC-2026-001 · Fuerza bruta SSH y respuesta activa",
+    "metaDescription": "Informe profesional del incidente simulado de fuerza bruta SSH detectado y contenido con Wazuh."
+  },
+  "body": [
+    {
+      "_type": "block",
+      "_key": "fb00193",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00191",
+          "text": "SOC-2026-001 · Blue Team · Simulación autorizada",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "fs00192",
+          "text": " — Fuerza bruta SSH detectada y contenida",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00003",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00004",
+          "text": " Wazuh correlacionó ocho intentos de autenticación fallidos contra el servidor Linux, generó una alerta de nivel 10 y ordenó un bloqueo temporal de la IP de origen. La conectividad se restauró automáticamente y no se produjo ningún acceso exitoso. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00205",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00194",
+          "text": "Severidad Wazuh: ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "fs00195",
+          "text": "10",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00196",
+          "text": "  ·  ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00197",
+          "text": "Estado: ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "fs00198",
+          "text": "Cerrado",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00199",
+          "text": "  ·  ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00200",
+          "text": "Resultado: ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "fs00201",
+          "text": "Verdadero positivo",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00202",
+          "text": "  ·  ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00203",
+          "text": "Entorno: ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "fs00204",
+          "text": "Laboratorio aislado",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportTable",
+      "_key": "ft00212",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00206",
+          "cells": [
+            "Indicador",
+            "Valor"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00207",
+          "cells": [
+            "Fallos correlacionados",
+            "8"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00208",
+          "cells": [
+            "Regla de detección",
+            "5712"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00209",
+          "cells": [
+            "Respuesta activa",
+            "651"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00210",
+          "cells": [
+            "Bloqueo temporal",
+            "60 s"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00211",
+          "cells": [
+            "Accesos exitosos",
+            "0"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "fb00214",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00213",
+          "text": "01 · Resumen ejecutivo",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00216",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00215",
+          "text": "Qué ocurrió y cuál fue el impacto",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00026",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00027",
+          "text": "Conclusión",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00028",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00029",
+          "text": " La actividad fue una simulación controlada, pero el flujo defensivo fue real. El SIEM recibió los registros SSH desde ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00030",
+          "text": "journald",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00031",
+          "text": ", correlacionó múltiples fallos, clasificó el comportamiento con MITRE ATT&CK y activó una medida de contención en el endpoint afectado. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00032",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00033",
+          "text": "Impacto observado",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00034",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00035",
+          "text": " No hubo compromiso, ejecución remota ni autenticación válida. El impacto se limitó al bloqueo esperado de la IP de pruebas durante 60 segundos. El agente Linux siguió comunicándose con el Manager y el Dashboard permaneció disponible. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00218",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00217",
+          "text": "02 · Alcance técnico",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00220",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00219",
+          "text": "Sistemas, identidades y reglas",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportTable",
+      "_key": "pt00046",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00040",
+          "cells": [
+            "Activo afectado",
+            "SOC-LINUX-CLIENT · agente 002"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00041",
+          "cells": [
+            "Destino",
+            "192.168.228.20:22/TCP"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00042",
+          "cells": [
+            "Origen",
+            "192.168.228.1 · equipo MAIKEL"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00043",
+          "cells": [
+            "Usuario probado",
+            "usuario-inexistente"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00044",
+          "cells": [
+            "Puertos de origen",
+            "62435 y 62436"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00045",
+          "cells": [
+            "Fuente de registro",
+            "journald · servicio ssh"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "reportTable",
+      "_key": "pt00053",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00047",
+          "cells": [
+            "Regla individual",
+            "5710 · usuario inexistente · nivel 5"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00048",
+          "cells": [
+            "Regla correlacionada",
+            "5712 · fuerza bruta · nivel 10"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00049",
+          "cells": [
+            "Respuesta registrada",
+            "651 · Host Blocked by firewall-drop"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00050",
+          "cells": [
+            "Acción",
+            "firewall-drop con iptables"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00051",
+          "cells": [
+            "Duración",
+            "60 segundos, con reversión automática"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00052",
+          "cells": [
+            "Resultado",
+            "Bloqueo aplicado, verificado y retirado correctamente"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "fb00222",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00221",
+          "text": "03 · Cronología",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00224",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00223",
+          "text": "Del primer intento a la recuperación",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00058",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00059",
+          "text": "12:00:09 CEST · ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00060",
+          "text": "Comienza la actividad",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00061",
+          "text": " SSHD registra el usuario inexistente desde 192.168.228.1.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00062",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00063",
+          "text": "12:00:13–12:00:34 CEST · ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00064",
+          "text": "Se acumulan los fallos",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00065",
+          "text": " Los intentos de contraseña generan alertas individuales y contexto de eventos anteriores.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00066",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00067",
+          "text": "12:00:40 CEST · ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00068",
+          "text": "Correlación de fuerza bruta",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00069",
+          "text": " La regla 5712 alcanza frecuencia 8, nivel 10 y MITRE T1110.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00070",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00071",
+          "text": "12:00:42 CEST · ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00072",
+          "text": "Contención automática",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00073",
+          "text": " La regla 651 confirma que firewall-drop añadió 192.168.228.1 a la política de bloqueo.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00074",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00075",
+          "text": "12:01:37 CEST · ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00076",
+          "text": "Reversión automática",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00077",
+          "text": " Wazuh ejecuta la acción delete y elimina la regla temporal de iptables.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00078",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00079",
+          "text": "Después de 12:01:37 CEST · ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00080",
+          "text": "Servicio recuperado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00081",
+          "text": " Test-NetConnection vuelve a mostrar TcpTestSucceeded: True.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00082",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00083",
+          "text": " Nota temporal: los registros brutos del endpoint están en UTC y el Dashboard se visualizó en horario CEST (UTC+2). La secuencia y los identificadores permiten correlacionarlos sin ambigüedad. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00226",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00225",
+          "text": "04 · Cadena defensiva",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00228",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00227",
+          "text": "Detección, decisión y respuesta",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00088",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00089",
+          "text": "1 · Telemetría",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00090",
+          "text": " SSHD escribe los fallos en journald y el agente 002 los envía cifrados al Manager.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00091",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00092",
+          "text": "→ ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00093",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00094",
+          "text": "2 · Correlación",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00095",
+          "text": " Wazuh agrupa ocho fallos de una IP en menos de dos minutos y activa la regla 5712.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00096",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00097",
+          "text": "→ ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00098",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00099",
+          "text": "3 · Contención",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00100",
+          "text": " firewall-drop bloquea el origen durante 60 segundos y después revierte el cambio.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00230",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00229",
+          "text": "05 · MITRE ATT&CK",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00232",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00231",
+          "text": "Clasificación del comportamiento",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00105",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00106",
+          "text": "T1110 ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00107",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00108",
+          "text": "Brute Force · Credential Access",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00109",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00110",
+          "text": " La alerta correlacionada se mapea con la técnica de fuerza bruta. Los eventos individuales también incorporan ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00111",
+          "text": "T1110.001",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00112",
+          "text": " (Password Guessing) y ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00113",
+          "text": "T1021.004",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00114",
+          "text": " (SSH), aportando contexto sobre método y servicio atacado. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00234",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00233",
+          "text": "06 · Análisis técnico",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00236",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00235",
+          "text": "Hallazgos confirmados",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00119",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00120",
+          "text": "Verdadero positivo",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00121",
+          "text": " La regla describió correctamente varios intentos fallidos desde una misma IP.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00122",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00123",
+          "text": "Sin acceso conseguido",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00124",
+          "text": " No aparecen reglas de autenticación SSH exitosa asociadas a la identidad o al origen.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00125",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00126",
+          "text": "Contención eficaz",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00127",
+          "text": " La conexión al puerto 22 dejó de responder mientras la regla de iptables estuvo activa.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00128",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00129",
+          "text": "Recuperación validada",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00130",
+          "text": " La acción delete retiró el bloqueo y el puerto 22 volvió a responder automáticamente.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00131",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00132",
+          "text": "Alcance limitado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00133",
+          "text": " Solo SOC-LINUX-CLIENT bloqueó al origen; el servidor Wazuh y el Dashboard siguieron operativos.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00134",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00135",
+          "text": "Tráfico cifrado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00136",
+          "text": " Wireshark confirmó SSH, intercambio de claves y paquetes cifrados sin exponer la contraseña.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00238",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00237",
+          "text": "07 · Evidencias visuales",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00240",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00239",
+          "text": "Pruebas del incidente y la respuesta",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00141",
+      "url": "/assets/lab-soc/evidencias/11-wazuh-fuerza-bruta-5712.png",
+      "alt": "Eventos de fuerza bruta SSH en Wazuh",
+      "caption": "Detección correlacionada · Regla 5712, nivel 10, tras los fallos SSH."
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00142",
+      "url": "/assets/lab-soc/evidencias/12-active-response-firewall-drop.png",
+      "alt": "Registro de firewall-drop en el endpoint Linux",
+      "caption": "Respuesta activa · Inicio, bloqueo, espera de 60 segundos y retirada."
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00143",
+      "url": "/assets/lab-soc/evidencias/13-recuperacion-ssh.png",
+      "alt": "Test-NetConnection exitoso después de la recuperación",
+      "caption": "Recuperación · El puerto 22 vuelve a mostrar TcpTestSucceeded: True."
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00144",
+      "url": "/assets/lab-soc/evidencias/10-wireshark-correlacion-ssh.png",
+      "alt": "Captura de tráfico SSH en Wireshark",
+      "caption": "Correlación de red · Validación posterior: puerto origen 58846 coincide en Wireshark y Wazuh."
+    },
+    {
+      "_type": "block",
+      "_key": "fb00242",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00241",
+          "text": "08 · Respuesta al incidente",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00244",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00243",
+          "text": "Acciones ejecutadas y decisiones",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00149",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00150",
+          "text": "Contención aplicada",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00151",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00152",
+          "text": " El Manager ordenó al agente afectado ejecutar ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00153",
+          "text": "firewall-drop",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00154",
+          "text": ". El script añadió una regla temporal de ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00155",
+          "text": "iptables",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00156",
+          "text": " contra ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00157",
+          "text": "192.168.228.1",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00158",
+          "text": ". Se verificó la pérdida de conectividad al puerto 22 durante el bloqueo. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00159",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00160",
+          "text": "Recuperación aplicada",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00161",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00162",
+          "text": " Tras 60 segundos, Wazuh ejecutó la acción ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00163",
+          "text": "delete",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00164",
+          "text": ". La regla desapareció de ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00165",
+          "text": "iptables",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00166",
+          "text": " y una nueva prueba TCP confirmó la restauración del servicio, sin intervención manual ni reinicio del endpoint. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00246",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00245",
+          "text": "09 · Mejora continua",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00248",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00247",
+          "text": "Recomendaciones para un entorno real",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00171",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00172",
+          "text": "Alta",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00173",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00174",
+          "text": "Usar autenticación mediante claves SSH",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00175",
+          "text": " Validar primero el acceso por clave y después desactivar PasswordAuthentication.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00176",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00177",
+          "text": "Reducir T1110",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00178",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00179",
+          "text": "Alta",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00180",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00181",
+          "text": "Revisar accesos exitosos tras una fuerza bruta",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00182",
+          "text": " Correlacionar el origen con reglas de autenticación válida, creación de usuarios y elevación de privilegios.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00183",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00184",
+          "text": "Descartar compromiso",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00185",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00186",
+          "text": "Media",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00187",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00188",
+          "text": "Ajustar el bloqueo al riesgo",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00189",
+          "text": " Definir duración, listas permitidas, redes administrativas y procedimiento de desbloqueo manual.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00190",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00191",
+          "text": "Evitar indisponibilidad",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00192",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00193",
+          "text": "Media",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00194",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00195",
+          "text": "Sincronizar el tiempo mediante NTP",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00196",
+          "text": " Garantizar que Manager y endpoints usan la misma referencia temporal para simplificar cronologías.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00197",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00198",
+          "text": "Mejorar correlación",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00199",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00200",
+          "text": "Media",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00201",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00202",
+          "text": "Conservar evidencias originales",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00203",
+          "text": " Guardar CSV, capturas PCAPNG y registros con hash SHA-256 y acceso restringido.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00204",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00205",
+          "text": "Cadena de custodia",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00250",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00249",
+          "text": "10 · Integridad de evidencia",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00252",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00251",
+          "text": "Manifiesto SHA-256",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportTable",
+      "_key": "pt00218",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00210",
+          "cells": [
+            "Evidencia",
+            "Tipo",
+            "SHA-256"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00211",
+          "cells": [
+            "Alerta 5712",
+            "CSV",
+            "B6115C5F9B3BC96A4DD7A938FA43E4A959DBC7EFF2B1AEC2A6D0CB9D605257A4"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00212",
+          "cells": [
+            "Respuesta activa 651",
+            "CSV",
+            "9785B448D23400624440172E817E716B27A95A990768C0BAD1AE2D8F46F424E4"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00213",
+          "cells": [
+            "Correlación SSH",
+            "CSV",
+            "EE8AFB4F0D33555D1638A2E0ABAE3E308CFF004E9307F378D082C4087DCDBC8F"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00214",
+          "cells": [
+            "Wireshark SSH",
+            "PNG",
+            "8D28980B98FE2C42590B36FD46ED61A7D3A22ED712DDF8B13CEF9500E701DE3C"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00215",
+          "cells": [
+            "Wazuh fuerza bruta",
+            "PNG",
+            "59F5A68D763D9FCB1D2259726B9A22CC8B8E4C115D8FF9502DC54E32C0AE2ECF"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00216",
+          "cells": [
+            "Active Response",
+            "PNG",
+            "2162B0F1B7898C7E17122A5D2A605A45247BE0AAEA2C05954E01F9492902D068"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00217",
+          "cells": [
+            "Recuperación SSH",
+            "PNG",
+            "B99E68B4913E9BBF9B02CA5A9090534D793D98F8451D25CFF2D5CA8B36436353"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "downloadLink",
+      "_key": "fdl0",
+      "label": "Alerta 5712 · CSV",
+      "url": "/assets/lab-soc/evidencias/14-alerta-fuerza-bruta-5712.csv"
+    },
+    {
+      "_type": "downloadLink",
+      "_key": "fdl1",
+      "label": "Respuesta activa 651 · CSV",
+      "url": "/assets/lab-soc/evidencias/15-active-response-regla-651.csv"
+    },
+    {
+      "_type": "downloadLink",
+      "_key": "fdl2",
+      "label": "Correlación SSH · CSV",
+      "url": "/assets/lab-soc/evidencias/16-correlacion-ssh-wazuh.csv"
+    },
+    {
+      "_type": "block",
+      "_key": "pt00219",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00220",
+          "text": " La captura PCAPNG no estaba guardada al redactar esta versión. La evidencia visual y el CSV permiten confirmar la correlación; el archivo PCAPNG se añadirá como anexo cuando esté disponible. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00221",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00222",
+          "text": "Preparado por Miguel Pinedo · Laboratorio SOC con Wazuh Fecha del informe: 6 de agosto de 2026 · Clasificación: Uso educativo ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    }
+  ]
+}

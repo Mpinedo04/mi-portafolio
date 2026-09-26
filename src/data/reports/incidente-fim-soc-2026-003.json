@@ -1,0 +1,1477 @@
+{
+  "title": "SOC-2026-003 · Cambios de integridad en Linux",
+  "slug": "incidente-fim-soc-2026-003",
+  "seo": {
+    "metaTitle": "SOC-2026-003 · Cambios de integridad en Linux",
+    "metaDescription": "Informe profesional del incidente simulado de integridad de archivos detectado por Wazuh FIM."
+  },
+  "body": [
+    {
+      "_type": "block",
+      "_key": "fb00075",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00073",
+          "text": "SOC-2026-003 · Blue Team · Simulación autorizada",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "fs00074",
+          "text": " — Ciclo de cambios FIM detectado en Linux",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00003",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00004",
+          "text": "Wazuh File Integrity Monitoring registró el ciclo completo de un archivo de configuración: creación, modificación de contenido, cambio de integridad sin diferencia de contenido y eliminación. La prueba validó la visibilidad defensiva del endpoint Linux.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00087",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00076",
+          "text": "Severidad máxima: ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "fs00077",
+          "text": "Nivel 7",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00078",
+          "text": "  ·  ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00079",
+          "text": "Estado: ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "fs00080",
+          "text": "Cerrado",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00081",
+          "text": "  ·  ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00082",
+          "text": "Clasificación: ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "fs00083",
+          "text": "Verdadero positivo autorizado",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00084",
+          "text": "  ·  ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00085",
+          "text": "Impacto real: ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "fs00086",
+          "text": "Ninguno",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportTable",
+      "_key": "ft00093",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00088",
+          "cells": [
+            "Indicador",
+            "Valor"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00089",
+          "cells": [
+            "Eventos correlacionados",
+            "4"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00090",
+          "cells": [
+            "Duración del ciclo",
+            "51 s"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00091",
+          "cells": [
+            "Reglas activadas",
+            "3"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00092",
+          "cells": [
+            "Archivo monitorizado",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "fb00095",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00094",
+          "text": "01 · Resumen ejecutivo",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00097",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00096",
+          "text": "Qué cambió y cuál fue el impacto",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00023",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00024",
+          "text": "Conclusión: monitorización correctamente validada",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00025",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00026",
+          "text": "El agente ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00027",
+          "text": "SOC-LINUX-CLIENT",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00028",
+          "text": " notificó cuatro cambios sucesivos sobre ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00029",
+          "text": "/opt/soc-lab/configuracion.txt",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00030",
+          "text": ". Wazuh distinguió la creación, dos modificaciones de integridad y la eliminación final.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00031",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00032",
+          "text": "Decisión:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00033",
+          "text": " cerrar como verdadero positivo autorizado. El archivo era temporal y fue creado expresamente para el laboratorio, por lo que no fue necesaria su recuperación.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00034",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00035",
+          "text": "Lectura del riesgo",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00036",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00037",
+          "text": "Riesgo técnico:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00038",
+          "text": " medio si el archivo fuese crítico o el cambio no estuviera autorizado.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00039",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00040",
+          "text": "Impacto real:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00041",
+          "text": " nulo, sin interrupción del sistema ni pérdida de datos productivos.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00099",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00098",
+          "text": "02 · Alcance técnico",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00101",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00100",
+          "text": "Activo, ruta y control defensivo",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportTable",
+      "_key": "pt00054",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00046",
+          "cells": [
+            "Fecha y periodo",
+            "6 de agosto de 2026 · 10:59:51–11:00:42 CEST"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00047",
+          "cells": [
+            "Endpoint",
+            "SOC-LINUX-CLIENT · Ubuntu 24.04.4 LTS · Agente 002"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00048",
+          "cells": [
+            "Dirección IP",
+            "192.168.228.20"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00049",
+          "cells": [
+            "Archivo",
+            "/opt/soc-lab/configuracion.txt"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00050",
+          "cells": [
+            "Operador",
+            "vboxuser · actividad autorizada del laboratorio"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00051",
+          "cells": [
+            "Control",
+            "Wazuh FIM / Syscheck en tiempo real"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00052",
+          "cells": [
+            "Reglas",
+            "554 creación · 550 modificación de integridad · 553 eliminación"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00053",
+          "cells": [
+            "Clasificación",
+            "Verdadero positivo autorizado · sin compromiso"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "fb00103",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00102",
+          "text": "03 · Cronología",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00105",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00104",
+          "text": "Los cuatro eventos observados",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00059",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00060",
+          "text": "10:59:51.313 CEST · ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00061",
+          "text": "Archivo añadido",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00062",
+          "text": " La regla 554 genera una alerta de nivel 5 para la creación del archivo.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00063",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00064",
+          "text": "11:00:14.737 CEST · ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00065",
+          "text": "Contenido modificado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00066",
+          "text": " La regla 550, nivel 7, registra el cambio y conserva la diferencia ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00067",
+          "text": "1a2 > estado=modificado",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00068",
+          "text": ".",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00069",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00070",
+          "text": "11:00:30.891 CEST · ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00071",
+          "text": "Integridad modificada sin cambio de contenido",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00072",
+          "text": " La regla 550 vuelve a activarse. Wazuh indica que no encontró diferencias de contenido, compatible con un cambio de atributos o permisos.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00073",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00074",
+          "text": "11:00:42.700 CEST · ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00075",
+          "text": "Archivo eliminado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00076",
+          "text": " La regla 553, nivel 7, cierra el ciclo notificando la desaparición del archivo.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00107",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00106",
+          "text": "04 · Cadena del incidente",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00109",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00108",
+          "text": "Del archivo nuevo a su eliminación",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00081",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00082",
+          "text": "01 · REGLA 554 · Creación",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00083",
+          "text": " Nivel 5 · added",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00084",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00085",
+          "text": "02 · REGLA 550 · Contenido",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00086",
+          "text": " Nivel 7 · modified",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00087",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00088",
+          "text": "03 · REGLA 550 · Atributos",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00089",
+          "text": " Nivel 7 · modified",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00090",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00091",
+          "text": "04 · REGLA 553 · Eliminación",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00092",
+          "text": " Nivel 7 · deleted",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00111",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00110",
+          "text": "05 · Análisis de reglas",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00113",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00112",
+          "text": "Qué detectó Wazuh en cada paso",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportTable",
+      "_key": "pt00102",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00097",
+          "cells": [
+            "Regla",
+            "Evento",
+            "Nivel",
+            "Interpretación"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00098",
+          "cells": [
+            "554",
+            "File added to the system",
+            "5",
+            "Nuevo objeto dentro de la ruta monitorizada."
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00099",
+          "cells": [
+            "550",
+            "Integrity checksum changed",
+            "7",
+            "Cambio de contenido confirmado.1a2 > estado=modificado"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00100",
+          "cells": [
+            "550",
+            "Integrity checksum changed",
+            "7",
+            "Integridad alterada sin diferencia de contenido; debe revisarse metadata o permisos."
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00101",
+          "cells": [
+            "553",
+            "File deleted",
+            "7",
+            "El archivo dejó de existir en la ruta vigilada."
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "fb00115",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00114",
+          "text": "06 · MITRE ATT&CK",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00117",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00116",
+          "text": "Mapeo contextual, no automático",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00108",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00109",
+          "text": "T1565.001 · ",
+          "marks": [
+            "pt00107",
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00110",
+          "text": "Stored Data Manipulation",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "pt00107",
+          "_type": "link",
+          "href": "https://attack.mitre.org/techniques/T1565/001/"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "pt00111",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00112",
+          "text": "Sería aplicable si un actor modificara deliberadamente datos almacenados para alterar resultados o afectar su integridad.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00113",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00114",
+          "text": "Posible si el cambio fuera malicioso",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00116",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00117",
+          "text": "T1070.004 · ",
+          "marks": [
+            "pt00115",
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00118",
+          "text": "File Deletion",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "pt00115",
+          "_type": "link",
+          "href": "https://attack.mitre.org/techniques/T1070/004/"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "pt00119",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00120",
+          "text": "Sería aplicable si la eliminación buscara borrar herramientas, rastros o artefactos de una intrusión.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00121",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00122",
+          "text": "Requiere intención y contexto",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00123",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00124",
+          "text": "Conclusión analítica:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00125",
+          "text": " FIM demuestra que el archivo cambió, pero no identifica por sí solo el propósito del cambio. En este caso, la actividad estaba autorizada y no debe clasificarse como ataque.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00119",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00118",
+          "text": "07 · Evidencia",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00121",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00120",
+          "text": "Vista correlacionada del ciclo FIM",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00130",
+      "url": "/assets/lab-soc/evidencias/08-fim-ciclo-archivo.png",
+      "alt": "Cuatro eventos FIM en Wazuh para configuracion.txt",
+      "caption": ""
+    },
+    {
+      "_type": "block",
+      "_key": "pt00131",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00132",
+          "text": "E-01 · Ciclo completo en Wazuh",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00133",
+          "text": " La misma ruta aparece como añadida, modificada dos veces y eliminada.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00061",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00062",
+          "text": "Integridad · SHA-256",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00136",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00137",
+          "text": "La huella permite comprobar que la captura no cambia durante la documentación.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00138",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00139",
+          "text": "72D7D89AC766CD3BC53FE8CD2BEBF4230BF71F9FAB43742C5643FA794BB58EA6",
+          "marks": [
+            "code"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00123",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00122",
+          "text": "08 · Hallazgos y respuesta",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00125",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00124",
+          "text": "Qué demuestra este incidente",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00144",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00145",
+          "text": "Visibilidad de extremo a extremo",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00146",
+          "text": " La secuencia permite reconstruir el ciclo del archivo sin acceder manualmente al sistema después del evento.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00147",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00148",
+          "text": "Diferencias útiles",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00149",
+          "text": " Wazuh conservó el contenido añadido, lo que ayuda a determinar qué cambió y no solo que hubo una modificación.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00150",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00151",
+          "text": "Metadata diferenciada",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00152",
+          "text": " Un evento sin cambio de contenido demuestra que FIM también puede detectar alteraciones de integridad relacionadas con atributos.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00153",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00154",
+          "text": "Respuesta proporcional",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00155",
+          "text": " Al tratarse de una prueba autorizada sobre un archivo temporal, se documentó el caso sin restauración ni aislamiento.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00127",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00126",
+          "text": "09 · Mejora continua",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00129",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00128",
+          "text": "Recomendaciones para producción",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00160",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00161",
+          "text": "Alta",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00162",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00163",
+          "text": "Priorizar rutas críticas",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00164",
+          "text": " Monitorizar configuraciones, claves, binarios, servicios y aplicaciones con valor real para el negocio.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00165",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00166",
+          "text": "Cobertura",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00167",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00168",
+          "text": "Alta",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00169",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00170",
+          "text": "Validar identidad y proceso",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00171",
+          "text": " Correlacionar el cambio con usuario, proceso, sesión, ticket de mantenimiento y actividad cercana.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00172",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00173",
+          "text": "Contexto",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00174",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00175",
+          "text": "Media",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00176",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00177",
+          "text": "Definir recuperación",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00178",
+          "text": " Conservar copias verificadas y procedimientos para restaurar archivos críticos sin sobrescribir evidencia.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00179",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00180",
+          "text": "Resiliencia",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00181",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00182",
+          "text": "Media",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00183",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00184",
+          "text": "Ajustar el ruido",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00185",
+          "text": " Excluir únicamente archivos temporales conocidos y mantener alertas para cambios fuera de ventanas autorizadas.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00186",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00187",
+          "text": "Tuning",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00063",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00064",
+          "text": "Cierre del caso",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00065",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00066",
+          "text": "Integridad monitorizada. Cambios explicados.",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00190",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00191",
+          "text": "SOC-2026-003 cerrado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00192",
+          "text": " como verdadero positivo autorizado. El caso demuestra detección de creación, modificación, atributos y eliminación, además de una clasificación prudente basada en contexto.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    }
+  ]
+}

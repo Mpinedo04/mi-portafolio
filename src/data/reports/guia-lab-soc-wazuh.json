@@ -1,0 +1,4927 @@
+{
+  "title": "Laboratorio SOC con Wazuh · Guía del proyecto",
+  "slug": "guia-lab-soc-wazuh",
+  "seo": {
+    "metaTitle": "Laboratorio SOC con Wazuh · Guía del proyecto",
+    "metaDescription": "Guía visual del laboratorio SOC con Wazuh de Miguel Pinedo."
+  },
+  "body": [
+    {
+      "_type": "block",
+      "_key": "pt00001",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00002",
+          "text": "Proyecto principal · Blue Team Laboratorio SOC con Wazuh",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00003",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00004",
+          "text": " Un entorno defensivo realista para monitorizar Windows y Linux, detectar actividad sospechosa, investigar alertas y responder a incidentes con MITRE ATT&CK. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportTable",
+      "_key": "ft00006",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00001",
+          "cells": [
+            "Indicador",
+            "Valor"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00002",
+          "cells": [
+            "Sistemas conectados",
+            "3"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00003",
+          "cells": [
+            "Agentes activos",
+            "2"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00004",
+          "cells": [
+            "Escenarios validados",
+            "4/4"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00005",
+          "cells": [
+            "Informes profesionales",
+            "3"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "pt00017",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00018",
+          "text": "Progreso global ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00019",
+          "text": "Fase 9 de 9 · 100%",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00020",
+          "text": " ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00021",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00022",
+          "text": "Informes de incidentes",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00023",
+          "text": " Tres investigaciones completas con evidencias y respuesta ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00025",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00026",
+          "text": "SOC-2026-001 · Fuerza bruta SSH →",
+          "marks": [
+            "pt00024"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00027",
+          "text": " ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00029",
+          "text": "SOC-2026-002 · PowerShell codificado →",
+          "marks": [
+            "pt00028"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00030",
+          "text": " ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00032",
+          "text": "SOC-2026-003 · Integridad de archivos →",
+          "marks": [
+            "pt00031"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00033",
+          "text": " ",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "pt00024",
+          "_type": "link",
+          "href": "/proyectos/laboratorio-soc-wazuh/informe/incidente-ssh-soc-2026-001"
+        },
+        {
+          "_key": "pt00028",
+          "_type": "link",
+          "href": "/proyectos/laboratorio-soc-wazuh/informe/incidente-powershell-soc-2026-002"
+        },
+        {
+          "_key": "pt00031",
+          "_type": "link",
+          "href": "/proyectos/laboratorio-soc-wazuh/informe/incidente-fim-soc-2026-003"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "fb00008",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00007",
+          "text": "01 · Valor profesional",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00010",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00009",
+          "text": "Qué demuestra este proyecto",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00036",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00037",
+          "text": "No es solo instalar una herramienta: es demostrar un proceso defensivo completo.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00001",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00002",
+          "text": "Monitorización",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00042",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00043",
+          "text": "Centralizar eventos procedentes de varios sistemas y comprobar su estado.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00003",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00004",
+          "text": "Detección",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00046",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00047",
+          "text": "Reconocer actividad anómala mediante reglas, telemetría y correlación.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00005",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00006",
+          "text": "Investigación",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00050",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00051",
+          "text": "Reconstruir usuario, proceso, equipo, dirección IP, hora y alcance.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00007",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00008",
+          "text": "Respuesta",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00054",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00055",
+          "text": "Proponer contención, recuperación, mejoras y documentación del incidente.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00012",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00011",
+          "text": "02 · Diseño técnico",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00014",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00013",
+          "text": "Arquitectura del laboratorio",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00058",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00059",
+          "text": "El servidor Wazuh es el centro. Windows y Linux envían sus eventos para analizarlos desde un único panel.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00009",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00010",
+          "text": "Endpoint 01 · Windows 11",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00064",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00065",
+          "text": "El ordenador real actúa como equipo monitorizado para ahorrar memoria.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00066",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00067",
+          "text": "Wazuh Agent Sysmon PowerShell ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00068",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00069",
+          "text": "Eventos",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00011",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00012",
+          "text": "Servidor central · SOC-WAZUH-SERVER",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00072",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00073",
+          "text": "Recibe, almacena y analiza la telemetría. El Dashboard muestra las alertas y permite investigarlas.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00074",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00075",
+          "text": "Manager Indexer Dashboard ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00076",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00077",
+          "text": "Eventos",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00013",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00014",
+          "text": "Endpoint 02 · Ubuntu Linux",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00080",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00081",
+          "text": "Segundo servidor virtual para observar autenticación, archivos y actividad del sistema.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00082",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00083",
+          "text": "Wazuh Agent SSH FIM ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00015",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00016",
+          "text": "Configuración del servidor central · SOC-WAZUH-SERVER",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00086",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00087",
+          "text": "Ubuntu Server 24.04.4 LTS · Usuario inicial: ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00088",
+          "text": "vboxuser",
+          "marks": [
+            "strong"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportTable",
+      "_key": "ft00019",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00015",
+          "cells": [
+            "Indicador",
+            "Valor"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00016",
+          "cells": [
+            "vCPU recomendadas",
+            "4"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00017",
+          "cells": [
+            "RAM",
+            "6–8 GB"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00018",
+          "cells": [
+            "Disco dinámico",
+            "50–60 GB"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "fh00017",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00018",
+          "text": "Seguridad de credenciales · No publicar contraseñas",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00100",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00101",
+          "text": " La contraseña temporal está guardada únicamente en la descripción local de VirtualBox. Debe cambiarse y nunca aparecer en GitHub, capturas o documentación pública. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00021",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00020",
+          "text": "03 · Plan de ejecución",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00023",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00022",
+          "text": "Nueve fases, un SOC completo",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00104",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00105",
+          "text": "Cada fase produce un resultado verificable antes de avanzar a la siguiente.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00110",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00111",
+          "text": "01 · Preparar Ubuntu Server",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00112",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00113",
+          "text": "Base, red privada, actualizaciones e instantánea completadas.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00114",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00115",
+          "text": "Completada ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00118",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00119",
+          "text": "02 · Instalar Wazuh",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00120",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00121",
+          "text": "Wazuh 4.14.6 y primer acceso al Dashboard validados.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00122",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00123",
+          "text": "Completada ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00126",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00127",
+          "text": "03 · Conectar Windows",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00128",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00129",
+          "text": "Agente MAIKEL activo en 192.168.228.1.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00130",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00131",
+          "text": "Completada ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00134",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00135",
+          "text": "04 · Añadir Sysmon",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00136",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00137",
+          "text": "Procesos, conexiones y archivos enviados a Wazuh.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00138",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00139",
+          "text": "Completada ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00142",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00143",
+          "text": "05 · Conectar Linux",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00144",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00145",
+          "text": "SOC-LINUX-CLIENT activo y FIM validado en tiempo real.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00146",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00147",
+          "text": "Completada ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00150",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00151",
+          "text": "06 · Simular incidentes",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00152",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00153",
+          "text": "FIM, PowerShell, fuerza bruta SSH y tráfico de red validados.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00154",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00155",
+          "text": "Completada · 4/4 ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00158",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00159",
+          "text": "07 · Investigar y responder",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00160",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00161",
+          "text": "Informes de fuerza bruta SSH, PowerShell codificado e integridad de archivos completados.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00162",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00163",
+          "text": "Completada · 3/3 ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00166",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00167",
+          "text": "08 · Crear reglas propias",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00168",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00169",
+          "text": "Regla 100100 validada con coincidencia específica y prueba negativa.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00170",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00171",
+          "text": "Completada ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00174",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00175",
+          "text": "09 · Publicar el caso de estudio",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00176",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00177",
+          "text": "README, capturas, informes, resultados y conclusiones.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00178",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00179",
+          "text": "Completada ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00025",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00024",
+          "text": "04 · Estado actual",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00027",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00026",
+          "text": "Cierre del proyecto",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00182",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00183",
+          "text": "El laboratorio está preparado como caso de estudio profesional y pieza principal del portafolio.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00186",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00187",
+          "text": "Proyecto SOC completado",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00188",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00189",
+          "text": "Arquitectura, detecciones, investigaciones, regla propia y evidencias reunidas en una entrega reproducible.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00190",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00191",
+          "text": "Ahora ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00192",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00193",
+          "text": "Preparar el README principal · ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00194",
+          "text": "Resumen, arquitectura, tecnologías, escenarios, resultados y aprendizajes. ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00195",
+          "text": "Revisar las evidencias · ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00196",
+          "text": "Comprobar nombres, privacidad, enlaces, hashes y archivos descargables. ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00197",
+          "text": "Crear el caso de estudio · ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00198",
+          "text": "Explicar el proceso defensivo completo y enlazar los tres informes. ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00199",
+          "text": "Añadirlo al portafolio · ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00200",
+          "text": "Crear una entrada destacada con capturas y valor profesional. ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00201",
+          "text": "Publicar en GitHub · ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00202",
+          "text": "Crear un commit limpio, subir los archivos y comprobar los enlaces públicos. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "codeBlock",
+      "_key": "pt00203",
+      "language": "text",
+      "code": "# Laboratorio SOC · entrega final\nEscenarios     4/4 validados\nInformes       3/3 completados\nRegla propia   100100 · prueba positiva y negativa\nEvidencias     Capturas, CSV y hashes SHA-256\nPortafolio     Proyecto principal integrado\nRepositorio    github.com/Mpinedo04/mi-portafolio",
+      "caption": ""
+    },
+    {
+      "_type": "block",
+      "_key": "fb00029",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00028",
+          "text": "05 · Evidencias del proyecto",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00031",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00030",
+          "text": "Bitácora de implementación",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00206",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00207",
+          "text": "Cada hito queda registrado con resultados reales, una explicación y su evidencia.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00019",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00020",
+          "text": "Hito 01 · Validado · Comprobación del servidor base",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00212",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00213",
+          "text": " Ubuntu reconoce correctamente los recursos asignados. La capacidad es suficiente para continuar con el laboratorio Wazuh de un solo nodo. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00214",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00215",
+          "text": "10.0.2.15/24",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00216",
+          "text": " IP temporal mediante NAT",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportTable",
+      "_key": "ft00036",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00032",
+          "cells": [
+            "Indicador",
+            "Valor"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00033",
+          "cells": [
+            "Procesadores asignados",
+            "4 vCPU"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00034",
+          "cells": [
+            "Memoria RAM reconocida",
+            "7,8 GiB"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00035",
+          "cells": [
+            "Partición principal",
+            "59 GB"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "pt00226",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00227",
+          "text": "54 GB libres",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00228",
+          "text": " Solo un 5 % utilizado",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00229",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00230",
+          "text": "Ubuntu 24.04.1",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00231",
+          "text": " Actualizar antes de Wazuh",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00232",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00233",
+          "text": "0 B swap",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00234",
+          "text": " Pendiente de valorar",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00235",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00236",
+          "text": "Kernel 6.8.0-136",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00237",
+          "text": " Arquitectura x86-64",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00238",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00239",
+          "text": "Oracle VirtualBox",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00240",
+          "text": " Virtualización confirmada",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00241",
+      "url": "/assets/lab-soc/evidencias/01-validacion-servidor-ubuntu.png",
+      "alt": "Terminal de Ubuntu mostrando hostnamectl, memoria y almacenamiento del servidor Wazuh",
+      "caption": "Evidencia 01 · Salida de hostnamectl, free -h y df -h."
+    },
+    {
+      "_type": "block",
+      "_key": "fh00021",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00022",
+          "text": "Hito 02 · Validado · Red privada con IP fija",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00244",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00245",
+          "text": " Se sustituyeron dos interfaces antiguas que impedían arrancar la máquina. El servidor mantiene Internet mediante NAT y utiliza una segunda interfaz aislada para comunicarse con Windows. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00246",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00247",
+          "text": "enp0s3 · UP",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00248",
+          "text": " NAT para acceder a Internet",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00249",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00250",
+          "text": "10.0.2.15/24",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00251",
+          "text": " Dirección asignada por NAT",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00252",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00253",
+          "text": "enp0s8 · UP",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00254",
+          "text": " Interfaz privada del SOC",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00255",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00256",
+          "text": "192.168.228.10/24",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00257",
+          "text": " IP fija del servidor Wazuh",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00258",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00259",
+          "text": "192.168.228.1/24",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00260",
+          "text": " Adaptador privado de Windows",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00261",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00262",
+          "text": "3 de 3 respuestas",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00263",
+          "text": " Ping desde Windows sin pérdidas",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00264",
+      "url": "/assets/lab-soc/evidencias/02-red-privada-ip-fija.png",
+      "alt": "Terminal de Ubuntu mostrando las interfaces NAT y privada activas",
+      "caption": "Evidencia 02 · enp0s3 conserva NAT y enp0s8 utiliza la IP fija del SOC."
+    },
+    {
+      "_type": "block",
+      "_key": "fh00023",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00024",
+          "text": "Hito 03 · Validado · Ubuntu actualizado y reiniciado",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00267",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00268",
+          "text": " El sistema se actualizó antes de desplegar Wazuh. Tras el reinicio, la dirección privada permaneció configurada y Windows siguió alcanzando el servidor correctamente. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00269",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00270",
+          "text": "Ubuntu 24.04.4 LTS",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00271",
+          "text": " Versión actual del sistema",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00272",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00273",
+          "text": "Kernel 6.8.0-136",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00274",
+          "text": " Núcleo activo tras reiniciar",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00275",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00276",
+          "text": "Actualización completa",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00277",
+          "text": " Paquetes instalados con APT",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00278",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00279",
+          "text": "Red persistente",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00280",
+          "text": " La IP fija responde tras reiniciar",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00281",
+      "url": "/assets/lab-soc/evidencias/03-ubuntu-actualizado-24-04-4.png",
+      "alt": "Terminal de Ubuntu mostrando la versión 24.04.4 LTS después de actualizar",
+      "caption": "Evidencia 03 · Versión del sistema comprobada con hostnamectl después del reinicio."
+    },
+    {
+      "_type": "block",
+      "_key": "fh00025",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00026",
+          "text": "Hito 04 · Validado · Wazuh 4.14.6 desplegado",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00284",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00285",
+          "text": " La instalación all-in-one terminó correctamente. Desde Windows se verificó la disponibilidad del Dashboard, el Manager, el servicio de enrolamiento y la API sin utilizar credenciales. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00286",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00287",
+          "text": "HTTPS 443 · Activo",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00288",
+          "text": " Dashboard accesible desde Windows",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00289",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00290",
+          "text": "HTTP 302",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00291",
+          "text": " Redirección normal hacia la interfaz web",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00292",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00293",
+          "text": "TCP 1514 · Activo",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00294",
+          "text": " Recepción de eventos de agentes",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00295",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00296",
+          "text": "TCP 1515 · Activo",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00297",
+          "text": " Enrolamiento de nuevos agentes",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00298",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00299",
+          "text": "TCP 55000 · Activo",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00300",
+          "text": " API de administración de Wazuh",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00301",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00302",
+          "text": "Versión 4.14.6",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00303",
+          "text": " Instalación asistida all-in-one",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00027",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00028",
+          "text": "Punto de parada seguro · Sesión 1 completada",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00306",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00307",
+          "text": " El servidor central está instalado y responde por la red privada. Las credenciales no se han añadido a la documentación. La siguiente sesión continuó con el primer acceso al Dashboard. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00029",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00030",
+          "text": "Hito 05 · Validado · Primer acceso al Dashboard",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00310",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00311",
+          "text": " Se inició sesión correctamente desde Windows mediante la red privada. El panel cargó sus módulos principales y confirmó que el servidor está preparado para registrar los primeros endpoints. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00312",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00313",
+          "text": "Dashboard operativo",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00314",
+          "text": " Sesión administrativa validada",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00315",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00316",
+          "text": "0 agentes",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00317",
+          "text": " Estado esperado antes del despliegue",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00318",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00319",
+          "text": "0 críticas y altas",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00320",
+          "text": " Sin alertas graves iniciales",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00321",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00322",
+          "text": "13 alertas bajas",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00323",
+          "text": " Actividad básica del servidor",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00324",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00325",
+          "text": "MITRE ATT&CK",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00326",
+          "text": " Módulo disponible en el panel",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00327",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00328",
+          "text": "FIM y vulnerabilidades",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00329",
+          "text": " Capacidades listas para agentes",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00330",
+      "url": "/assets/lab-soc/evidencias/04-dashboard-primer-acceso.png",
+      "alt": "Dashboard de Wazuh abierto desde Windows sin agentes registrados",
+      "caption": "Evidencia 04 · Dashboard accesible desde Windows, todavía sin agentes registrados."
+    },
+    {
+      "_type": "block",
+      "_key": "fh00031",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00032",
+          "text": "Hito 06 · Validado · Agente Windows instalado",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00333",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00334",
+          "text": " El equipo físico ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00335",
+          "text": "MAIKEL",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00336",
+          "text": " se instaló como primer endpoint del SOC. El servicio arranca automáticamente y mantiene una conexión activa con el Wazuh Manager mediante la red privada. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00337",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00338",
+          "text": "wazuhsvc · Running",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00339",
+          "text": " Servicio iniciado correctamente",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00340",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00341",
+          "text": "Inicio automático",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00342",
+          "text": " Configurado para iniciarse después de reiniciar Windows",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00343",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00344",
+          "text": "MAIKEL",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00345",
+          "text": " Nombre registrado para el endpoint",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00346",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00347",
+          "text": "Grupo default",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00348",
+          "text": " Configuración inicial del agente",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00349",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00350",
+          "text": "TCP 1514",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00351",
+          "text": " Canal de eventos hacia el Manager",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00352",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00353",
+          "text": "Established",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00354",
+          "text": " Conexión Windows–Wazuh confirmada",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00355",
+      "url": "/assets/lab-soc/evidencias/05-windows-agent-servicio-activo.png",
+      "alt": "PowerShell de Windows mostrando el servicio wazuhsvc en estado Running",
+      "caption": "Evidencia 05 · Servicio wazuhsvc activo tras la instalación silenciosa."
+    },
+    {
+      "_type": "block",
+      "_key": "fh00033",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00034",
+          "text": "Hito 07 · Validado · Sysmon integrado con Wazuh",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00358",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00359",
+          "text": " Windows 11 utiliza Sysmon con una configuración inicial propia para registrar procesos, conexiones de red y creación de archivos. El agente envía el canal operativo de Sysmon al Manager para su análisis centralizado. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00360",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00361",
+          "text": "Sysmon · Running",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00362",
+          "text": " Servicio y controlador activos",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00363",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00364",
+          "text": "wazuhsvc · Running",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00365",
+          "text": " Recolección continua de eventos",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00366",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00367",
+          "text": "Event ID 1",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00368",
+          "text": " Creación de procesos",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00369",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00370",
+          "text": "Event ID 3",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00371",
+          "text": " Conexiones de red",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00372",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00373",
+          "text": "Event ID 11",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00374",
+          "text": " Creación de archivos",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00375",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00376",
+          "text": "SHA-256",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00377",
+          "text": " Hash configurado para ejecutables",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00378",
+      "url": "/assets/lab-soc/evidencias/06-sysmon-servicios-activos.png",
+      "alt": "PowerShell mostrando los servicios Sysmon y Wazuh en estado Running",
+      "caption": "Evidencia 06 · Configuración validada y ambos servicios en estado Running."
+    },
+    {
+      "_type": "block",
+      "_key": "fh00035",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00036",
+          "text": "Hito 08 · Validado · Dos endpoints activos",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00381",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00382",
+          "text": " El servidor Linux secundario se instaló desde una ISO limpia, recibió una IP fija en la red privada y quedó registrado junto al equipo Windows en Wazuh 4.14.6. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00383",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00384",
+          "text": "MAIKEL · 001",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00385",
+          "text": " Windows 11 en 192.168.228.1",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00386",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00387",
+          "text": "SOC-LINUX-CLIENT · 002",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00388",
+          "text": " Ubuntu en 192.168.228.20",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00389",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00390",
+          "text": "2 activos",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00391",
+          "text": " Sin agentes desconectados",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00392",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00393",
+          "text": "Grupo default",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00394",
+          "text": " Configuración inicial compartida",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00395",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00396",
+          "text": "Wazuh 4.14.6",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00397",
+          "text": " Servidor y agentes compatibles",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00398",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00399",
+          "text": "APT hold",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00400",
+          "text": " Versión del agente Linux protegida",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00401",
+      "url": "/assets/lab-soc/evidencias/07-endpoints-activos.png",
+      "alt": "Dashboard de Wazuh mostrando los agentes MAIKEL y SOC-LINUX-CLIENT activos",
+      "caption": "Evidencia 07 · Los dos endpoints aparecen activos, con IP, sistema y versión correctos."
+    },
+    {
+      "_type": "block",
+      "_key": "fh00037",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00038",
+          "text": "Hito 09 · Detección validada · Ciclo completo de integridad de archivos",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00404",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00405",
+          "text": " FIM vigiló ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00406",
+          "text": "/opt/soc-lab",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00407",
+          "text": " en tiempo real y reconstruyó la creación, modificación, cambio de permisos y eliminación de un archivo de prueba. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00408",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00409",
+          "text": "Regla 554 · Nivel 5",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00410",
+          "text": " Archivo añadido",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00411",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00412",
+          "text": "Regla 550 · Nivel 7",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00413",
+          "text": " Contenido y permisos modificados",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00414",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00415",
+          "text": "Regla 553 · Nivel 7",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00416",
+          "text": " Archivo eliminado",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00417",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00418",
+          "text": "syscheck.diff",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00419",
+          "text": " Contenido añadido recuperado",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00420",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00421",
+          "text": "vboxuser",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00422",
+          "text": " Usuario asociado a los cambios",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00423",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00424",
+          "text": "4 alertas",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00425",
+          "text": " Cronología completa del ejercicio",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00426",
+      "url": "/assets/lab-soc/evidencias/08-fim-ciclo-archivo.png",
+      "alt": "Tabla de Wazuh con cuatro alertas FIM y el contenido modificado",
+      "caption": "Evidencia 08 · Reglas 554, 550 y 553 sobre configuracion.txt."
+    },
+    {
+      "_type": "block",
+      "_key": "fh00039",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00040",
+          "text": "Hito 10 · Detección validada · PowerShell codificado detectado",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00429",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00430",
+          "text": " Se ejecutó una carga inocua codificada en Base64. Sysmon registró la línea de comandos y Wazuh la elevó como actividad sospechosa, conservando usuario, proceso padre y correspondencia con MITRE ATT&CK. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00431",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00432",
+          "text": "Regla 92057",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00433",
+          "text": " PowerShell con comando Base64",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00434",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00435",
+          "text": "Nivel 12",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00436",
+          "text": " Severidad alta",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00437",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00438",
+          "text": "MAIKEL\\Propietario",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00439",
+          "text": " Usuario que ejecutó la prueba",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00440",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00441",
+          "text": "powershell.exe",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00442",
+          "text": " Proceso hijo y proceso padre",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00443",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00444",
+          "text": "T1059.001",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00445",
+          "text": " MITRE ATT&CK · PowerShell",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00446",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00447",
+          "text": "Carga verificada",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00448",
+          "text": " Solo imprimía un mensaje de laboratorio",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00041",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00042",
+          "text": "Evidencia exportada · Alerta completa en CSV",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00451",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00452",
+          "text": " La exportación conserva la línea de comandos completa. Al decodificarla se obtuvo ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00453",
+          "text": "Write-Output \"PRUEBA SOC: PowerShell codificado\"",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00454",
+          "text": ", confirmando que la simulación era segura y que la detección fue precisa. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "downloadLink",
+      "_key": "pt00455",
+      "label": "Descargar evidencia CSV",
+      "url": "/assets/lab-soc/evidencias/09-alerta-powershell-base64.csv"
+    },
+    {
+      "_type": "block",
+      "_key": "fh00043",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00044",
+          "text": "Hito 11 · Regla propia validada · Detección personalizada para un archivo protegido",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00458",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00459",
+          "text": " La regla local ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00460",
+          "text": "100100",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00461",
+          "text": " eleva a nivel 12 únicamente las modificaciones de ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00462",
+          "text": "/opt/soc-lab/configuracion.txt",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00463",
+          "text": ". Conserva la diferencia de contenido y relaciona el comportamiento con MITRE ATT&CK T1565.001. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00464",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00465",
+          "text": "Regla 100100",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00466",
+          "text": " ID reservado para reglas personalizadas",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00467",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00468",
+          "text": "Nivel 12",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00469",
+          "text": " Archivo considerado sensible",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00470",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00471",
+          "text": "1 coincidencia",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00472",
+          "text": " Ruta protegida detectada correctamente",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00473",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00474",
+          "text": "syscheck.diff",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00475",
+          "text": " Cambio exacto conservado",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00476",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00477",
+          "text": "T1565.001",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00478",
+          "text": " Stored Data Manipulation",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00479",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00480",
+          "text": "Sintaxis válida",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00481",
+          "text": " wazuh-analysisd devolvió código 0",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "downloadLink",
+      "_key": "pt00482",
+      "label": "Descargar regla XML",
+      "url": "/config/fim_soc_lab.xml"
+    },
+    {
+      "_type": "downloadLink",
+      "_key": "pt00483",
+      "label": "Descargar alerta CSV",
+      "url": "/assets/lab-soc/evidencias/20-alerta-regla-100100.csv"
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00484",
+      "url": "/assets/lab-soc/evidencias/19-regla-personalizada-100100.png",
+      "alt": "Alerta de Wazuh generada por la regla personalizada 100100",
+      "caption": "Evidencia 19 · La modificación protegida activó la regla 100100 con el cambio completo."
+    },
+    {
+      "_type": "block",
+      "_key": "fh00045",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00046",
+          "text": "Hito 12 · Precisión comprobada · Prueba negativa sin falsos positivos",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00487",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00488",
+          "text": " Se creó y modificó ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00489",
+          "text": "archivo-no-protegido.txt",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00490",
+          "text": " dentro de la misma carpeta. Wazuh generó sus reglas estándar, pero la condición de ruta evitó que se activara la regla personalizada. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00491",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00492",
+          "text": "Regla 554 · Nivel 5",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00493",
+          "text": " Archivo alternativo creado",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00494",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00495",
+          "text": "Regla 550 · Nivel 7",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00496",
+          "text": " Archivo alternativo modificado",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00497",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00498",
+          "text": "Regla 100100",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00499",
+          "text": " Sin nuevas coincidencias",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00500",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00501",
+          "text": "Resultado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00502",
+          "text": " Alcance específico y menor ruido",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "downloadLink",
+      "_key": "pt00503",
+      "label": "Descargar prueba negativa CSV",
+      "url": "/assets/lab-soc/evidencias/23-eventos-archivo-no-protegido.csv"
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00504",
+      "url": "/assets/lab-soc/evidencias/22-prueba-negativa-archivo-no-protegido.png",
+      "alt": "Eventos estándar de creación y modificación sin activar la regla 100100",
+      "caption": "Evidencia 22 · El archivo alternativo produjo 554 y 550, nunca 100100."
+    },
+    {
+      "_type": "block",
+      "_key": "pt00505",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00506",
+          "text": "28 jul 2026 · Paso 01 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00507",
+          "text": "Máquina virtual creada",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00508",
+          "text": " Ubuntu Server preparado en VirtualBox con 4 vCPU, 8 GB de RAM y disco dinámico. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00509",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00510",
+          "text": "28 jul 2026 · Paso 02 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00511",
+          "text": "Acceso recuperado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00512",
+          "text": " Se identificó ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00513",
+          "text": "vboxuser",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00514",
+          "text": " como usuario generado por la instalación desatendida. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00515",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00516",
+          "text": "28 jul 2026 · Paso 03 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00517",
+          "text": "Teclado configurado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00518",
+          "text": " Se seleccionó la distribución española para trabajar correctamente desde la consola. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00519",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00520",
+          "text": "28 jul 2026 · Paso 04 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00521",
+          "text": "Servidor validado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00522",
+          "text": " Red NAT, sistema, memoria y almacenamiento comprobados antes de instalar Wazuh. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00523",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00524",
+          "text": "28 jul 2026 · Paso 05 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00525",
+          "text": "Red privada recuperada",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00526",
+          "text": " Se creó una interfaz nueva y se fijó ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00527",
+          "text": "192.168.228.10",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00528",
+          "text": " mediante Netplan. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00529",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00530",
+          "text": "28 jul 2026 · Paso 06 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00531",
+          "text": "Sistema actualizado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00532",
+          "text": " Ubuntu alcanzó la versión 24.04.4 LTS y conservó la conectividad después de reiniciar. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00533",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00534",
+          "text": "28 jul 2026 · Paso 07 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00535",
+          "text": "Base protegida",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00536",
+          "text": " Se creó la instantánea ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00537",
+          "text": "00-base-ubuntu-red-lista",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00538",
+          "text": " antes de instalar Wazuh. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00539",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00540",
+          "text": "28 jul 2026 · Paso 08 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00541",
+          "text": "Wazuh desplegado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00542",
+          "text": " Manager, Indexer, Dashboard y API de la versión 4.14.6 respondieron correctamente. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00543",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00544",
+          "text": "5 ago 2026 · Paso 09 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00545",
+          "text": "Dashboard validado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00546",
+          "text": " Se completó el primer acceso administrativo desde Windows y la Fase 2 quedó cerrada. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00547",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00548",
+          "text": "5 ago 2026 · Paso 10 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00549",
+          "text": "Windows conectado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00550",
+          "text": " El servicio Wazuh Agent quedó activo y enlazado con el Manager mediante TCP 1514. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00551",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00552",
+          "text": "5 ago 2026 · Paso 11 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00553",
+          "text": "Sysmon integrado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00554",
+          "text": " Windows comenzó a enviar creación de procesos, conexiones y archivos al canal central de Wazuh. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00555",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00556",
+          "text": "6 ago 2026 · Paso 12 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00557",
+          "text": "Linux conectado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00558",
+          "text": " SOC-LINUX-CLIENT quedó activo en 192.168.228.20 con el agente Wazuh 4.14.6. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00559",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00560",
+          "text": "6 ago 2026 · Paso 13 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00561",
+          "text": "FIM validado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00562",
+          "text": " Se detectaron en tiempo real la creación, modificación, cambio de permisos y eliminación de un archivo. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00563",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00564",
+          "text": "6 ago 2026 · Paso 14 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00565",
+          "text": "PowerShell sospechoso detectado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00566",
+          "text": " La regla 92057 generó una alerta de nivel 12 y la relacionó con MITRE ATT&CK T1059.001. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00567",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00568",
+          "text": "6 ago 2026 · Paso 15 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00569",
+          "text": "Fuerza bruta SSH detectada",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00570",
+          "text": " Wazuh agrupó ocho fallos de autenticación desde 192.168.228.1 y activó la regla 5712, nivel 10, asociada a MITRE T1110. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00571",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00572",
+          "text": "6 ago 2026 · Paso 16 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00573",
+          "text": "Respuesta activa validada",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00574",
+          "text": " La regla 651 confirmó el bloqueo temporal con firewall-drop; tras 60 segundos se retiró la regla y se recuperó el acceso al puerto 22. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00575",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00576",
+          "text": "6 ago 2026 · Paso 17 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00577",
+          "text": "Correlación de red con Wireshark",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00578",
+          "text": " Se relacionó el flujo 192.168.228.1:58846 → 192.168.228.20:22 con los eventos SSH del agente Linux. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00579",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00580",
+          "text": "6 ago 2026 · Paso 18 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00581",
+          "text": "Primer informe profesional terminado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00582",
+          "text": " SOC-2026-001 documenta resumen ejecutivo, cronología, MITRE, evidencias, contención, recuperación y recomendaciones. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00583",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00584",
+          "text": "6 ago 2026 · Paso 19 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00585",
+          "text": "Segundo informe profesional terminado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00586",
+          "text": " SOC-2026-002 analiza la alerta 92057, decodifica de forma segura el comando PowerShell y justifica el cierre sin aislamiento. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00587",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00588",
+          "text": "6 ago 2026 · Paso 20 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00589",
+          "text": "Tercer informe profesional terminado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00590",
+          "text": " SOC-2026-003 reconstruye el ciclo FIM, diferencia contenido y atributos, y utiliza un mapeo MITRE condicionado por el contexto. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00591",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00592",
+          "text": "6 ago 2026 · Paso 21 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00593",
+          "text": "Primera regla personalizada validada",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00594",
+          "text": " La regla 100100 elevó el archivo protegido a nivel 12 y la prueba negativa confirmó que otro archivo solo activaba las reglas estándar 554 y 550. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00595",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00596",
+          "text": "6 ago 2026 · Paso 22 ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00597",
+          "text": "Caso de estudio preparado para publicación",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00598",
+          "text": " README, guía visual, tres informes, evidencias, regla XML y tarjeta destacada del portafolio quedaron integrados y revisados. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00599",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00600",
+          "text": "→",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00601",
+          "text": " ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00602",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00603",
+          "text": "Proyecto completado: laboratorio SOC con Wazuh",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00604",
+          "text": " La entrega demuestra monitorización, detección, investigación, respuesta, ajuste de reglas y comunicación profesional de resultados. ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00058",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00057",
+          "text": "06 · Casos prácticos",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00060",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00059",
+          "text": "Detecciones construidas y validadas",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00607",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00608",
+          "text": "Pruebas seguras que producen alertas, evidencias y una investigación documentada.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00047",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00048",
+          "text": "01 · Fuerza bruta",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00613",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00614",
+          "text": "Varios accesos SSH fallidos contra el servidor Linux del laboratorio.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00615",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00616",
+          "text": "MITRE · T1110 · Validada ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00049",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00050",
+          "text": "02 · Cambio de archivos",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00619",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00620",
+          "text": "Wazuh detectó creación, modificación, permisos y eliminación en tiempo real.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00621",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00622",
+          "text": "FIM · Integridad ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00051",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00052",
+          "text": "03 · PowerShell inusual",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00625",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00626",
+          "text": "Regla 92057, nivel 12, con proceso, usuario, comando Base64 y proceso padre.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00627",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00628",
+          "text": "MITRE · T1059.001 · Validada ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00053",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00054",
+          "text": "04 · Tráfico de red",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00631",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00632",
+          "text": "Flujo SSH correlacionado por IP, puertos, hora y evento entre Wazuh y Wireshark.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00633",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00634",
+          "text": "Wazuh + Wireshark · Validada ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00062",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00061",
+          "text": "07 · Entrega profesional",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00064",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00063",
+          "text": "Qué ve un reclutador",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00637",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00638",
+          "text": "El resultado final es un caso de estudio, no una simple colección de capturas.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00641",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00642",
+          "text": "Arquitectura",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00643",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00644",
+          "text": "Diagrama, decisiones técnicas, recursos y diseño seguro de la red.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00645",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00646",
+          "text": "Detecciones",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00647",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00648",
+          "text": "Regla 100100 lista:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00649",
+          "text": " nivel 12, MITRE T1565.001 y prueba negativa sin falsos positivos.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "downloadLink",
+      "_key": "pt00650",
+      "label": "Descargar regla XML",
+      "url": "/config/fim_soc_lab.xml"
+    },
+    {
+      "_type": "downloadLink",
+      "_key": "pt00651",
+      "label": "Descargar alerta positiva CSV",
+      "url": "/assets/lab-soc/evidencias/20-alerta-regla-100100.csv"
+    },
+    {
+      "_type": "downloadLink",
+      "_key": "pt00652",
+      "label": "Descargar prueba negativa CSV",
+      "url": "/assets/lab-soc/evidencias/23-eventos-archivo-no-protegido.csv"
+    },
+    {
+      "_type": "block",
+      "_key": "pt00653",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00654",
+          "text": "Investigaciones",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00655",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00656",
+          "text": "3/3 informes listos:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00657",
+          "text": " fuerza bruta SSH, PowerShell codificado e integridad de archivos.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00659",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00660",
+          "text": "SOC-2026-001 · Abrir informe →",
+          "marks": [
+            "pt00658"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00661",
+          "text": " ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00663",
+          "text": "SOC-2026-002 · Abrir informe →",
+          "marks": [
+            "pt00662"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00664",
+          "text": " ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00666",
+          "text": "SOC-2026-003 · Abrir informe →",
+          "marks": [
+            "pt00665"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00667",
+          "text": " ",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "pt00658",
+          "_type": "link",
+          "href": "/proyectos/laboratorio-soc-wazuh/informe/incidente-ssh-soc-2026-001"
+        },
+        {
+          "_key": "pt00662",
+          "_type": "link",
+          "href": "/proyectos/laboratorio-soc-wazuh/informe/incidente-powershell-soc-2026-002"
+        },
+        {
+          "_key": "pt00665",
+          "_type": "link",
+          "href": "/proyectos/laboratorio-soc-wazuh/informe/incidente-fim-soc-2026-003"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "pt00668",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00669",
+          "text": "Respuesta",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00670",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00671",
+          "text": "Contención, recuperación, recomendaciones y mejoras futuras.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00066",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00065",
+          "text": "08 · Referencia rápida",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00068",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00067",
+          "text": "Glosario esencial",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00674",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00675",
+          "text": "Los términos que utilizaremos durante el proyecto, explicados sin complicaciones.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00678",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00679",
+          "text": "SOC",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00680",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00681",
+          "text": "Entorno desde el que se supervisa y responde a la seguridad de una organización.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00682",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00683",
+          "text": "SIEM",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00684",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00685",
+          "text": "Centraliza registros, aplica reglas y genera alertas para su investigación.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00686",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00687",
+          "text": "Wazuh Agent",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00688",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00689",
+          "text": "Programa que recoge información del endpoint y la envía al Manager.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00690",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00691",
+          "text": "Sysmon",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00692",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00693",
+          "text": "Amplía la información que Windows registra sobre procesos, conexiones y cambios.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00694",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00695",
+          "text": "MITRE ATT&CK",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00696",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00697",
+          "text": "Catálogo para clasificar tácticas y técnicas observadas durante un ataque.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00698",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00699",
+          "text": "Wireshark",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00700",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00701",
+          "text": "Microscopio de red: permite examinar el tráfico paquete por paquete.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00070",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00069",
+          "text": "09 · Fuentes fiables",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00072",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00071",
+          "text": "Documentación oficial",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00707",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00708",
+          "text": "Wazuh · Introducción ↗",
+          "marks": [
+            "pt00706"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00709",
+          "text": " ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00711",
+          "text": "Wazuh · Instalación ↗",
+          "marks": [
+            "pt00710"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00712",
+          "text": " ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00714",
+          "text": "Wazuh + MITRE ↗",
+          "marks": [
+            "pt00713"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00715",
+          "text": " ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00717",
+          "text": "Ubuntu Server ↗",
+          "marks": [
+            "pt00716"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00718",
+          "text": " ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00720",
+          "text": "Microsoft Sysmon ↗",
+          "marks": [
+            "pt00719"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00721",
+          "text": " ",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "pt00706",
+          "_type": "link",
+          "href": "https://documentation.wazuh.com/current/getting-started/index.html"
+        },
+        {
+          "_key": "pt00710",
+          "_type": "link",
+          "href": "https://documentation.wazuh.com/current/quickstart.html"
+        },
+        {
+          "_key": "pt00713",
+          "_type": "link",
+          "href": "https://documentation.wazuh.com/current/user-manual/ruleset/mitre.html"
+        },
+        {
+          "_key": "pt00716",
+          "_type": "link",
+          "href": "https://documentation.ubuntu.com/server/tutorial/basic-installation/"
+        },
+        {
+          "_key": "pt00719",
+          "_type": "link",
+          "href": "https://learn.microsoft.com/windows-server/administration/windows-commands/sysmon"
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "pt00722",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00723",
+          "text": "Laboratorio SOC con Wazuh · Miguel Pinedo Proyecto educativo · Solo sistemas propios y autorizados ",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+timestamp,agent.name,rule.description,rule.level,rule.id,rule.mitre.id,data.srcip,data.srcport,data.srcuser,full_log
+"Aug 6, 2026 @ 11:37:25.867",SOC-LINUX-CLIENT,sshd: brute force trying to get access to the system. Non existent user.,10,5712,"[""T1110""]",192.168.228.1,,usuario-inexistente,Aug 06 09:37:22 SOC-LINUX-CLIENT sshd[24800]: Failed password for invalid user usuario-inexistente from 192.168.228.1 port 54135 ssh2

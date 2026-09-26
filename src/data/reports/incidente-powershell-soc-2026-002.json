@@ -1,0 +1,1612 @@
+{
+  "title": "SOC-2026-002 · PowerShell codificado",
+  "slug": "incidente-powershell-soc-2026-002",
+  "seo": {
+    "metaTitle": "SOC-2026-002 · PowerShell codificado",
+    "metaDescription": "Informe profesional del incidente simulado de PowerShell codificado detectado por Sysmon y Wazuh."
+  },
+  "body": [
+    {
+      "_type": "block",
+      "_key": "fb00132",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00130",
+          "text": "SOC-2026-002 · Blue Team · Simulación autorizada",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "fs00131",
+          "text": " — PowerShell codificado detectado y analizado",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00003",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00004",
+          "text": "Sysmon registró una ejecución de PowerShell con ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00005",
+          "text": "-EncodedCommand",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00006",
+          "text": ". Wazuh la correlacionó con la regla 92057, nivel 12. El análisis confirmó que la técnica era sospechosa, pero el contenido correspondía a una prueba inocua del laboratorio.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00144",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00133",
+          "text": "Severidad Wazuh: ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "fs00134",
+          "text": "Alta",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00135",
+          "text": "  ·  ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00136",
+          "text": "Estado: ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "fs00137",
+          "text": "Cerrado",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00138",
+          "text": "  ·  ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00139",
+          "text": "Clasificación: ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "fs00140",
+          "text": "Verdadero positivo autorizado",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00141",
+          "text": "  ·  ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "fs00142",
+          "text": "Impacto real: ",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "fs00143",
+          "text": "Ninguno",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportTable",
+      "_key": "ft00150",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00145",
+          "cells": [
+            "Indicador",
+            "Valor"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00146",
+          "cells": [
+            "Regla de detección",
+            "92057"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00147",
+          "cells": [
+            "Nivel de alerta",
+            "12"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00148",
+          "cells": [
+            "Equipo afectado",
+            "1"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "fr00149",
+          "cells": [
+            "Acciones maliciosas",
+            "0"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "fb00152",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00151",
+          "text": "01 · Resumen ejecutivo",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00154",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00153",
+          "text": "Qué ocurrió y qué decisión se tomó",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00025",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00026",
+          "text": "Conclusión: detección correcta, sin compromiso",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00027",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00028",
+          "text": "El comportamiento coincidió con una técnica utilizada habitualmente para ocultar comandos. Tras decodificar el contenido se comprobó que únicamente ejecutaba ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00029",
+          "text": "Write-Output",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00030",
+          "text": " con un mensaje de prueba. No hubo descarga, persistencia, escalada de privilegios ni comunicación externa.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00031",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00032",
+          "text": "Decisión:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00033",
+          "text": " cerrar como verdadero positivo autorizado y conservar la evidencia para validar la capacidad de detección.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00034",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00035",
+          "text": "Lectura del riesgo",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00036",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00037",
+          "text": "Riesgo técnico:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00038",
+          "text": " alto si la ejecución fuese inesperada.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00039",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00040",
+          "text": "Impacto en el laboratorio:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00041",
+          "text": " nulo, porque el payload era inocuo y fue generado por el propietario.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00156",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00155",
+          "text": "02 · Alcance técnico",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00158",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00157",
+          "text": "Sistema, identidad y telemetría",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportTable",
+      "_key": "pt00054",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00046",
+          "cells": [
+            "Fecha y hora",
+            "6 de agosto de 2026 · 11:07:58.595 CEST"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00047",
+          "cells": [
+            "Endpoint",
+            "MAIKEL · Windows 11 · Agente Wazuh 4.14.6"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00048",
+          "cells": [
+            "Usuario",
+            "MAIKEL\\Propietario"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00049",
+          "cells": [
+            "Proceso",
+            "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00050",
+          "cells": [
+            "Proceso padre",
+            "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00051",
+          "cells": [
+            "Regla",
+            "92057 · Nivel 12 · “Powershell.exe spawned a powershell process which executed a base64 encoded command”"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00052",
+          "cells": [
+            "MITRE ATT&CK",
+            "T1059.001 · Command and Scripting Interpreter: PowerShell"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "pt00053",
+          "cells": [
+            "Fuente",
+            "Sysmon → Wazuh Agent → Wazuh Manager → Threat Hunting"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "fb00160",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00159",
+          "text": "03 · Cronología",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00162",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00161",
+          "text": "De la ejecución al cierre",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00059",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00060",
+          "text": "11:07:58 CEST · ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00061",
+          "text": "PowerShell inicia un proceso secundario",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00062",
+          "text": " La línea de comandos contiene ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00063",
+          "text": "-NoProfile",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00064",
+          "text": ", ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00065",
+          "text": "-ExecutionPolicy Bypass",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00066",
+          "text": " y ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00067",
+          "text": "-EncodedCommand",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00068",
+          "text": ".",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00069",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00070",
+          "text": "11:07:58 CEST · ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00071",
+          "text": "Sysmon registra la creación del proceso",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00072",
+          "text": " La telemetría conserva usuario, ejecutable, proceso padre y comando completo.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00073",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00074",
+          "text": "11:07:58 CEST · ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00075",
+          "text": "Wazuh genera la alerta",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00076",
+          "text": " La regla 92057 asigna nivel 12 y mapea el comportamiento con MITRE T1059.001.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00077",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00078",
+          "text": "Durante la investigación · ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00079",
+          "text": "Se decodifica el Base64",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00080",
+          "text": " El resultado es una instrucción ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00081",
+          "text": "Write-Output",
+          "marks": [
+            "code"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00082",
+          "text": " sin capacidad dañina.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00083",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00084",
+          "text": "Cierre · ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "pt00085",
+          "text": "Verdadero positivo autorizado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00086",
+          "text": " Se documenta la detección y no se aplica aislamiento por ausencia de compromiso.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00164",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00163",
+          "text": "04 · Análisis del comando",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00166",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00165",
+          "text": "Del indicador sospechoso al contenido real",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00091",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00092",
+          "text": "Línea de comandos observada UTF-16LE + Base64",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "codeBlock",
+      "_key": "pt00093",
+      "language": "text",
+      "code": "powershell.exe -NoProfile -ExecutionPolicy Bypass -EncodedCommand\nVwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAiAFAAUgBVAEUAQgBBACAAUwBPAEMAOgAgAFAAbwB3AGUAcgBTAGgAZQBsAGwAIABjAG8AZABpAGYAaQBjAGEAZABvACIA\n\n# Contenido decodificado\nWrite-Output \"PRUEBA SOC: PowerShell codificado\"",
+      "caption": ""
+    },
+    {
+      "_type": "block",
+      "_key": "pt00094",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00095",
+          "text": "-NoProfile",
+          "marks": [
+            "code"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00096",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00097",
+          "text": "Evita cargar el perfil del usuario. Puede usarse legítimamente, pero también reduce modificaciones del entorno durante una ejecución.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00098",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00099",
+          "text": "-ExecutionPolicy Bypass",
+          "marks": [
+            "code"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00100",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00101",
+          "text": "Evita restricciones de la política de ejecución en ese proceso. Es un indicador que debe contextualizarse.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00102",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00103",
+          "text": "-EncodedCommand",
+          "marks": [
+            "code"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00104",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00105",
+          "text": "Permite representar el comando en Base64. No cifra el contenido, pero dificulta su lectura inmediata.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00168",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00167",
+          "text": "05 · Cadena de detección",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00170",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00169",
+          "text": "Cómo llegó la actividad hasta el analista",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00110",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00111",
+          "text": "01 · EJECUCIÓN · PowerShell",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00112",
+          "text": " Comando codificado en el endpoint.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00113",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00114",
+          "text": "02 · TELEMETRÍA · Sysmon",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00115",
+          "text": " Proceso, usuario, padre y argumentos.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00116",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00117",
+          "text": "03 · CORRELACIÓN · Wazuh 92057",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00118",
+          "text": " Nivel 12 y MITRE T1059.001.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00119",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00120",
+          "text": "04 · ANÁLISIS · Threat Hunting",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00121",
+          "text": " Decodificación, alcance y clasificación.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00172",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00171",
+          "text": "06 · MITRE ATT&CK",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00174",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00173",
+          "text": "Clasificación del comportamiento",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00055",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00056",
+          "text": "T1059.001 · PowerShell",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00129",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00130",
+          "text": "Uso del intérprete PowerShell para ejecutar instrucciones. Los adversarios pueden emplearlo para descubrir, ejecutar o automatizar acciones en Windows.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00131",
+      "style": "h3",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00132",
+          "text": "Contexto que reduce el riesgo",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00133",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00134",
+          "text": "Comando creado expresamente para el laboratorio.",
+          "marks": []
+        }
+      ],
+      "markDefs": [],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "pt00135",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00136",
+          "text": "Contenido limitado a mostrar texto.",
+          "marks": []
+        }
+      ],
+      "markDefs": [],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "pt00137",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00138",
+          "text": "Sin conexiones de red ni escritura persistente.",
+          "marks": []
+        }
+      ],
+      "markDefs": [],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "pt00139",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00140",
+          "text": "Usuario y equipo conocidos.",
+          "marks": []
+        }
+      ],
+      "markDefs": [],
+      "listItem": "bullet",
+      "level": 1
+    },
+    {
+      "_type": "block",
+      "_key": "fb00176",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00175",
+          "text": "07 · Evidencias",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00178",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00177",
+          "text": "Alerta y exportación verificable",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportImage",
+      "_key": "pt00145",
+      "url": "/assets/lab-soc/evidencias/17-wazuh-powershell-92057.png",
+      "alt": "Alerta 92057 de PowerShell codificado en Wazuh Threat Hunting",
+      "caption": ""
+    },
+    {
+      "_type": "block",
+      "_key": "pt00146",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00147",
+          "text": "E-01 · Alerta en Wazuh",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00148",
+          "text": " Una coincidencia para MAIKEL con nivel 12, regla 92057 y MITRE T1059.001.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "downloadLink",
+      "_key": "pt00151",
+      "label": "E-02 · CSV · Evento exportado · Contiene los campos originales utilizados en el análisis. 18-alerta-powershell-92057.csv",
+      "url": "/assets/lab-soc/evidencias/18-alerta-powershell-92057.csv"
+    },
+    {
+      "_type": "block",
+      "_key": "fb00180",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00179",
+          "text": "08 · Hallazgos y respuesta",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00182",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00181",
+          "text": "Qué se confirmó y cómo se actuó",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00156",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00157",
+          "text": "Detección eficaz",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00158",
+          "text": " Sysmon y Wazuh conservaron suficiente contexto para reconstruir la ejecución sin acceder al equipo de forma invasiva.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00159",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00160",
+          "text": "Ofuscación, no cifrado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00161",
+          "text": " Base64 es reversible. El análisis del contenido fue imprescindible antes de decidir la contención.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00162",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00163",
+          "text": "Alcance limitado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00164",
+          "text": " La evidencia aportada identifica un único evento en el endpoint MAIKEL y un usuario conocido.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00165",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00166",
+          "text": "Sin aislamiento",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00167",
+          "text": " Aislar el equipo habría sido desproporcionado al tratarse de una prueba autorizada e inocua.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00184",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00183",
+          "text": "09 · Mejora continua",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00186",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00185",
+          "text": "Recomendaciones para un entorno real",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00172",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00173",
+          "text": "Alta",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00174",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00175",
+          "text": "Validar el origen antes de cerrar",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00176",
+          "text": " Comprobar usuario, proceso padre, firma, hash, host y actividad inmediatamente anterior y posterior.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00177",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00178",
+          "text": "Triaje",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00179",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00180",
+          "text": "Alta",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00181",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00182",
+          "text": "Buscar acciones posteriores",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00183",
+          "text": " Revisar conexiones, descargas, archivos, persistencia, credenciales y procesos hijos asociados.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00184",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00185",
+          "text": "Alcance",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00186",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00187",
+          "text": "Media",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00188",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00189",
+          "text": "Ajustar sin silenciar la técnica",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00190",
+          "text": " Permitir excepciones muy concretas para automatizaciones conocidas, conservando la alerta ante cambios.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00191",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00192",
+          "text": "Tuning",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00193",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00194",
+          "text": "Media",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00195",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00196",
+          "text": "Restringir PowerShell administrativamente",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00197",
+          "text": " Aplicar mínimo privilegio, registro de Script Block y controles de aplicaciones cuando el entorno lo permita.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00198",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00199",
+          "text": "Hardening",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00188",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00187",
+          "text": "10 · Integridad de evidencia",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fb00190",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fs00189",
+          "text": "Manifiesto SHA-256",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00204",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00205",
+          "text": "17-wazuh-powershell-92057.png",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00206",
+          "text": "5CF097AB12F84DDD9D26F0AF8BD1C18D2F59B607C630B277C0502EA5323353A2",
+          "marks": [
+            "code"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00207",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00208",
+          "text": "18-alerta-powershell-92057.csv",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00209",
+          "text": "484E19C32101C734249A832EB6313BD70B92BEABC98D1E08B52149DA6F82FF01",
+          "marks": [
+            "code"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00057",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00058",
+          "text": "Cierre del caso",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "fh00059",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "fh00060",
+          "text": "Detección validada. Impacto descartado.",
+          "marks": [
+            "em"
+          ]
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "pt00212",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "pt00213",
+          "text": "SOC-2026-002 cerrado",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "pt00214",
+          "text": " como verdadero positivo autorizado. La evidencia demuestra capacidad para detectar, contextualizar y analizar PowerShell codificado sin confundir una técnica sospechosa con un compromiso confirmado.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    }
+  ]
+}
