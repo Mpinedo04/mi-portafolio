@@ -94,6 +94,12 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 - Queda como diferencia de diseño, no de contenido: la guía antigua tenía menú lateral, barra de progreso y visor de imágenes ampliadas. Ahora las imágenes se abren a tamaño completo en otra pestaña.
 - El enlace de LinkedIn de la página de contacto ya apuntaba a `#` en la versión antigua; ahora no se muestra hasta que tenga una URL real.
 
+## Limpieza de la versión antigua (26/09/2026)
+
+- Se borraron del repositorio los restos de la web estática: los HTML de la raíz, `script.js`, `styles.css` y las carpetas `assets/` y `config/`, que eran copias idénticas de las de `public/`.
+- También se quitó `scripts/convert-reports.py`, que solo servía para convertir una vez los HTML antiguos a JSON.
+- Todo sigue disponible en el historial de git y en el backup local `mi-portafolio-antiguo-backup.zip`.
+
 ## Próximas mejoras
 
 - Añadir aquí cada nuevo cambio con su fecha y una descripción breve.
