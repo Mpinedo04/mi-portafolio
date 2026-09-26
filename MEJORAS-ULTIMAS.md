@@ -111,11 +111,26 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 
 - Al soltar la terminal sobre su hueco, aparecía un instante en la esquina superior izquierda. La ventana flotante está anclada en (0, 0) y se coloca con `transform`; el motor quitaba ese `transform` un fotograma antes de que React la devolviera a su sitio. Ahora se deja exactamente sobre el hueco hasta que React la mueve.
 
+## Logo de terminal y botón del CV (26/09/2026)
+
+- El prompt del logo muestra la sección actual (`root@miguel:~/proyectos$`). Al cambiar de página borra la ruta anterior hasta la parte común y escribe la nueva, como un `cd`. En rutas profundas se abrevia (`~/proyectos/…`).
+- Cursor de bloque que parpadea en reposo y se queda fijo mientras escribe o al pasar el ratón; barrido de luz tipo CRT al pasar el ratón; colores de prompt de bash (usuario dorado, ruta verde).
+- Botón del CV: un destello recorre el borde en bucle (sustituye al brillo anterior), la flecha de descarga «cae» en la bandeja al pasar el ratón y la etiqueta PDF es una píldora.
+- Logo y botón miden lo mismo (32 px; 28 px en móvil) y tienen foco visible con teclado. Con movimiento reducido no hay animaciones.
+- Cabecera en anchos intermedios: menos margen por debajo de 1100 px y cabecera en dos filas entre 769 y 940 px, para que el menú no choque con el logo.
+
 ## Limpieza final de restos (26/09/2026)
 
 - Se borró `public/assets/lavanderia-miguel-preview.png`, la captura antigua de la Lavandería que ya no usaba ninguna página (se usa la versión `-rework.jpg`).
 - Se quitaron de `globals.css` la clase `.t-ok` y las animaciones `capabilityVisualDrift` y `telemetryOrbit`, que venían del `styles.css` antiguo y no usaba nada.
 - Se quitó la dependencia `@sanity/ui`: el código no la importa y ya viene incluida con Sanity.
+
+## Marco de fin de página y README (26/09/2026)
+
+- El marco que aparece al llegar al final continúa la barra superior en el sentido de las agujas del reloj (derecha, abajo, izquierda) con un trazo seguido y colores que coinciden en cada esquina. Al subir se recoge rápido en lugar de desaparecer de golpe.
+- Las esquinas son refuerzos tipo visor en lugar de rombos que quedaban medio fuera de la pantalla.
+- La pastilla final («EOF · volver arriba») es un botón que sube al inicio. En móvil, el pie deja sitio para que no tape el texto.
+- README reescrito: enlace a la web publicada, informes enlazados, otros proyectos, funciones de la web, scripts, variables de entorno, despliegue y estructura actualizada.
 
 ## Próximas mejoras
 

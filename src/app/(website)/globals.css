@@ -331,42 +331,66 @@ header nav {
   gap: 1.1rem;
 }
 
-/* --- Terminal Logo --- */
+/* --- Logo de terminal --- */
 .nav-logo {
   align-items: center;
-  background: rgba(16, 21, 31, 0.65);
+  background: linear-gradient(180deg, rgba(21, 27, 40, 0.86), rgba(12, 16, 25, 0.86));
   border: 1px solid rgba(201, 168, 106, 0.22);
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   color: var(--white);
   display: inline-flex;
   font-family: var(--mono);
   font-size: 13px;
   font-weight: 500;
-  gap: 0.25rem;
-  letter-spacing: 0.6px;
-  padding: 0.35rem 0.75rem;
+  height: 32px;
+  letter-spacing: 0.3px;
+  overflow: hidden;
+  padding: 0 0.8rem 0 0.7rem;
   position: relative;
   text-decoration: none;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
+  white-space: nowrap;
 }
 
-/* Pulsing terminal live indicator */
+/* Barrido de luz tipo monitor CRT al pasar el ratón */
+.nav-logo::after {
+  background: linear-gradient(90deg, transparent, rgba(226, 200, 147, 0.18), transparent);
+  content: "";
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  transform: translateX(-110%);
+  width: 55%;
+}
+
+.nav-logo:hover::after {
+  animation: logoSweep 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes logoSweep {
+  to { transform: translateX(210%); }
+}
+
+/* Indicador de sesión activa */
 .nav-status-dot {
-  background: #85bda1;
+  background: var(--sage);
   border-radius: 50%;
-  box-shadow: 0 0 8px #85bda1;
-  display: inline-block;
+  box-shadow: 0 0 8px var(--sage);
+  flex-shrink: 0;
   height: 6px;
-  margin-right: 0.35rem;
+  margin-right: 0.55rem;
   position: relative;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
   width: 6px;
 }
 
 .nav-status-dot::after {
   animation: navPulse 2.4s infinite ease-out;
-  border: 1px solid #85bda1;
+  border: 1px solid var(--sage);
   border-radius: 50%;
   content: "";
   height: 100%;
@@ -377,48 +401,49 @@ header nav {
 }
 
 @keyframes navPulse {
-  0% {
-    opacity: 0.9;
-    transform: scale(1);
-  }
-  70% {
-    opacity: 0;
-    transform: scale(2.8);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(2.8);
-  }
+  0% { opacity: 0.9; transform: scale(1); }
+  70%, 100% { opacity: 0; transform: scale(2.8); }
 }
 
 .nav-logo .logo-user {
   color: var(--accent-strong);
   font-weight: 600;
-  transition: color 0.2s;
+  transition: color 0.2s, text-shadow 0.2s;
 }
 
-.nav-logo .logo-at {
+.nav-logo .logo-at,
+.nav-logo .logo-colon {
   color: var(--faint);
-  opacity: 0.8;
 }
 
 .nav-logo .logo-host {
   color: var(--white);
-  font-weight: 500;
-  transition: color 0.2s;
+}
+
+.nav-logo .logo-path {
+  color: var(--sage);
 }
 
 .nav-logo .logo-prompt {
   color: var(--accent);
   font-weight: 600;
-  transition: color 0.2s;
+  margin-right: 0.45rem;
 }
 
+/* Cursor de bloque: parpadea en reposo y queda fijo mientras escribe */
 .nav-logo .nav-cursor {
   animation: cursorBlink 1.05s infinite steps(2, start);
-  color: var(--accent-strong);
-  font-weight: 700;
-  margin-left: 1px;
+  background: var(--accent-strong);
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(226, 200, 147, 0.45);
+  display: inline-block;
+  height: 1.05em;
+  width: 0.55em;
+}
+
+.nav-logo[data-typing] .nav-cursor,
+.nav-logo:hover .nav-cursor {
+  animation: none;
 }
 
 @keyframes cursorBlink {
@@ -427,9 +452,8 @@ header nav {
 }
 
 .nav-logo:hover {
-  background: rgba(201, 168, 106, 0.08);
   border-color: rgba(201, 168, 106, 0.55);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), 0 0 16px rgba(201, 168, 106, 0.16), inset 0 1px 0 rgba(201, 168, 106, 0.25);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), 0 0 16px rgba(201, 168, 106, 0.16), inset 0 1px 0 rgba(201, 168, 106, 0.22);
   transform: translateY(-1px);
 }
 
@@ -443,7 +467,7 @@ header nav {
   box-shadow: 0 0 12px #9de2bd;
 }
 
-/* --- Glowing Laser Divider --- */
+/* --- Separador --- */
 .nav-divider {
   background: linear-gradient(180deg, transparent, rgba(201, 168, 106, 0.4), transparent);
   display: inline-block;
@@ -451,66 +475,53 @@ header nav {
   width: 1px;
 }
 
-/* --- High-Impact Cyber CV Button --- */
+/* --- Botón del CV --- */
+@property --cv-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
 .nav-cv {
   align-items: center;
-  background: linear-gradient(135deg, rgba(201, 168, 106, 0.14) 0%, rgba(16, 21, 31, 0.88) 100%);
-  border: 1px solid rgba(201, 168, 106, 0.42);
+  animation: cvOrbit 5.5s linear infinite;
+  /* Relleno por dentro y, en el borde, un destello que da la vuelta al botón */
+  background:
+    linear-gradient(135deg, rgba(38, 33, 26, 0.96) 0%, rgba(14, 18, 27, 0.96) 70%) padding-box,
+    conic-gradient(from var(--cv-angle), rgba(201, 168, 106, 0.28) 0deg, rgba(201, 168, 106, 0.28) 250deg, rgba(246, 226, 180, 0.95) 320deg, rgba(201, 168, 106, 0.28) 360deg) border-box;
+  border: 1px solid transparent;
   border-radius: 999px;
-  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4), 0 0 14px rgba(201, 168, 106, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4), 0 0 14px rgba(201, 168, 106, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   color: var(--white);
   display: inline-flex;
   font-family: var(--sans);
   font-size: 11px;
   font-weight: 600;
-  gap: 0.48rem;
+  gap: 0.5rem;
+  height: 32px;
   letter-spacing: 1.2px;
-  overflow: hidden;
-  padding: 0.35rem 0.9rem;
+  padding: 0 0.5rem 0 0.85rem;
   position: relative;
   text-decoration: none;
   text-transform: uppercase;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Continuous light sweep shimmer across CV button */
-.nav-cv::before {
-  animation: cvShine 4.5s infinite ease-in-out;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0) 30%,
-    rgba(226, 200, 147, 0.32) 50%,
-    rgba(255, 255, 255, 0) 70%,
-    transparent 100%
-  );
-  content: "";
-  height: 100%;
-  left: -150%;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  transform: skewX(-25deg);
-  width: 100%;
-}
-
-@keyframes cvShine {
-  0%, 65% {
-    left: -150%;
-  }
-  85%, 100% {
-    left: 150%;
-  }
+@keyframes cvOrbit {
+  to { --cv-angle: 360deg; }
 }
 
 .nav-cv .cv-icon {
   color: var(--accent-strong);
-  flex-shrink: 0;
-  height: 12.5px;
-  stroke-width: 2.2;
-  transition: transform 0.25s ease, color 0.25s ease;
-  width: 12.5px;
   filter: drop-shadow(0 0 4px rgba(201, 168, 106, 0.4));
+  flex-shrink: 0;
+  height: 13px;
+  overflow: visible;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.2;
+  transition: color 0.25s ease, filter 0.25s ease;
+  width: 13px;
 }
 
 .nav-cv .cv-text {
@@ -519,44 +530,65 @@ header nav {
   letter-spacing: 1px;
 }
 
-/* Golden PDF Seal Badge */
 .nav-cv .cv-badge {
   background: linear-gradient(135deg, #c9a86a, #eddcb2);
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(201, 168, 106, 0.4);
+  border-radius: 999px;
+  box-shadow: 0 0 10px rgba(201, 168, 106, 0.35);
   color: #0b0f17;
   font-family: var(--mono);
   font-size: 8.5px;
   font-weight: 800;
   letter-spacing: 0.6px;
   line-height: 1;
-  padding: 2.5px 5.5px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 4px 7px;
+  transition: box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Hover & Focus Effects */
 .nav-cv:hover {
-  background: linear-gradient(135deg, rgba(201, 168, 106, 0.24) 0%, rgba(20, 27, 40, 0.95) 100%);
-  border-color: rgba(226, 200, 147, 0.85);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5), 0 0 24px rgba(201, 168, 106, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-  color: #fff;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5), 0 0 26px rgba(201, 168, 106, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.16);
   transform: translateY(-2px);
 }
 
 .nav-cv:hover .cv-icon {
   color: #fff;
-  filter: drop-shadow(0 0 6px rgba(226, 200, 147, 0.8));
-  transform: translateY(1.5px);
+  filter: drop-shadow(0 0 6px rgba(226, 200, 147, 0.85));
+}
+
+/* La flecha "cae" en la bandeja mientras el ratón está encima */
+.nav-cv:hover .cv-arrow {
+  animation: cvDrop 1.1s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+}
+
+@keyframes cvDrop {
+  0% { opacity: 1; transform: translateY(0); }
+  45% { opacity: 0; transform: translateY(6px); }
+  46% { opacity: 0; transform: translateY(-7px); }
+  80%, 100% { opacity: 1; transform: translateY(0); }
 }
 
 .nav-cv:hover .cv-badge {
-  box-shadow: 0 0 14px rgba(226, 200, 147, 0.75);
-  transform: scale(1.05);
+  box-shadow: 0 0 14px rgba(226, 200, 147, 0.7);
+  transform: scale(1.06);
 }
 
 .nav-cv:active {
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(201, 168, 106, 0.2);
-  transform: translateY(0) scale(0.98);
+  transform: translateY(0) scale(0.97);
+}
+
+.nav-logo:focus-visible,
+.nav-cv:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-cv,
+  .nav-cv:hover .cv-arrow,
+  .nav-logo:hover::after,
+  .nav-status-dot::after,
+  .nav-logo .nav-cursor {
+    animation: none;
+  }
 }
 
 header nav ul {
@@ -580,6 +612,40 @@ header nav ul a {
 header nav ul a:hover,
 header nav ul a.active {
   color: var(--accent-strong);
+}
+
+/* Anchos intermedios: el logo muestra la ruta y el menú necesita más sitio */
+@media (max-width: 1100px) {
+  header nav {
+    padding: 1.1rem 2rem;
+  }
+
+  header nav ul {
+    gap: 1.6rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 940px) {
+  header nav {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 0.85rem 2rem;
+  }
+
+  .nav-left {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .nav-divider {
+    display: none;
+  }
+
+  header nav ul {
+    justify-content: space-between;
+    width: 100%;
+  }
 }
 
 #hero {
@@ -1607,13 +1673,15 @@ footer p {
 
   .nav-logo {
     font-size: 11.5px;
-    padding: 0.28rem 0.55rem;
+    height: 28px;
+    padding: 0 0.6rem 0 0.55rem;
   }
 
   .nav-cv {
     font-size: 10px;
     gap: 0.4rem;
-    padding: 0.28rem 0.75rem;
+    height: 28px;
+    padding: 0 0.4rem 0 0.7rem;
   }
 
   .nav-divider {
@@ -1708,6 +1776,8 @@ footer p {
   footer {
     flex-direction: column;
     gap: 0.8rem;
+    /* Deja libre la pastilla «volver arriba» del marco de fin de página */
+    padding-bottom: 4.5rem;
     text-align: center;
   }
 }
