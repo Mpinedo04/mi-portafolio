@@ -364,8 +364,11 @@ export class HeroField {
         t.y += t.vy * dt;
         moving = true;
         if (Math.hypot(target.x - t.x, target.y - t.y) < 0.8 && Math.hypot(t.vx, t.vy) < 20) {
-          Object.assign(t, { mode: 'idle', floating: false, vx: 0, vy: 0, tilt: 0 });
+          // Se deja la ventana justo encima del hueco sin quitar el transform: la ventana flotante
+          // está anclada en (0, 0) y, hasta que React la devuelva a su sitio, se vería en la esquina.
+          Object.assign(t, { x: target.x, y: target.y, tilt: 0 });
           this.applyTerminal();
+          Object.assign(t, { mode: 'idle', floating: false, vx: 0, vy: 0 });
           this.onDocked?.();
           return true;
         }
