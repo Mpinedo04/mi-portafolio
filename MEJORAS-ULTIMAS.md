@@ -107,6 +107,10 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 - La URL pública se toma de `NEXT_PUBLIC_SITE_URL` o, si no está definida, de la URL de producción que da Vercel. Si algún día usas un dominio propio, ponlo en `NEXT_PUBLIC_SITE_URL`.
 - Las descripciones están en `src/data/portfolio.js` (campo `seo.metaDescription`) y se pueden cambiar también desde Sanity.
 
+## Corrección: parpadeo al acoplar la terminal (26/09/2026)
+
+- Al soltar la terminal sobre su hueco, aparecía un instante en la esquina superior izquierda. La ventana flotante está anclada en (0, 0) y se coloca con `transform`; el motor quitaba ese `transform` un fotograma antes de que React la devolviera a su sitio. Ahora se deja exactamente sobre el hueco hasta que React la mueve.
+
 ## Próximas mejoras
 
 - Añadir aquí cada nuevo cambio con su fecha y una descripción breve.
