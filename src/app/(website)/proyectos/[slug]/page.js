@@ -4,6 +4,7 @@ import { projectsWithReports as fallbackProjects } from '@/data/reports';
 import { getProject } from '@/sanity/lib/queries';
 import { stegaClean } from 'next-sanity';
 import ProjectCard from '@/components/ProjectCard';
+import { pageMetadata } from '@/lib/seo';
 import styles from './page.module.css';
 
 export async function generateMetadata({ params }) {
@@ -11,7 +12,7 @@ export async function generateMetadata({ params }) {
   const fallback = fallbackProjects.find((item) => item.slug === slug) || null;
   const project = await getProject(slug, fallback, { stega: false });
   if (!project) return { title: 'Proyecto no encontrado · Miguel Pinedo' };
-  return { title: project.seo?.metaTitle || `${project.title} · Miguel Pinedo`, ...(project.seo?.metaDescription ? { description: project.seo.metaDescription } : {}) };
+  return pageMetadata({ title: project.seo?.metaTitle || `${project.title} · Miguel Pinedo`, description: project.seo?.metaDescription || project.description, path: `/proyectos/${slug}` });
 }
 
 export default async function ProjectPage({ params }) {

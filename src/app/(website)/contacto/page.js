@@ -2,10 +2,11 @@ import { contactContent } from '@/data/portfolio';
 import { getPage } from '@/sanity/lib/queries';
 import ContactLinks from '@/components/ContactLinks';
 import { stegaClean } from 'next-sanity';
+import { pageMetadata } from '@/lib/seo';
 
 export async function generateMetadata() {
   const contact = await getPage('contact', 'contact', contactContent, { stega: false });
-  return { title: contact.seo?.metaTitle || contactContent.seo.metaTitle, ...(contact.seo?.metaDescription ? { description: contact.seo.metaDescription } : {}) };
+  return pageMetadata({ title: contact.seo?.metaTitle || contactContent.seo.metaTitle, description: contact.seo?.metaDescription || contactContent.seo.metaDescription, path: '/contacto' });
 }
 
 export default async function ContactPage() {

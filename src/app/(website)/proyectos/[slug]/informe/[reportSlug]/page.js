@@ -5,6 +5,7 @@ import { getReport } from '@/sanity/lib/queries';
 import PortableTextRenderer from '@/components/PortableTextRenderer';
 import PrintButton from '@/components/PrintButton';
 import { stegaClean } from 'next-sanity';
+import { pageMetadata } from '@/lib/seo';
 import styles from './page.module.css';
 
 export async function generateMetadata({ params }) {
@@ -12,7 +13,7 @@ export async function generateMetadata({ params }) {
   const fallback = fallbackReports.find((item) => item.projectSlug === slug && item.slug === reportSlug) || null;
   const report = await getReport(slug, reportSlug, fallback, { stega: false });
   if (!report) return { title: 'Informe no encontrado · Miguel Pinedo' };
-  return { title: report.seo?.metaTitle || report.title, ...(report.seo?.metaDescription ? { description: report.seo.metaDescription } : {}) };
+  return pageMetadata({ title: report.seo?.metaTitle || `${report.title} · Miguel Pinedo`, description: report.seo?.metaDescription, path: `/proyectos/${slug}/informe/${reportSlug}` });
 }
 
 export default async function ReportPage({ params }) {

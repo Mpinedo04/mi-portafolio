@@ -3,12 +3,13 @@ import { getPage } from '@/sanity/lib/queries';
 import CapabilityCard from '@/components/CapabilityCard';
 import OpsConsole from '@/components/OpsConsole';
 import styles from './page.module.css';
+import { pageMetadata } from '@/lib/seo';
 
 const workstationContent = { capabilities: fallbackCapabilities };
 
 export async function generateMetadata() {
   const about = await getPage('about', 'about', aboutContent, { stega: false });
-  return { title: about.seo?.metaTitle || aboutContent.seo.metaTitle, ...(about.seo?.metaDescription ? { description: about.seo.metaDescription } : {}) };
+  return pageMetadata({ title: about.seo?.metaTitle || aboutContent.seo.metaTitle, description: about.seo?.metaDescription || aboutContent.seo.metaDescription, path: '/sobre-mi' });
 }
 
 export default async function AboutPage() {

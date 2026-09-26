@@ -1,10 +1,11 @@
 import { projectsWithReports as fallbackProjects } from '@/data/reports';
 import { getProjects } from '@/sanity/lib/queries';
 import ProjectCard from '@/components/ProjectCard';
+import { pageMetadata } from '@/lib/seo';
 import styles from './page.module.css';
 
 export async function generateMetadata() {
-  return { title: 'Proyectos - Miguel Pinedo' };
+  return pageMetadata({ title: 'Proyectos - Miguel Pinedo', description: 'Proyectos de Miguel Pinedo: laboratorio SOC con Wazuh con tres informes de incidentes y aplicaciones web desplegadas en Vercel.', path: '/proyectos' });
 }
 
 export default async function ProjectsPage() {

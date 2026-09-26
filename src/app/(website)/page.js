@@ -4,11 +4,12 @@ import { projectsWithReports as fallbackProjects } from '@/data/reports';
 import { getPage, getProjects } from '@/sanity/lib/queries';
 import Hero from '@/components/Hero';
 import FeaturedProject from '@/components/FeaturedProject';
+import { pageMetadata } from '@/lib/seo';
 import styles from './page.module.css';
 
 export async function generateMetadata() {
   const home = await getPage('home', 'home', homeContent, { stega: false });
-  return { title: home.seo?.metaTitle || homeContent.seo.metaTitle, ...(home.seo?.metaDescription ? { description: home.seo.metaDescription } : {}) };
+  return pageMetadata({ title: home.seo?.metaTitle || homeContent.seo.metaTitle, description: home.seo?.metaDescription || homeContent.seo.metaDescription, path: '/' });
 }
 
 export default async function HomePage() {

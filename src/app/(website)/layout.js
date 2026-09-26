@@ -2,7 +2,8 @@ import { draftMode } from 'next/headers';
 import { Analytics } from '@vercel/analytics/next';
 import { VisualEditing } from 'next-sanity/visual-editing';
 import { stegaClean } from 'next-sanity';
-import { siteSettings } from '@/data/portfolio';
+import { homeContent, siteSettings } from '@/data/portfolio';
+import { ogImage, siteName, siteUrl } from '@/lib/seo';
 import { getPage } from '@/sanity/lib/queries';
 import { sanityLiveReady, sanityReady } from '@/sanity/lib/client';
 import { SanityLive } from '@/sanity/lib/live';
@@ -19,7 +20,13 @@ import './globals.css';
 export const revalidate = 10;
 
 export const metadata = {
+  metadataBase: new URL(siteUrl),
   title: 'Miguel Pinedo - Cybersecurity',
+  description: homeContent.seo.metaDescription,
+  applicationName: siteName,
+  authors: [{ name: 'Miguel Pinedo', url: 'https://github.com/mpinedo04' }],
+  openGraph: { type: 'website', locale: 'es_ES', siteName, images: [ogImage] },
+  twitter: { card: 'summary_large_image', images: [ogImage] },
   icons: { icon: '/assets/favicon.svg', shortcut: '/assets/favicon.svg' },
 };
 

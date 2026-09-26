@@ -100,6 +100,13 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 - También se quitó `scripts/convert-reports.py`, que solo servía para convertir una vez los HTML antiguos a JSON.
 - Todo sigue disponible en el historial de git y en el backup local `mi-portafolio-antiguo-backup.zip`.
 
+## Vista previa al compartir el enlace (26/09/2026)
+
+- Cada página tiene ahora una descripción propia y las etiquetas Open Graph y de X que usan LinkedIn, WhatsApp, Slack o el correo para generar la tarjeta de vista previa.
+- Nueva imagen de vista previa de 1200×630 (`/og-image.png`) con el estilo de la web: nombre, lema, las tres credenciales del laboratorio SOC y las etiquetas principales. Se genera en el build desde `src/app/og-image.png/route.jsx`.
+- La URL pública se toma de `NEXT_PUBLIC_SITE_URL` o, si no está definida, de la URL de producción que da Vercel. Si algún día usas un dominio propio, ponlo en `NEXT_PUBLIC_SITE_URL`.
+- Las descripciones están en `src/data/portfolio.js` (campo `seo.metaDescription`) y se pueden cambiar también desde Sanity.
+
 ## Próximas mejoras
 
 - Añadir aquí cada nuevo cambio con su fecha y una descripción breve.

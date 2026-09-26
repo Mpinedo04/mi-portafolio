@@ -10,7 +10,7 @@ export const siteSettings = {
     { label: 'estudios', href: '/estudios' },
     { label: 'contacto', href: '/contacto' },
   ],
-  seo: { metaTitle: 'Miguel Pinedo - Cybersecurity', metaDescription: '' },
+  seo: { metaTitle: 'Miguel Pinedo - Cybersecurity', metaDescription: 'Portafolio de ciberseguridad de Miguel Pinedo: laboratorio SOC con Wazuh, informes de incidentes, pentesting web, hardening de Linux y desarrollo web.' },
 };
 
 export const homeContent = {
@@ -36,7 +36,7 @@ export const homeContent = {
   secondaryCta: { label: 'contactar', href: '/contacto' },
   introTitle: 'perfil operativo',
   introBody: 'Ciberseguridad defensiva y ofensiva, administración de sistemas y desarrollo web.',
-  seo: { metaTitle: 'Miguel Pinedo - Cybersecurity', metaDescription: '' },
+  seo: { metaTitle: 'Miguel Pinedo - Cybersecurity', metaDescription: 'Portafolio de ciberseguridad de Miguel Pinedo: laboratorio SOC con Wazuh, informes de incidentes, pentesting web, hardening de Linux y desarrollo web.' },
 };
 
 export const aboutContent = {
@@ -55,7 +55,7 @@ export const aboutContent = {
     { name: 'Python', detail: 'Automatización / PoC' },
     { name: 'Forense', detail: 'Análisis de logs' },
   ],
-  seo: { metaTitle: 'Sobre mí - Miguel Pinedo', metaDescription: '' },
+  seo: { metaTitle: 'Sobre mí - Miguel Pinedo', metaDescription: 'Perfil de Miguel Pinedo: ciberseguridad defensiva y ofensiva, análisis de vulnerabilidades, pentesting web, hardening de Linux y automatización con Python.' },
 };
 
 export const capabilities = [
@@ -75,7 +75,7 @@ export const studiesContent = {
     { name: 'Grado en Ciberseguridad', issuer: 'Universidad / España', year: '2022', orderRank: 30 },
     { name: 'TryHackMe - Top 1%', issuer: 'TryHackMe', year: 'activo', orderRank: 40 },
   ],
-  seo: { metaTitle: 'Estudios - Miguel Pinedo', metaDescription: '' },
+  seo: { metaTitle: 'Estudios - Miguel Pinedo', metaDescription: 'Formación y certificaciones en ciberseguridad de Miguel Pinedo.' },
 };
 
 const projectContent = [
@@ -89,7 +89,7 @@ const projectContent = [
     stats: [{ value: '4/4', label: 'escenarios' }, { value: '3', label: 'informes' }, { value: '1', label: 'regla propia' }],
     year: null, featured: true,
     externalLinks: [{ kind: 'download', label: 'regla XML ↓', url: '/config/fim_soc_lab.xml' }],
-    seo: { metaTitle: 'Laboratorio SOC con Wazuh · Miguel Pinedo', metaDescription: 'Caso de estudio del laboratorio SOC con Wazuh.' },
+    seo: { metaTitle: 'Laboratorio SOC con Wazuh · Miguel Pinedo', metaDescription: 'Laboratorio SOC con Wazuh, Sysmon y Wireshark: fuerza bruta SSH, PowerShell codificado, integridad de archivos, respuesta activa y una regla propia validada.' },
   },
   {
     _id: 'project-lavanderia', orderRank: 20, title: 'Lavandería Miguel', slug: 'lavanderia-miguel', subtitle: '', category: 'web', customLabel: '',
@@ -132,5 +132,5 @@ export const contactContent = {
     { label: 'mpinedo@gmail.com', url: 'https://mail.google.com/mail/?view=cm&fs=1&to=mpinedo%40gmail.com&su=Contacto%20desde%20tu%20portafolio', iconKey: 'mail' },
     { label: 'github', url: 'https://github.com/mpinedo04', iconKey: 'github' },
   ],
-  seo: { metaTitle: 'Contacto - Miguel Pinedo', metaDescription: '' },
+  seo: { metaTitle: 'Contacto - Miguel Pinedo', metaDescription: 'Contacta con Miguel Pinedo para proyectos de ciberseguridad, auditorías o desarrollo web.' },
 };

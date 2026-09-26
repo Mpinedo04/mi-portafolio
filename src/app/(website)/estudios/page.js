@@ -1,10 +1,11 @@
 import { studiesContent } from '@/data/portfolio';
 import { getPage } from '@/sanity/lib/queries';
 import CertItem from '@/components/CertItem';
+import { pageMetadata } from '@/lib/seo';
 
 export async function generateMetadata() {
   const studies = await getPage('studies', 'studies', studiesContent, { stega: false });
-  return { title: studies.seo?.metaTitle || studiesContent.seo.metaTitle, ...(studies.seo?.metaDescription ? { description: studies.seo.metaDescription } : {}) };
+  return pageMetadata({ title: studies.seo?.metaTitle || studiesContent.seo.metaTitle, description: studies.seo?.metaDescription || studiesContent.seo.metaDescription, path: '/estudios' });
 }
 
 export default async function StudiesPage() {

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { projectsWithReports as fallbackProjects } from '@/data/reports';
 import { getProject } from '@/sanity/lib/queries';
+import { pageMetadata } from '@/lib/seo';
 import styles from './page.module.css';
 import { stegaClean } from 'next-sanity';
 
@@ -10,7 +11,7 @@ export async function generateMetadata({ params }) {
   const fallback = fallbackProjects.find((item) => item.slug === slug) || null;
   const project = await getProject(slug, fallback, { stega: false });
   if (!project) return { title: 'Informes no encontrados · Miguel Pinedo' };
-  return { title: `Informes · ${project.title} · Miguel Pinedo` };
+  return pageMetadata({ title: `Informes · ${project.title} · Miguel Pinedo`, description: `Guías e informes técnicos de incidentes del proyecto ${project.title}, con evidencias, correspondencia con MITRE ATT&CK y medidas de contención.`, path: `/proyectos/${slug}/informe` });
 }
 
 export default async function ProjectReportsPage({ params }) {
