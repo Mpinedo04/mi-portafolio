@@ -680,8 +680,7 @@ h1 strong {
   display: block;
 }
 
-.t-prompt,
-.t-ok {
+.t-prompt {
   color: var(--accent-strong);
 }
 
@@ -1196,16 +1195,6 @@ h2 {
   }
 }
 
-@keyframes capabilityVisualDrift {
-  0% {
-    transform: scale(1.025) translateY(0);
-  }
-
-  100% {
-    transform: scale(1.07) translateY(-1.2%);
-  }
-}
-
 @keyframes visualScan {
   0%,
   8% {
@@ -1225,12 +1214,6 @@ h2 {
   100% {
     opacity: 0;
     top: 92%;
-  }
-}
-
-@keyframes telemetryOrbit {
-  to {
-    transform: rotate(360deg);
   }
 }
 

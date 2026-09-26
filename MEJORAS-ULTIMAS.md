@@ -111,6 +111,12 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 
 - Al soltar la terminal sobre su hueco, aparecía un instante en la esquina superior izquierda. La ventana flotante está anclada en (0, 0) y se coloca con `transform`; el motor quitaba ese `transform` un fotograma antes de que React la devolviera a su sitio. Ahora se deja exactamente sobre el hueco hasta que React la mueve.
 
+## Limpieza final de restos (26/09/2026)
+
+- Se borró `public/assets/lavanderia-miguel-preview.png`, la captura antigua de la Lavandería que ya no usaba ninguna página (se usa la versión `-rework.jpg`).
+- Se quitaron de `globals.css` la clase `.t-ok` y las animaciones `capabilityVisualDrift` y `telemetryOrbit`, que venían del `styles.css` antiguo y no usaba nada.
+- Se quitó la dependencia `@sanity/ui`: el código no la importa y ya viene incluida con Sanity.
+
 ## Próximas mejoras
 
 - Añadir aquí cada nuevo cambio con su fecha y una descripción breve.
