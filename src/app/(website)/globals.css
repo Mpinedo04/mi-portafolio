@@ -1559,6 +1559,14 @@ h2 {
   max-width: 500px;
 }
 
+#contacto .contact-or {
+  color: var(--faint);
+  font-size: 12px;
+  letter-spacing: 1.6px;
+  margin: 2.6rem 0 1.1rem;
+  text-transform: uppercase;
+}
+
 .contact-links {
   display: flex;
   flex-wrap: wrap;

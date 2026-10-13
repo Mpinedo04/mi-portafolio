@@ -4,6 +4,7 @@ export default {
     { name: 'sectionLabel', title: 'Etiqueta de sección', type: 'string' },
     { name: 'title', title: 'Título', type: 'string' },
     { name: 'subtitle', title: 'Texto', type: 'text', rows: 3 },
+    { name: 'formspreeId', title: 'ID de Formspree', description: 'Lo que va después de /f/ en la dirección del formulario de formspree.io. Si está vacío, no se muestra el formulario.', type: 'string' },
     { name: 'links', title: 'Enlaces de contacto', type: 'array', of: [{ type: 'object', name: 'contactLink', fields: [
       { name: 'label', title: 'Texto visible', type: 'string' },
       { name: 'url', title: 'URL', type: 'string' },

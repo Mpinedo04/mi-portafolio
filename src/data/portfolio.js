@@ -139,6 +139,8 @@ export const projects = projectContent;
 export const contactContent = {
   sectionLabel: '// 04 - contacto', title: 'Hablemos',
   subtitle: 'Si tienes un proyecto, una auditoría pendiente o simplemente quieres conectar, mi bandeja está abierta.',
+  // ID del formulario en formspree.io (lo que va después de /f/). Vacío: no se muestra el formulario.
+  formspreeId: '',
   links: [
     { label: 'mpinedo@gmail.com', url: 'mailto:mpinedo@gmail.com?subject=Contacto%20desde%20tu%20portafolio', iconKey: 'mail' },
     { label: 'github', url: 'https://github.com/mpinedo04', iconKey: 'github' },

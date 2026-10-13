@@ -33,12 +33,11 @@ export function GET() {
       backgroundSize: '48px 48px',
     }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 20px', border: `1px solid ${colors.border}`, borderRadius: 999, fontSize: 24, color: colors.white }}>
-          <div style={{ width: 12, height: 12, borderRadius: 999, background: colors.sage }}/>
-          <span style={{ color: colors.gold }}>root</span>
-          <span style={{ color: colors.faint }}>@</span>
-          <span>miguel</span>
-          <span style={{ color: colors.faint }}>:~$</span>
+        {/* Píldora del nombre, como el logo de la cabecera: borde dorado con un destello */}
+        <div style={{ display: 'flex', padding: 2, borderRadius: 999, background: `linear-gradient(110deg, rgba(201,168,106,0.35) 0%, rgba(201,168,106,0.35) 55%, #f6e2b4 78%, rgba(201,168,106,0.35) 100%)` }}>
+          <div style={{ display: 'flex', alignItems: 'center', padding: '12px 30px', borderRadius: 999, background: 'linear-gradient(135deg, #26211a 0%, #0e121b 70%)', fontSize: 24, fontWeight: 600, letterSpacing: 5, color: colors.white }}>
+            MIGUEL PINEDO
+          </div>
         </div>
         <div style={{ display: 'flex', fontSize: 22, letterSpacing: 4, color: colors.faint }}>PORTAFOLIO</div>
       </div>

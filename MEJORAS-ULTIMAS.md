@@ -146,6 +146,7 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 - Descartados por el camino: una frase que rotaba junto al nombre y un monograma «MP».
 - Logo y botón del CV miden lo mismo: 36 px (32 px en móvil). Con movimiento reducido el destello no gira.
 - Los campos «Usuario del prompt» y «Host del prompt» se quitaron de Sanity porque ya no se usan.
+- La imagen de vista previa al compartir el enlace (`/og-image.png`) cambia la píldora `root@miguel:~$` por «MIGUEL PINEDO», a juego con la cabecera.
 
 ## CV corregido (13/10/2026)
 
@@ -164,7 +165,13 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 
 - La dirección de contacto es `mpinedo@gmail.com`, el correo principal de Miguel.
 - El botón ya no abre la página de redactar de Gmail, que solo sirve a quien usa Gmail en el navegador y se cerraba sola. Ahora usa `mailto:` (abre el programa de correo de cada visitante, con el asunto ya escrito).
-- Al lado hay un botón «copiar» que copia la dirección y confirma con «copiado». Si el navegador no deja usar el portapapeles, deja la dirección seleccionada.
+- Se probó un botón «copiar» al lado y se quitó: el botón vuelve a ser la píldora dorada con la dirección en mayúsculas.
+
+## Formulario de contacto con Formspree (13/10/2026)
+
+- Contacto tiene un formulario como el de Portafolio Raúl, con el servicio Formspree (formspree.io). Pide nombre, correo, empresa o teléfono (opcional) y mensaje. El correo de quien escribe queda como dirección de respuesta.
+- Mejoras respecto al de Raúl: no hay «modo prueba» que diga «enviado» sin enviar nada, y una trampa invisible (`_gotcha`) frena a los bots.
+- Solo aparece si hay un ID de formulario en `contactContent.formspreeId`, en Sanity («ID de Formspree») o en la variable `NEXT_PUBLIC_FORMSPREE_ID`. Mientras no lo haya, la página sigue igual que antes.
 
 ## Próximas mejoras
 
