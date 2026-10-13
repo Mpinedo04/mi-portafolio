@@ -140,11 +140,17 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 
 ## Logo de la cabecera más cercano (13/10/2026)
 
-- El logo ya no es un prompt de terminal (`root@miguel:~$`). Ahora muestra un monograma «MP» en una placa dorada cuadrada con esquinas redondeadas y el nombre «MIGUEL PINEDO» en mayúsculas espaciadas (Fraunces).
-- Objetivo: que cualquier visitante (por ejemplo, de recursos humanos) entienda la cabecera a la primera.
-- Se probó una frase que rotaba junto al nombre y se descartó: el nombre solo queda más limpio.
-- Logo y botón del CV miden lo mismo: 36 px (32 px en móvil).
+- El logo ya no es un prompt de terminal (`root@miguel:~$`). Ahora es el nombre «MIGUEL PINEDO» en mayúsculas espaciadas (Fraunces), para que cualquier visitante, por ejemplo de recursos humanos, lo entienda a la primera.
+- En reposo, la píldora del nombre lleva el mismo borde con un destello que gira que el botón del CV, a contrafase para que no se muevan a la vez.
+- Al pasar el ratón se rellena de dorado y las letras se vuelven oscuras.
+- Descartados por el camino: una frase que rotaba junto al nombre y un monograma «MP».
+- Logo y botón del CV miden lo mismo: 36 px (32 px en móvil). Con movimiento reducido el destello no gira.
 - Los campos «Usuario del prompt» y «Host del prompt» se quitaron de Sanity porque ya no se usan.
+
+## CV corregido (13/10/2026)
+
+- En el PDF del CV, el Grado Superior ASIX pasa de «2023 - 2025» a «2023 - 2026», según el expediente académico, y el correo pasa a `mpinedo@gmail.com`.
+- Se editó el PDF original cambiando solo esos dos textos, con la misma fuente, tamaño, color y posición. El resto del documento no cambia.
 
 ## Grado Superior ASIX en Estudios (13/10/2026)
 

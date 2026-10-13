@@ -13,7 +13,6 @@ export default function Header({ settings }) {
     <nav>
       <div className="nav-left">
         <Link className="nav-logo" href="/" aria-label={`Ir al inicio - ${brand}`}>
-          <span className="logo-mark" aria-hidden="true">MP</span>
           <span className="logo-name">{brand}</span>
         </Link>
         <span className="nav-divider" aria-hidden="true" />

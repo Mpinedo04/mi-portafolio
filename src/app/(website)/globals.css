@@ -331,30 +331,44 @@ header nav {
   gap: 1.1rem;
 }
 
-/* --- Logo: monograma y nombre --- */
+/* --- Logo: el nombre en una píldora con el mismo borde de luz que el botón del CV --- */
 .nav-logo {
   align-items: center;
-  background: linear-gradient(180deg, rgba(21, 27, 40, 0.86), rgba(12, 16, 25, 0.86));
-  border: 1px solid rgba(201, 168, 106, 0.22);
-  border-radius: 11px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  color: var(--white);
+  animation: cvOrbit 5.5s linear infinite;
+  animation-delay: -2.75s; /* el destello va a contrafase del botón del CV */
+  background:
+    linear-gradient(135deg, rgba(38, 33, 26, 0.96) 0%, rgba(14, 18, 27, 0.96) 70%) padding-box,
+    conic-gradient(from var(--cv-angle), rgba(201, 168, 106, 0.28) 0deg, rgba(201, 168, 106, 0.28) 250deg, rgba(246, 226, 180, 0.95) 320deg, rgba(201, 168, 106, 0.28) 360deg) border-box;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4), 0 0 14px rgba(201, 168, 106, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   display: inline-flex;
   font-family: var(--serif);
-  gap: 0.7rem;
   height: 36px;
   overflow: hidden;
-  padding: 0 1rem 0 0.25rem;
+  padding: 0 1.2rem;
   position: relative;
   text-decoration: none;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: box-shadow 0.3s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
   white-space: nowrap;
 }
 
-/* Reflejo dorado que cruza el logo al pasar el ratón */
+/* Relleno dorado que aparece al pasar el ratón */
+.nav-logo::before {
+  background: linear-gradient(145deg, #f3e2bb, var(--accent-strong) 40%, var(--accent) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  content: "";
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 0.3s ease;
+}
+
+/* Reflejo que cruza el logo al pasar el ratón */
 .nav-logo::after {
-  background: linear-gradient(90deg, transparent, rgba(226, 200, 147, 0.18), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
   content: "";
   height: 100%;
   left: 0;
@@ -373,47 +387,31 @@ header nav {
   to { transform: translateX(210%); }
 }
 
-/* Monograma: placa dorada cuadrada con las esquinas redondeadas */
-.logo-mark {
-  align-items: center;
-  background: linear-gradient(145deg, #f3e2bb, var(--accent-strong) 40%, var(--accent) 100%);
-  border-radius: 8px;
-  box-shadow: 0 0 12px rgba(201, 168, 106, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-  color: #0d121c;
-  display: inline-flex;
-  flex-shrink: 0;
-  font-size: 12px;
-  font-weight: 600;
-  height: 28px;
-  justify-content: center;
-  letter-spacing: 0.5px;
-  transition: box-shadow 0.3s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  width: 28px;
-}
-
 .logo-name {
   color: var(--white);
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 2px;
+  position: relative;
   text-transform: uppercase;
-  transition: color 0.25s ease, text-shadow 0.25s ease;
+  transition: color 0.3s ease;
 }
 
 .nav-logo:hover {
-  border-color: rgba(201, 168, 106, 0.55);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), 0 0 16px rgba(201, 168, 106, 0.16), inset 0 1px 0 rgba(201, 168, 106, 0.22);
-  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5), 0 0 26px rgba(201, 168, 106, 0.4);
+  transform: translateY(-2px);
 }
 
-.nav-logo:hover .logo-mark {
-  box-shadow: 0 0 18px rgba(226, 200, 147, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-  transform: rotate(-6deg) scale(1.05);
+.nav-logo:hover::before {
+  opacity: 1;
 }
 
 .nav-logo:hover .logo-name {
-  color: #fff;
-  text-shadow: 0 0 12px rgba(226, 200, 147, 0.45);
+  color: #0d121c;
+}
+
+.nav-logo:active {
+  transform: translateY(0) scale(0.97);
 }
 
 /* --- Separador --- */
@@ -533,12 +531,9 @@ header nav {
 @media (prefers-reduced-motion: reduce) {
   .nav-cv,
   .nav-cv:hover .cv-arrow,
+  .nav-logo,
   .nav-logo:hover::after {
     animation: none;
-  }
-
-  .logo-mark {
-    transition: none;
   }
 }
 
@@ -1623,17 +1618,8 @@ footer p {
   }
 
   .nav-logo {
-    border-radius: 9px;
-    gap: 0.55rem;
     height: 32px;
-    padding: 0 0.8rem 0 0.2rem;
-  }
-
-  .logo-mark {
-    border-radius: 7px;
-    font-size: 10.5px;
-    height: 25px;
-    width: 25px;
+    padding: 0 0.95rem;
   }
 
   .logo-name {
