@@ -126,6 +126,7 @@ sequenceDiagram
 
 | Proyecto | Descripción | Enlaces |
 | --- | --- | --- |
+| StagePlot Studio | App de pago: editor de stage plots en 3D para sonido en directo (patchbay, input list, ficha técnica) con backend en Supabase, licencias y control de dispositivos | [Web](https://stageplot-studio.pages.dev/) · código privado |
 | Lavandería Miguel | Web para una lavandería de autoservicio: servicios, ubicación y contacto | [Demo](https://lavanderia-miguel.vercel.app/) · [Código](https://github.com/mpinedo04/lavanderia-miguel) |
 | Portafolio Raúl | Portafolio audiovisual para un filmmaker: perfil, proyectos, equipo y contacto | [Demo](https://portafolio-raul-sigma.vercel.app/) · [Código](https://github.com/mpinedo04/portafolio-raul) |
 | VideoBalls Analytics | Web de analítica para visualizar estadísticas y datos | [Demo](https://videoballs-analyticsraulmiguel2.vercel.app/) · [Código](https://github.com/mpinedo04/videoballs-analytics) |

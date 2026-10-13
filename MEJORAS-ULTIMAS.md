@@ -132,6 +132,12 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 - La pastilla final («EOF · volver arriba») es un botón que sube al inicio. En móvil, el pie deja sitio para que no tape el texto.
 - README reescrito: enlace a la web publicada, informes enlazados, otros proyectos, funciones de la web, scripts, variables de entorno, despliegue y estructura actualizada.
 
+## Nuevo proyecto: StagePlot Studio (13/10/2026)
+
+- Se añadió StagePlot Studio a los proyectos, justo después del laboratorio SOC, con una captura del editor (`public/assets/stageplot-studio-preview.jpg`).
+- La ficha explica que es una app de pago con backend propio (Supabase con seguridad por filas, licencias, control de dispositivos y funciones en Cloudflare) e incluye tres datos: 24/8 entradas y auxiliares, 8 tablas con RLS y 28 funciones SQL.
+- El enlace lleva a la web publicada en Cloudflare Pages. No hay enlace al código porque es una app de pago con el código privado.
+
 ## Próximas mejoras
 
 - Añadir aquí cada nuevo cambio con su fecha y una descripción breve.

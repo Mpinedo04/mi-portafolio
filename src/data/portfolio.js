@@ -92,6 +92,17 @@ const projectContent = [
     seo: { metaTitle: 'Laboratorio SOC con Wazuh · Miguel Pinedo', metaDescription: 'Laboratorio SOC con Wazuh, Sysmon y Wireshark: fuerza bruta SSH, PowerShell codificado, integridad de archivos, respuesta activa y una regla propia validada.' },
   },
   {
+    _id: 'project-stageplot', orderRank: 15, title: 'StagePlot Studio', slug: 'stageplot-studio', subtitle: 'App de pago · código privado', category: 'aplicación', customLabel: '',
+    mainImage: '/assets/stageplot-studio-preview.jpg', mainImageAlt: 'Editor de StagePlot Studio: escenario en 3D con músicos, cableado y monitores, biblioteca de instrumentos y consola de 24 canales',
+    description: 'Editor de stage plots en 3D para técnicos de sonido y bandas: montas el escenario arrastrando instrumentos, monitores y sub-snakes, y Auto-Patch numera los canales en un patchbay de 24 entradas y 8 auxiliares. Genera la input list y una ficha técnica imprimible, comparte el bolo con un enlace de solo lectura y se instala como app en el móvil, también sin cobertura. Detrás hay un backend propio: base de datos PostgreSQL en Supabase con seguridad por filas, acceso con código de un solo uso por email (sin contraseñas), licencias anuales con límite de dispositivos, panel de administración de clientes y pagos, y funciones en Cloudflare que solo entregan el editor a quien tiene una licencia válida.',
+    tags: ['React', 'Supabase', 'PostgreSQL', 'Cloudflare Pages', 'PWA'],
+    stats: [{ value: '24/8', label: 'entradas / aux' }, { value: '8', label: 'tablas con RLS' }, { value: '28', label: 'funciones SQL' }],
+    year: null, featured: false,
+    externalLinks: [
+      { kind: 'demo', label: 'web', url: 'https://stageplot-studio.pages.dev/' },
+    ], seo: { metaTitle: 'StagePlot Studio · Miguel Pinedo', metaDescription: 'App de pago para sonido en directo: editor de stage plots en 3D con patchbay, input list y ficha técnica, y backend con Supabase, licencias y control de dispositivos.' },
+  },
+  {
     _id: 'project-lavanderia', orderRank: 20, title: 'Lavandería Miguel', slug: 'lavanderia-miguel', subtitle: '', category: 'web', customLabel: '',
     mainImage: '/assets/lavanderia-miguel-preview-rework.jpg', mainImageAlt: 'Nueva portada del proyecto Lavandería Miguel - Rayo Washing',
     description: 'Sitio web para una lavandería de autoservicio, enfocado en presentar servicios, ubicación, contacto y una imagen profesional para un negocio local.',
