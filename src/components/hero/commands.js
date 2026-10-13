@@ -12,7 +12,7 @@ export const mark = (text, tone = 'hl') => ({ text, tone });
 const SECTIONS = {
   'sobre-mi': { href: '/sobre-mi', label: 'perfil, habilidades y capacidades' },
   proyectos: { href: '/proyectos', label: 'laboratorios, webs y casos de estudio' },
-  estudios: { href: '/estudios', label: 'formación y certificaciones' },
+  estudios: { href: '/estudios', label: 'formación' },
   contacto: { href: '/contacto', label: 'email y redes' },
 };
 

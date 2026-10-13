@@ -1,1 +1,11 @@
 .item { min-height: 66px; }
+
+/* El punto y el año se alinean con la primera línea del nombre, también en filas altas */
+.item { align-items: flex-start; }
+.item :global(.cert-left) { align-items: flex-start; }
+.item :global(.cert-dot) { margin-top: 11px; }
+.item :global(.cert-year) { padding-top: 4px; }
+
+/* Datos destacados de una titulación: notas y prácticas en pastillas discretas */
+.highlights { display: flex; flex-wrap: wrap; gap: .45rem; list-style: none; margin-top: .7rem; }
+.highlights li { background: rgba(201, 168, 106, .07); border: 1px solid rgba(201, 168, 106, .22); border-radius: 999px; color: var(--accent-strong); font-size: 11.5px; letter-spacing: .2px; padding: .22rem .65rem; }

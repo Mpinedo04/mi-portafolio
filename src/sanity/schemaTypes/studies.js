@@ -7,6 +7,7 @@ export default {
       { name: 'name', title: 'Nombre', type: 'string', validation: (rule) => rule.required() },
       { name: 'issuer', title: 'Emisor', type: 'string' },
       { name: 'year', title: 'Año o estado', type: 'string' },
+      { name: 'highlights', title: 'Datos destacados', description: 'Opcional. Etiquetas cortas bajo el emisor, por ejemplo «Proyecto final · 10».', type: 'array', of: [{ type: 'string' }] },
       { name: 'orderRank', title: 'Orden manual', type: 'number' },
     ], preview: { select: { title: 'name', subtitle: 'issuer' } } }] },
     { name: 'seo', title: 'SEO de Estudios', type: 'object', fields: [

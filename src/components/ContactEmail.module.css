@@ -1,0 +1,10 @@
+.row { align-items: center; display: flex; flex-wrap: wrap; gap: .7rem; justify-content: center; }
+.mail, .copy { height: 46px; padding-bottom: 0; padding-top: 0; }
+.row svg { fill: none; flex-shrink: 0; height: 16px; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; width: 16px; }
+
+/* La dirección se lee mejor en minúsculas y sin el espaciado de los botones */
+.mail { align-items: center; display: inline-flex; gap: .6rem; letter-spacing: .4px; max-width: 100%; text-transform: none; }
+.mail span { font-size: 14px; overflow-wrap: anywhere; }
+
+.copy { align-items: center; display: inline-flex; gap: .45rem; padding-left: 1.2rem; padding-right: 1.3rem; }
+.copy[data-copied] { border-color: var(--border-green); color: var(--sage); }

@@ -331,22 +331,20 @@ header nav {
   gap: 1.1rem;
 }
 
-/* --- Logo de terminal --- */
+/* --- Logo: monograma, nombre y frase que rota --- */
 .nav-logo {
   align-items: center;
   background: linear-gradient(180deg, rgba(21, 27, 40, 0.86), rgba(12, 16, 25, 0.86));
   border: 1px solid rgba(201, 168, 106, 0.22);
-  border-radius: 9px;
+  border-radius: 999px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   color: var(--white);
   display: inline-flex;
-  font-family: var(--mono);
-  font-size: 13px;
-  font-weight: 500;
+  font-family: var(--serif);
+  gap: 0.6rem;
   height: 32px;
-  letter-spacing: 0.3px;
   overflow: hidden;
-  padding: 0 0.8rem 0 0.7rem;
+  padding: 0 1rem 0 0.25rem;
   position: relative;
   text-decoration: none;
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -354,7 +352,7 @@ header nav {
   white-space: nowrap;
 }
 
-/* Barrido de luz tipo monitor CRT al pasar el ratón */
+/* Reflejo dorado que cruza el logo al pasar el ratón */
 .nav-logo::after {
   background: linear-gradient(90deg, transparent, rgba(226, 200, 147, 0.18), transparent);
   content: "";
@@ -375,80 +373,83 @@ header nav {
   to { transform: translateX(210%); }
 }
 
-/* Indicador de sesión activa */
-.nav-status-dot {
-  background: var(--sage);
+/* Monograma: medalla dorada con un aro que gira despacio */
+.logo-mark {
+  align-items: center;
+  background: radial-gradient(circle at 30% 25%, #f3e2bb, var(--accent-strong) 45%, var(--accent) 100%);
   border-radius: 50%;
-  box-shadow: 0 0 8px var(--sage);
+  box-shadow: 0 0 12px rgba(201, 168, 106, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  color: #0d121c;
+  display: inline-flex;
   flex-shrink: 0;
-  height: 6px;
-  margin-right: 0.55rem;
+  font-size: 10px;
+  font-weight: 600;
+  height: 24px;
+  justify-content: center;
+  letter-spacing: 0.4px;
   position: relative;
-  transition: background-color 0.25s ease, box-shadow 0.25s ease;
-  width: 6px;
+  transition: box-shadow 0.3s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 24px;
 }
 
-.nav-status-dot::after {
-  animation: navPulse 2.4s infinite ease-out;
-  border: 1px solid var(--sage);
+.logo-mark::before {
+  animation: markOrbit 9s linear infinite;
+  border: 1px solid transparent;
   border-radius: 50%;
+  border-top-color: rgba(226, 200, 147, 0.75);
+  border-right-color: rgba(133, 189, 161, 0.45);
   content: "";
-  height: 100%;
-  left: -1px;
+  inset: -3px;
   position: absolute;
-  top: -1px;
-  width: 100%;
 }
 
-@keyframes navPulse {
-  0% { opacity: 0.9; transform: scale(1); }
-  70%, 100% { opacity: 0; transform: scale(2.8); }
+@keyframes markOrbit {
+  to { transform: rotate(360deg); }
 }
 
-.nav-logo .logo-user {
-  color: var(--accent-strong);
-  font-weight: 600;
-  transition: color 0.2s, text-shadow 0.2s;
-}
-
-.nav-logo .logo-at,
-.nav-logo .logo-colon {
-  color: var(--faint);
-}
-
-.nav-logo .logo-host {
+.logo-name {
   color: var(--white);
-}
-
-.nav-logo .logo-path {
-  color: var(--sage);
-}
-
-.nav-logo .logo-prompt {
-  color: var(--accent);
+  font-size: 15px;
   font-weight: 600;
-  margin-right: 0.45rem;
+  letter-spacing: 0.2px;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
 }
 
-/* Cursor de bloque: parpadea en reposo y queda fijo mientras escribe */
-.nav-logo .nav-cursor {
-  animation: cursorBlink 1.05s infinite steps(2, start);
-  background: var(--accent-strong);
-  border-radius: 1px;
-  box-shadow: 0 0 8px rgba(226, 200, 147, 0.45);
-  display: inline-block;
-  height: 1.05em;
-  width: 0.55em;
+.logo-sep {
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+  height: 3px;
+  opacity: 0.75;
+  width: 3px;
 }
 
-.nav-logo[data-typing] .nav-cursor,
-.nav-logo:hover .nav-cursor {
-  animation: none;
+/* Las frases comparten celda; la activa sube y se enfoca, la anterior se va hacia arriba */
+.logo-motto {
+  color: var(--accent-strong);
+  display: inline-grid;
+  font-size: 13.5px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.15px;
 }
 
-@keyframes cursorBlink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+.logo-motto span {
+  filter: blur(3px);
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(7px);
+  transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
+}
+
+.logo-motto span[data-state="active"] {
+  filter: blur(0);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.logo-motto span[data-state="prev"] {
+  transform: translateY(-7px);
 }
 
 .nav-logo:hover {
@@ -457,14 +458,14 @@ header nav {
   transform: translateY(-1px);
 }
 
-.nav-logo:hover .logo-user {
-  color: #fff;
-  text-shadow: 0 0 10px rgba(226, 200, 147, 0.6);
+.nav-logo:hover .logo-mark {
+  box-shadow: 0 0 18px rgba(226, 200, 147, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transform: rotate(-10deg) scale(1.06);
 }
 
-.nav-logo:hover .nav-status-dot {
-  background: #9de2bd;
-  box-shadow: 0 0 12px #9de2bd;
+.nav-logo:hover .logo-name {
+  color: #fff;
+  text-shadow: 0 0 12px rgba(226, 200, 147, 0.45);
 }
 
 /* --- Separador --- */
@@ -585,9 +586,13 @@ header nav {
   .nav-cv,
   .nav-cv:hover .cv-arrow,
   .nav-logo:hover::after,
-  .nav-status-dot::after,
-  .nav-logo .nav-cursor {
+  .logo-mark::before {
     animation: none;
+  }
+
+  .logo-mark,
+  .logo-motto span {
+    transition: none;
   }
 }
 
@@ -614,7 +619,7 @@ header nav ul a.active {
   color: var(--accent-strong);
 }
 
-/* Anchos intermedios: el logo muestra la ruta y el menú necesita más sitio */
+/* Anchos intermedios: el menú necesita más sitio, así que el logo se queda solo con el nombre */
 @media (max-width: 1100px) {
   header nav {
     padding: 1.1rem 2rem;
@@ -622,6 +627,11 @@ header nav ul a.active {
 
   header nav ul {
     gap: 1.6rem;
+  }
+
+  .logo-sep,
+  .logo-motto {
+    display: none;
   }
 }
 
@@ -1672,9 +1682,19 @@ footer p {
   }
 
   .nav-logo {
-    font-size: 11.5px;
+    gap: 0.5rem;
     height: 28px;
-    padding: 0 0.6rem 0 0.55rem;
+    padding: 0 0.8rem 0 0.2rem;
+  }
+
+  .logo-mark {
+    font-size: 9px;
+    height: 21px;
+    width: 21px;
+  }
+
+  .logo-name {
+    font-size: 14px;
   }
 
   .nav-cv {

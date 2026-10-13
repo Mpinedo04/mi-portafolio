@@ -138,6 +138,27 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 - La ficha explica que es una app de pago con backend propio (Supabase con seguridad por filas, licencias, control de dispositivos y funciones en Cloudflare) e incluye tres datos: 24/8 entradas y auxiliares, 8 tablas con RLS y 28 funciones SQL.
 - El enlace lleva a la web publicada en Cloudflare Pages. No hay enlace al código porque es una app de pago con el código privado.
 
+## Logo de la cabecera más cercano (13/10/2026)
+
+- El logo ya no es un prompt de terminal (`root@miguel:~$`). Ahora muestra un monograma dorado «MP» con un aro que gira despacio, el nombre en Fraunces y una frase en cursiva que rota con un fundido suave: «protegiendo lo que importa», «construyendo con propósito» y «aprendiendo cada día».
+- Objetivo: que cualquier visitante (por ejemplo, de recursos humanos) entienda la cabecera a la primera.
+- Las frases están en `siteSettings.headerMottos` y en Sanity (campo «Frases del logo», que sustituye a «Usuario del prompt» y «Host del prompt»).
+- Por debajo de 1100 px solo se ve el monograma y el nombre. Con movimiento reducido la frase no rota y el aro no gira.
+
+## Grado Superior ASIX en Estudios (13/10/2026)
+
+- En Estudios aparece primero el Grado Superior en Administración de Sistemas Informáticos en Red (ASIX), perfil de ciberseguridad, 2023 – 2026, con nota final 8,01. Sustituye a la entrada provisional «Grado en Ciberseguridad · Universidad / España · 2022».
+- Las credenciales admiten ahora «datos destacados» (también en Sanity). El ASIX muestra: Proyecto final · 10, Ciberseguridad y hacking ético · 9, Seguridad y alta disponibilidad · 9 y Prácticas en empresa · 383 h. Datos sacados del expediente académico.
+- El punto y el año de cada credencial se alinean con la primera línea del nombre.
+- El expediente no se publica en la web porque contiene datos personales (NIF).
+- Se quitaron CEH, CompTIA Security+ y TryHackMe Top 1%. La sección pasa a llamarse «Formación» (etiqueta «// 03 - estudios»).
+
+## Correo de contacto corregido (13/10/2026)
+
+- La web mostraba `mpinedo@gmail.com`, que no es la dirección de Miguel. Ahora usa `pinedofacimiguel@gmail.com`, la misma del CV.
+- El botón ya no abre la página de redactar de Gmail, que solo sirve a quien usa Gmail en el navegador y se cerraba sola. Ahora usa `mailto:` (abre el programa de correo de cada visitante, con el asunto ya escrito).
+- Al lado hay un botón «copiar» que copia la dirección y confirma con «copiado». Si el navegador no deja usar el portapapeles, deja la dirección seleccionada.
+
 ## Próximas mejoras
 
 - Añadir aquí cada nuevo cambio con su fecha y una descripción breve.

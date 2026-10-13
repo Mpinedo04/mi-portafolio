@@ -1,7 +1,6 @@
 export const siteSettings = {
   brandName: 'Miguel Pinedo',
-  terminalUser: 'root',
-  terminalHost: 'miguel',
+  headerMottos: ['protegiendo lo que importa', 'construyendo con propósito', 'aprendiendo cada día'],
   cvUrl: '/assets/CV_Miguel_Pinedo_moderno.pdf',
   footerCredit: 'diseñado & construido manualmente',
   navigation: [
@@ -67,15 +66,17 @@ export const capabilities = [
 ];
 
 export const studiesContent = {
-  sectionLabel: '// 03 - formación y certificaciones',
-  title: 'Credenciales',
+  sectionLabel: '// 03 - estudios',
+  title: 'Formación',
   certifications: [
-    { name: 'Certified Ethical Hacker (CEH)', issuer: 'EC-Council', year: '2024', orderRank: 10 },
-    { name: 'CompTIA Security+', issuer: 'CompTIA', year: '2023', orderRank: 20 },
-    { name: 'Grado en Ciberseguridad', issuer: 'Universidad / España', year: '2022', orderRank: 30 },
-    { name: 'TryHackMe - Top 1%', issuer: 'TryHackMe', year: 'activo', orderRank: 40 },
+    {
+      name: 'Grado Superior en Administración de Sistemas Informáticos en Red (ASIX)',
+      issuer: 'Formación Profesional · perfil de ciberseguridad · nota final 8,01',
+      year: '2023 – 2026', orderRank: 5,
+      highlights: ['Proyecto final · 10', 'Ciberseguridad y hacking ético · 9', 'Seguridad y alta disponibilidad · 9', 'Prácticas en empresa · 383 h'],
+    },
   ],
-  seo: { metaTitle: 'Estudios - Miguel Pinedo', metaDescription: 'Formación y certificaciones en ciberseguridad de Miguel Pinedo.' },
+  seo: { metaTitle: 'Estudios - Miguel Pinedo', metaDescription: 'Formación de Miguel Pinedo: Grado Superior en Administración de Sistemas Informáticos en Red (ASIX) con perfil de ciberseguridad.' },
 };
 
 const projectContent = [
@@ -140,7 +141,7 @@ export const contactContent = {
   sectionLabel: '// 04 - contacto', title: 'Hablemos',
   subtitle: 'Si tienes un proyecto, una auditoría pendiente o simplemente quieres conectar, mi bandeja está abierta.',
   links: [
-    { label: 'mpinedo@gmail.com', url: 'https://mail.google.com/mail/?view=cm&fs=1&to=mpinedo%40gmail.com&su=Contacto%20desde%20tu%20portafolio', iconKey: 'mail' },
+    { label: 'pinedofacimiguel@gmail.com', url: 'mailto:pinedofacimiguel@gmail.com?subject=Contacto%20desde%20tu%20portafolio', iconKey: 'mail' },
     { label: 'github', url: 'https://github.com/mpinedo04', iconKey: 'github' },
   ],
   seo: { metaTitle: 'Contacto - Miguel Pinedo', metaDescription: 'Contacta con Miguel Pinedo para proyectos de ciberseguridad, auditorías o desarrollo web.' },
