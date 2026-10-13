@@ -1,29 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { stegaClean } from 'next-sanity';
 import styles from './Header.module.css';
 
-const defaultMottos = ['protegiendo lo que importa', 'construyendo con propósito', 'aprendiendo cada día'];
-
-// Frase del logo: rota cada pocos segundos con un fundido suave. Con movimiento reducido se queda la primera.
-function useRotatingIndex(length, delay = 4200) {
-  const [index, setIndex] = useState(0);
-  useEffect(() => {
-    if (length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
-    const timer = window.setInterval(() => setIndex((current) => (current + 1) % length), delay);
-    return () => window.clearInterval(timer);
-  }, [length, delay]);
-  return index;
-}
-
 export default function Header({ settings }) {
   const pathname = usePathname();
   const brand = settings?.brandName || 'Miguel Pinedo';
-  const mottos = settings?.headerMottos?.length ? settings.headerMottos : defaultMottos;
-  const active = useRotatingIndex(mottos.length);
   const links = settings?.navigation || [];
   return <header className={styles.wrap}>
     <nav>
@@ -31,11 +15,6 @@ export default function Header({ settings }) {
         <Link className="nav-logo" href="/" aria-label={`Ir al inicio - ${brand}`}>
           <span className="logo-mark" aria-hidden="true">MP</span>
           <span className="logo-name">{brand}</span>
-          <span className="logo-sep" aria-hidden="true" />
-          {/* Todas las frases ocupan la misma celda: el logo no cambia de ancho al rotar */}
-          <span className="logo-motto" aria-hidden="true">
-            {mottos.map((motto, i) => <span key={motto} data-state={i === active ? 'active' : i === (active - 1 + mottos.length) % mottos.length ? 'prev' : undefined}>{motto}</span>)}
-          </span>
         </Link>
         <span className="nav-divider" aria-hidden="true" />
         <a className="nav-cv" href={settings?.cvUrl || '/assets/CV_Miguel_Pinedo_moderno.pdf'} target="_blank" rel="noopener noreferrer" aria-label="Descargar o ver CV de Miguel Pinedo en PDF">

@@ -140,10 +140,11 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 
 ## Logo de la cabecera más cercano (13/10/2026)
 
-- El logo ya no es un prompt de terminal (`root@miguel:~$`). Ahora muestra un monograma dorado «MP» con un aro que gira despacio, el nombre en Fraunces y una frase en cursiva que rota con un fundido suave: «protegiendo lo que importa», «construyendo con propósito» y «aprendiendo cada día».
+- El logo ya no es un prompt de terminal (`root@miguel:~$`). Ahora muestra un monograma «MP» en una placa dorada cuadrada con esquinas redondeadas y el nombre «MIGUEL PINEDO» en mayúsculas espaciadas (Fraunces).
 - Objetivo: que cualquier visitante (por ejemplo, de recursos humanos) entienda la cabecera a la primera.
-- Las frases están en `siteSettings.headerMottos` y en Sanity (campo «Frases del logo», que sustituye a «Usuario del prompt» y «Host del prompt»).
-- Por debajo de 1100 px solo se ve el monograma y el nombre. Con movimiento reducido la frase no rota y el aro no gira.
+- Se probó una frase que rotaba junto al nombre y se descartó: el nombre solo queda más limpio.
+- Logo y botón del CV miden lo mismo: 36 px (32 px en móvil).
+- Los campos «Usuario del prompt» y «Host del prompt» se quitaron de Sanity porque ya no se usan.
 
 ## Grado Superior ASIX en Estudios (13/10/2026)
 

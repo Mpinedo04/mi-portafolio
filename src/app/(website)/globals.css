@@ -331,18 +331,18 @@ header nav {
   gap: 1.1rem;
 }
 
-/* --- Logo: monograma, nombre y frase que rota --- */
+/* --- Logo: monograma y nombre --- */
 .nav-logo {
   align-items: center;
   background: linear-gradient(180deg, rgba(21, 27, 40, 0.86), rgba(12, 16, 25, 0.86));
   border: 1px solid rgba(201, 168, 106, 0.22);
-  border-radius: 999px;
+  border-radius: 11px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   color: var(--white);
   display: inline-flex;
   font-family: var(--serif);
-  gap: 0.6rem;
-  height: 32px;
+  gap: 0.7rem;
+  height: 36px;
   overflow: hidden;
   padding: 0 1rem 0 0.25rem;
   position: relative;
@@ -373,83 +373,31 @@ header nav {
   to { transform: translateX(210%); }
 }
 
-/* Monograma: medalla dorada con un aro que gira despacio */
+/* Monograma: placa dorada cuadrada con las esquinas redondeadas */
 .logo-mark {
   align-items: center;
-  background: radial-gradient(circle at 30% 25%, #f3e2bb, var(--accent-strong) 45%, var(--accent) 100%);
-  border-radius: 50%;
-  box-shadow: 0 0 12px rgba(201, 168, 106, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  background: linear-gradient(145deg, #f3e2bb, var(--accent-strong) 40%, var(--accent) 100%);
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(201, 168, 106, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   color: #0d121c;
   display: inline-flex;
   flex-shrink: 0;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
-  height: 24px;
+  height: 28px;
   justify-content: center;
-  letter-spacing: 0.4px;
-  position: relative;
+  letter-spacing: 0.5px;
   transition: box-shadow 0.3s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  width: 24px;
-}
-
-.logo-mark::before {
-  animation: markOrbit 9s linear infinite;
-  border: 1px solid transparent;
-  border-radius: 50%;
-  border-top-color: rgba(226, 200, 147, 0.75);
-  border-right-color: rgba(133, 189, 161, 0.45);
-  content: "";
-  inset: -3px;
-  position: absolute;
-}
-
-@keyframes markOrbit {
-  to { transform: rotate(360deg); }
+  width: 28px;
 }
 
 .logo-name {
   color: var(--white);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.2px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   transition: color 0.25s ease, text-shadow 0.25s ease;
-}
-
-.logo-sep {
-  background: var(--accent);
-  border-radius: 50%;
-  flex-shrink: 0;
-  height: 3px;
-  opacity: 0.75;
-  width: 3px;
-}
-
-/* Las frases comparten celda; la activa sube y se enfoca, la anterior se va hacia arriba */
-.logo-motto {
-  color: var(--accent-strong);
-  display: inline-grid;
-  font-size: 13.5px;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0.15px;
-}
-
-.logo-motto span {
-  filter: blur(3px);
-  grid-area: 1 / 1;
-  opacity: 0;
-  transform: translateY(7px);
-  transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
-}
-
-.logo-motto span[data-state="active"] {
-  filter: blur(0);
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.logo-motto span[data-state="prev"] {
-  transform: translateY(-7px);
 }
 
 .nav-logo:hover {
@@ -459,8 +407,8 @@ header nav {
 }
 
 .nav-logo:hover .logo-mark {
-  box-shadow: 0 0 18px rgba(226, 200, 147, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  transform: rotate(-10deg) scale(1.06);
+  box-shadow: 0 0 18px rgba(226, 200, 147, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  transform: rotate(-6deg) scale(1.05);
 }
 
 .nav-logo:hover .logo-name {
@@ -499,7 +447,7 @@ header nav {
   font-size: 11px;
   font-weight: 600;
   gap: 0.5rem;
-  height: 32px;
+  height: 36px;
   letter-spacing: 1.2px;
   padding: 0 0.5rem 0 0.85rem;
   position: relative;
@@ -585,13 +533,11 @@ header nav {
 @media (prefers-reduced-motion: reduce) {
   .nav-cv,
   .nav-cv:hover .cv-arrow,
-  .nav-logo:hover::after,
-  .logo-mark::before {
+  .nav-logo:hover::after {
     animation: none;
   }
 
-  .logo-mark,
-  .logo-motto span {
+  .logo-mark {
     transition: none;
   }
 }
@@ -619,7 +565,7 @@ header nav ul a.active {
   color: var(--accent-strong);
 }
 
-/* Anchos intermedios: el menú necesita más sitio, así que el logo se queda solo con el nombre */
+/* Anchos intermedios: el menú necesita más sitio */
 @media (max-width: 1100px) {
   header nav {
     padding: 1.1rem 2rem;
@@ -627,11 +573,6 @@ header nav ul a.active {
 
   header nav ul {
     gap: 1.6rem;
-  }
-
-  .logo-sep,
-  .logo-motto {
-    display: none;
   }
 }
 
@@ -1682,25 +1623,28 @@ footer p {
   }
 
   .nav-logo {
-    gap: 0.5rem;
-    height: 28px;
+    border-radius: 9px;
+    gap: 0.55rem;
+    height: 32px;
     padding: 0 0.8rem 0 0.2rem;
   }
 
   .logo-mark {
-    font-size: 9px;
-    height: 21px;
-    width: 21px;
+    border-radius: 7px;
+    font-size: 10.5px;
+    height: 25px;
+    width: 25px;
   }
 
   .logo-name {
-    font-size: 14px;
+    font-size: 12.5px;
+    letter-spacing: 1.6px;
   }
 
   .nav-cv {
     font-size: 10px;
     gap: 0.4rem;
-    height: 28px;
+    height: 32px;
     padding: 0 0.4rem 0 0.7rem;
   }
 

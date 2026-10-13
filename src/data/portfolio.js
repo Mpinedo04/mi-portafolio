@@ -1,6 +1,5 @@
 export const siteSettings = {
   brandName: 'Miguel Pinedo',
-  headerMottos: ['protegiendo lo que importa', 'construyendo con propósito', 'aprendiendo cada día'],
   cvUrl: '/assets/CV_Miguel_Pinedo_moderno.pdf',
   footerCredit: 'diseñado & construido manualmente',
   navigation: [

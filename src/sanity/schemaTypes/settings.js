@@ -11,7 +11,6 @@ export default {
   name: 'settings', title: 'Ajustes globales', type: 'document',
   fields: [
     { name: 'brandName', title: 'Nombre de marca', type: 'string', validation: (rule) => rule.required() },
-    { name: 'headerMottos', title: 'Frases del logo', description: 'Se muestran junto al nombre en la cabecera y van rotando. Mejor cortas y de longitud parecida.', type: 'array', of: [{ type: 'string' }], validation: (rule) => rule.max(4) },
     { name: 'navigation', title: 'Navegación', type: 'array', of: [navLink] },
     { name: 'cvUrl', title: 'Ruta del CV', type: 'string' },
     { name: 'footerCredit', title: 'Crédito del pie', type: 'string' },
