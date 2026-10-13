@@ -153,9 +153,9 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 - El expediente no se publica en la web porque contiene datos personales (NIF).
 - Se quitaron CEH, CompTIA Security+ y TryHackMe Top 1%. La sección pasa a llamarse «Formación» (etiqueta «// 03 - estudios»).
 
-## Correo de contacto corregido (13/10/2026)
+## Botón de correo de contacto (13/10/2026)
 
-- La web mostraba `mpinedo@gmail.com`, que no es la dirección de Miguel. Ahora usa `pinedofacimiguel@gmail.com`, la misma del CV.
+- La dirección de contacto es `mpinedo@gmail.com`, el correo principal de Miguel.
 - El botón ya no abre la página de redactar de Gmail, que solo sirve a quien usa Gmail en el navegador y se cerraba sola. Ahora usa `mailto:` (abre el programa de correo de cada visitante, con el asunto ya escrito).
 - Al lado hay un botón «copiar» que copia la dirección y confirma con «copiado». Si el navegador no deja usar el portapapeles, deja la dirección seleccionada.
 

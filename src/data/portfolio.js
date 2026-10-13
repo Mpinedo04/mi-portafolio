@@ -141,7 +141,7 @@ export const contactContent = {
   sectionLabel: '// 04 - contacto', title: 'Hablemos',
   subtitle: 'Si tienes un proyecto, una auditoría pendiente o simplemente quieres conectar, mi bandeja está abierta.',
   links: [
-    { label: 'pinedofacimiguel@gmail.com', url: 'mailto:pinedofacimiguel@gmail.com?subject=Contacto%20desde%20tu%20portafolio', iconKey: 'mail' },
+    { label: 'mpinedo@gmail.com', url: 'mailto:mpinedo@gmail.com?subject=Contacto%20desde%20tu%20portafolio', iconKey: 'mail' },
     { label: 'github', url: 'https://github.com/mpinedo04', iconKey: 'github' },
   ],
   seo: { metaTitle: 'Contacto - Miguel Pinedo', metaDescription: 'Contacta con Miguel Pinedo para proyectos de ciberseguridad, auditorías o desarrollo web.' },
