@@ -1,6 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { stegaClean } from 'next-sanity';
+import { caseStudyPath } from '@/data/reports';
+import { localePath } from '@/i18n/config';
+import { t } from '@/i18n/ui';
 import styles from './ProjectCard.module.css';
 
 const isExternal = (url) => /^https?:\/\//.test(url);
@@ -12,7 +15,8 @@ const isExternal = (url) => /^https?:\/\//.test(url);
  * descargas) quedan por encima y funcionan por separado: no hay enlaces dentro de
  * enlaces y el teclado recorre cada destino una sola vez.
  */
-export default function ProjectCard({ project, index = 0, headingLevel = 'h3' }) {
+export default function ProjectCard({ project, index = 0, headingLevel = 'h3', lang = 'es' }) {
+  const ui = t(lang).card;
   const Heading = headingLevel;
   const mainImage = project.mainImage?.asset ? project.mainImage.asset.url : (typeof project.mainImage === 'string' ? project.mainImage : '');
   const mainAlt = project.mainImageAlt || project.mainImage?.alt || project.title;
@@ -21,16 +25,17 @@ export default function ProjectCard({ project, index = 0, headingLevel = 'h3' })
   const demo = links.find((link) => link.kind === 'demo');
   const repository = links.find((link) => link.kind === 'repository');
   const others = links.filter((link) => link !== demo && link !== repository);
-  const reportHref = project.reports?.length ? `/proyectos/${projectSlug}/informe` : null;
+  const casePath = caseStudyPath({ slug: projectSlug, reports: (project.reports || []).map((report) => ({ ...report, slug: stegaClean(report.slug || '') })) });
+  const reportHref = casePath ? localePath(lang, casePath) : null;
 
   // Destino principal: el caso de estudio si existe; si no, la demo.
   const primary = reportHref
-    ? { href: reportHref, label: 'caso de estudio', external: false }
-    : demo ? { href: demo.url, label: 'ver demo', external: isExternal(demo.url) } : null;
+    ? { href: reportHref, label: ui.caseStudy, external: false }
+    : demo ? { href: demo.url, label: ui.viewDemo, external: isExternal(demo.url) } : null;
 
   const title = primary
     ? primary.external
-      ? <a className={styles.primary} href={primary.href} target="_blank" rel="noopener noreferrer">{project.title}<span className="sr-only"> (abre la demo en una pestaña nueva)</span></a>
+      ? <a className={styles.primary} href={primary.href} target="_blank" rel="noopener noreferrer">{project.title}<span className="sr-only"> {ui.opensDemo}</span></a>
       : <Link className={styles.primary} href={primary.href}>{project.title}</Link>
     : project.title;
 
@@ -44,12 +49,12 @@ export default function ProjectCard({ project, index = 0, headingLevel = 'h3' })
       <Heading className="project-title">{title}</Heading>
       {project.subtitle && <p className="project-subtitle">{project.subtitle}</p>}
       <p className="project-desc">{project.description}</p>
-      {project.stats?.length > 0 && <div className="project-stats" aria-label={`Resultados de ${project.title}`}>{project.stats.map((stat) => <span key={`${stat.value}-${stat.label}`}><strong>{stat.value}</strong> {stat.label}</span>)}</div>}
+      {project.stats?.length > 0 && <div className="project-stats" aria-label={`${ui.results} ${project.title}`}>{project.stats.map((stat) => <span key={`${stat.value}-${stat.label}`}><strong>{stat.value}</strong> {stat.label}</span>)}</div>}
       {project.tags?.length > 0 && <div className="tag-list">{project.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>}
       <div className={`project-links ${styles.links}`}>
-        {reportHref && <Link className="project-link" href={reportHref}>caso de estudio →</Link>}
-        {demo && <a className="project-link" href={demo.url} target={isExternal(demo.url) ? '_blank' : undefined} rel={isExternal(demo.url) ? 'noopener noreferrer' : undefined}>{demo.label || 'demo'} ↗</a>}
-        {repository && <a className="project-link" href={repository.url} target="_blank" rel="noopener noreferrer">{repository.label || 'código'} ↗</a>}
+        {reportHref && <Link className="project-link" href={reportHref}>{ui.caseStudy} →</Link>}
+        {demo && <a className="project-link" href={demo.url} target={isExternal(demo.url) ? '_blank' : undefined} rel={isExternal(demo.url) ? 'noopener noreferrer' : undefined}>{demo.label || ui.demo} ↗</a>}
+        {repository && <a className="project-link" href={repository.url} target="_blank" rel="noopener noreferrer">{repository.label || ui.code} ↗</a>}
         {others.map((link) => <a className="project-link" href={link.url} target={isExternal(link.url) ? '_blank' : undefined} rel={isExternal(link.url) ? 'noopener noreferrer' : undefined} download={link.kind === 'download' || undefined} key={`${link.kind}-${link.url}`}>{link.label}</a>)}
       </div>
     </div>

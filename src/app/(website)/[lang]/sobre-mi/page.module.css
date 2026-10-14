@@ -1,0 +1,5 @@
+/* Perfil y experiencia van seguidos: no ocupan cada uno una pantalla entera como el resto de secciones */
+:global(.page-section).profile { min-height: 0; padding-bottom: 4.4rem; }
+:global(.page-section).experience { min-height: 0; padding-bottom: 4.4rem; padding-top: 1rem; }
+.capabilities { padding-top: 1rem; }
+@media (max-width: 768px) { :global(.page-section).profile, :global(.page-section).experience { padding-bottom: 3rem; } }

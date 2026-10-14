@@ -19,10 +19,10 @@ const colors = {
 const checks = [
   'Laboratorio SOC con Wazuh',
   '3 informes de incidentes',
-  'Regla propia 100100',
+  'ASIX · nota final 8,01',
 ];
 
-const tags = ['Blue Team', 'SOC', 'Wazuh', 'Pentesting web', 'Linux'];
+const tags = ['Blue Team', 'SOC', 'Wazuh', 'Windows y Linux', 'Redes'];
 
 export function GET() {
   return new ImageResponse(
@@ -43,7 +43,7 @@ export function GET() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div style={{ display: 'flex', fontSize: 24, letterSpacing: 5, color: colors.gold }}>{'// SECURITY RESEARCHER & DEVELOPER'}</div>
+        <div style={{ display: 'flex', fontSize: 24, letterSpacing: 5, color: colors.gold }}>{'// TÉCNICO EN CIBERSEGURIDAD Y SISTEMAS'}</div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 14 }}>
           <div style={{ display: 'flex', flexDirection: 'column', fontSize: 116, lineHeight: 1.02, letterSpacing: -2 }}>
             <span>Miguel</span>
@@ -63,7 +63,7 @@ export function GET() {
             </div>
           </div>
         </div>
-        <div style={{ display: 'flex', marginTop: 22, fontSize: 30, color: colors.slate }}>Encuentro vulnerabilidades antes de que las encuentren otros.</div>
+        <div style={{ display: 'flex', marginTop: 22, fontSize: 30, color: colors.slate }}>Listo para defender sistemas y redes desde mi primer puesto.</div>
       </div>
 
       <div style={{ display: 'flex', gap: 14 }}>

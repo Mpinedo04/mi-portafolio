@@ -1,4 +1,4 @@
-# Miguel Pinedo · Portafolio de Ciberseguridad
+# Miguel Pinedo · Portafolio de ciberseguridad y sistemas
 
 ![Estado](https://img.shields.io/badge/estado-proyecto%20completado-36d399?style=flat-square)
 ![Wazuh](https://img.shields.io/badge/Wazuh-4.14.6-00a9e0?style=flat-square)
@@ -6,9 +6,9 @@
 ![MITRE ATT&CK](https://img.shields.io/badge/MITRE-ATT%26CK-e34f4f?style=flat-square)
 ![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=flat-square)
 
-Portafolio personal centrado en ciberseguridad defensiva, administración de sistemas y desarrollo web. El proyecto principal es un laboratorio SOC completo con Wazuh, Sysmon, Windows y Linux, documentado con una guía y tres informes de incidentes.
+Portafolio de Miguel Pinedo, Técnico Superior en Administración de Sistemas Informáticos en Red (ASIX) con perfil de ciberseguridad, que busca su primer puesto en un SOC o en administración de sistemas. El proyecto principal es un laboratorio SOC completo con Wazuh, Sysmon, Windows y Linux, documentado con una guía y tres informes de incidentes. La web está en español, inglés y catalán.
 
-**[Ver la web →](https://mi-portafolio-sepia-xi.vercel.app)** · [Laboratorio SOC](https://mi-portafolio-sepia-xi.vercel.app/proyectos/laboratorio-soc-wazuh) · [Currículum (PDF)](https://mi-portafolio-sepia-xi.vercel.app/assets/CV_Miguel_Pinedo_moderno.pdf) · [Contacto](https://mi-portafolio-sepia-xi.vercel.app/contacto)
+**[Ver la web →](https://miguelpinedo.vercel.app)** · [Laboratorio SOC](https://miguelpinedo.vercel.app/proyectos/laboratorio-soc-wazuh) · [Currículum (PDF)](https://miguelpinedo.vercel.app/assets/CV_Miguel_Pinedo_moderno.pdf) · [Contacto](https://miguelpinedo.vercel.app/contacto)
 
 > Todo el contenido del laboratorio se generó en un entorno propio, aislado y autorizado. El repositorio no contiene contraseñas ni credenciales del despliegue.
 
@@ -22,10 +22,10 @@ El laboratorio reproduce el flujo de trabajo de un analista defensivo: recolecci
 
 | Documento | Contenido |
 | --- | --- |
-| [Guía visual del laboratorio](https://mi-portafolio-sepia-xi.vercel.app/proyectos/laboratorio-soc-wazuh/informe/guia-lab-soc-wazuh) | Montaje paso a paso, endpoints, bitácora y detecciones |
-| [SOC-2026-001 · Fuerza bruta SSH](https://mi-portafolio-sepia-xi.vercel.app/proyectos/laboratorio-soc-wazuh/informe/incidente-ssh-soc-2026-001) | Detección, respuesta activa y correlación con Wireshark |
-| [SOC-2026-002 · PowerShell codificado](https://mi-portafolio-sepia-xi.vercel.app/proyectos/laboratorio-soc-wazuh/informe/incidente-powershell-soc-2026-002) | Comando Base64 detectado por Sysmon y Wazuh |
-| [SOC-2026-003 · Integridad de archivos](https://mi-portafolio-sepia-xi.vercel.app/proyectos/laboratorio-soc-wazuh/informe/incidente-fim-soc-2026-003) | FIM en tiempo real y regla personalizada 100100 |
+| [Guía visual del laboratorio](https://miguelpinedo.vercel.app/proyectos/laboratorio-soc-wazuh/informe/guia-lab-soc-wazuh) | Montaje paso a paso, endpoints, bitácora y detecciones |
+| [SOC-2026-001 · Fuerza bruta SSH](https://miguelpinedo.vercel.app/proyectos/laboratorio-soc-wazuh/informe/incidente-ssh-soc-2026-001) | Detección, respuesta activa y correlación con Wireshark |
+| [SOC-2026-002 · PowerShell codificado](https://miguelpinedo.vercel.app/proyectos/laboratorio-soc-wazuh/informe/incidente-powershell-soc-2026-002) | Comando Base64 detectado por Sysmon y Wazuh |
+| [SOC-2026-003 · Integridad de archivos](https://miguelpinedo.vercel.app/proyectos/laboratorio-soc-wazuh/informe/incidente-fim-soc-2026-003) | FIM en tiempo real y regla personalizada 100100 |
 
 Configuración descargable: [regla `fim_soc_lab.xml`](public/config/fim_soc_lab.xml) · [configuración de Sysmon](public/config/sysmon-lab.xml).
 
@@ -126,7 +126,7 @@ sequenceDiagram
 
 | Proyecto | Descripción | Enlaces |
 | --- | --- | --- |
-| StagePlot Studio | App de pago: editor de stage plots en 3D para sonido en directo (patchbay, input list, ficha técnica) con backend en Supabase, licencias y control de dispositivos | [Web](https://stageplot-studio.pages.dev/) · código privado |
+| StagePlot Studio | App de pago: editor de stage plots en 3D para sonido en directo (patchbay, input list, ficha técnica) con backend en Supabase, licencias y control de dispositivos | [Caso de estudio](https://miguelpinedo.vercel.app/proyectos/stageplot-studio/informe/caso-stageplot-studio) · [Web](https://stageplot-studio.pages.dev/) · código privado |
 | Lavandería Miguel | Web para una lavandería de autoservicio: servicios, ubicación y contacto | [Demo](https://lavanderia-miguel.vercel.app/) · [Código](https://github.com/mpinedo04/lavanderia-miguel) |
 | Portafolio Raúl | Portafolio audiovisual para un filmmaker: perfil, proyectos, equipo y contacto | [Demo](https://portafolio-raul-sigma.vercel.app/) · [Código](https://github.com/mpinedo04/portafolio-raul) |
 | VideoBalls Analytics | Web de analítica para visualizar estadísticas y datos | [Demo](https://videoballs-analyticsraulmiguel2.vercel.app/) · [Código](https://github.com/mpinedo04/videoballs-analytics) |
@@ -134,9 +134,10 @@ sequenceDiagram
 ## Sobre la web
 
 - **Next.js 16 con App Router**, desplegada en Vercel. Cada subida a `main` publica una versión nueva.
+- **Tres idiomas**: español sin prefijo (`/proyectos`), inglés (`/en/proyectos`) y catalán (`/ca/proyectos`), con selector en la cabecera que mantiene la página. `src/proxy.js` reescribe las rutas sin prefijo a `/es` por dentro. Los textos de interfaz están en `src/i18n/ui.js` y las traducciones del contenido en `src/data/content/`. Los informes y casos de estudio solo están en español y en inglés y catalán se muestran con un aviso.
 - **Terminal interactiva en la portada**, con un motor físico propio (`src/components/hero/fieldEngine.js`): la ventana se arrastra, se lanza con inercia y se acopla sola, y las letras del titular reaccionan a ella. Admite comandos como `help`, `whoami`, `ls`, `cd`, `cat skills.txt`, `nmap`, `scan`, `grep`, `echo "…" > tagline`, `encrypt`, `decrypt` o `sudo rm -rf /`.
 - **Contenido editable con Sanity** (opcional). Sin configurarlo, la web usa el contenido local de `src/data/`.
-- **Informes técnicos** convertidos a JSON a partir de los HTML originales, con botón para imprimir o guardar en PDF.
+- **Informes y casos de estudio** en JSON (Portable Text), con botón para imprimir o guardar en PDF: la guía y los tres informes del laboratorio SOC, y el caso de estudio de StagePlot Studio.
 - **Vista previa al compartir el enlace** (Open Graph): descripción propia por página e imagen generada en el build (`/og-image.png`).
 - **Redirecciones** desde las direcciones `.html` de la versión estática anterior, que se puede consultar en el historial de git.
 - **Accesibilidad**: los lectores de pantalla leen el texto real del hero y, con movimiento reducido activado, no hay física ni animaciones.
@@ -166,11 +167,12 @@ Abre [http://localhost:3000](http://localhost:3000). El panel de edición está 
 
 ### Variables de entorno
 
-Todas son opcionales: sin ellas, la web funciona con el contenido local.
+Todas son opcionales: sin ellas, la web funciona con el contenido local. Sanity solo alimenta la versión en español.
 
 | Variable | Para qué sirve |
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | URL pública, usada en la vista previa al compartir. En Vercel, si falta, se usa la URL de producción |
+| `NEXT_PUBLIC_FORMSPREE_ID` | ID del formulario de contacto en Formspree (también se puede poner en `src/data/portfolio.js`) |
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` · `NEXT_PUBLIC_SANITY_DATASET` | Proyecto y dataset de Sanity |
 | `NEXT_PUBLIC_SANITY_STUDIO_URL` | Dirección del Studio para la edición visual |
 | `SANITY_API_READ_TOKEN` | Vista previa de borradores (rol `Viewer`) |
@@ -188,14 +190,17 @@ No compartas ni subas `.env.local`.
 │   │   └── lab-soc/evidencias/      capturas y CSV del laboratorio
 │   └── config/                      fim_soc_lab.xml · sysmon-lab.xml
 ├── src/
-│   ├── app/(website)/               páginas del sitio (App Router)
+│   ├── app/(website)/[lang]/        páginas del sitio en cada idioma (App Router)
 │   ├── app/(admin)/admin/           Sanity Studio embebido
 │   ├── app/api/                     vista previa de borradores y revalidación
 │   ├── app/og-image.png/            imagen de vista previa al compartir
 │   ├── components/                  cabecera, tarjetas, transiciones…
 │   ├── components/hero/             terminal interactiva, comandos y motor físico
-│   ├── data/                        contenido local de respaldo e informes en JSON
-│   ├── lib/seo.js                   metadatos y Open Graph de cada página
+│   ├── data/                        contenido en español, informes y casos de estudio en JSON
+│   ├── data/content/                traducciones al inglés y al catalán
+│   ├── i18n/                        idiomas, rutas por idioma y textos de interfaz
+│   ├── lib/seo.js                   metadatos, Open Graph y versiones por idioma de cada página
+│   ├── proxy.js                     rutas sin prefijo → español
 │   └── sanity/                      cliente, consultas y esquemas
 ├── scripts/seed-sanity.mjs          importa el contenido a Sanity
 ├── vercel.json                      indica a Vercel que el proyecto es Next.js
@@ -204,13 +209,13 @@ No compartas ni subas `.env.local`.
 
 ## Tecnologías
 
-`Wazuh` · `Sysmon` · `Ubuntu Server` · `Windows 11` · `VirtualBox` · `Wireshark` · `PowerShell` · `Bash` · `MITRE ATT&CK` · `Next.js` · `React` · `Sanity` · `CSS Modules` · `Vercel`
+`Wazuh` · `Sysmon` · `Ubuntu Server` · `Windows 11` · `VirtualBox` · `Wireshark` · `PowerShell` · `Bash` · `MITRE ATT&CK` · `Next.js` · `React` · `Sanity` · `CSS Modules` · `Vercel` · `Supabase` · `Cloudflare Pages`
 
 ## Autor
 
 **Miguel Pinedo**
 
-- [Web](https://mi-portafolio-sepia-xi.vercel.app)
+- [Web](https://miguelpinedo.vercel.app)
 - [GitHub](https://github.com/Mpinedo04)
-- [Contacto](https://mi-portafolio-sepia-xi.vercel.app/contacto)
-- [Currículum](https://mi-portafolio-sepia-xi.vercel.app/assets/CV_Miguel_Pinedo_moderno.pdf)
+- [Contacto](https://miguelpinedo.vercel.app/contacto)
+- [Currículum](https://miguelpinedo.vercel.app/assets/CV_Miguel_Pinedo_moderno.pdf)

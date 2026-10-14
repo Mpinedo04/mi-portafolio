@@ -41,7 +41,8 @@ export async function POST(request) {
     if (type === 'studies') paths.add('/estudios');
     if (type === 'about' || type === 'workstation') paths.add('/sobre-mi');
     if (type === 'contact') paths.add('/contacto');
-    paths.forEach((path) => revalidatePath(path));
+    // Sanity solo guarda el español, que por dentro se sirve desde /es (src/proxy.js reescribe las rutas sin prefijo).
+    paths.forEach((path) => revalidatePath(path === '/' ? '/es' : `/es${path}`));
     return NextResponse.json({ revalidated: true, paths: [...paths] });
   } catch (error) {
     return NextResponse.json({ message: 'Error revalidating', error: error.message }, { status: 500 });

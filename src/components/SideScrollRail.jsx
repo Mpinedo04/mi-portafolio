@@ -1,12 +1,15 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { t } from '@/i18n/ui';
+import { useLang } from '@/i18n/useLang';
 import styles from './SideScrollRail.module.css';
 
 const clamp = (value, minimum = 0, maximum = 1) => Math.min(maximum, Math.max(minimum, value));
 const initialMetrics = { maxScroll: 0, progress: 0, thumbRatio: 1, visible: false };
 
 export default function SideScrollRail() {
+  const ui = t(useLang()).scroll;
   const railRef = useRef(null);
   const dragRef = useRef(null);
   const [metrics, setMetrics] = useState(initialMetrics);
@@ -106,7 +109,7 @@ export default function SideScrollRail() {
   const thumbSize = metrics.thumbRatio * 100;
   const thumbTop = metrics.progress * (100 - thumbSize);
 
-  return <div className={styles.widget} aria-label="Control lateral de desplazamiento">
+  return <div className={styles.widget} aria-label={ui.rail}>
     <div className={styles.rail} ref={railRef} onPointerDown={handleTrackPointerDown}>
       <span className={styles.railLine} aria-hidden="true"/>
       <span className={`${styles.marker} ${styles.markerTop}`} aria-hidden="true"/>
@@ -116,12 +119,12 @@ export default function SideScrollRail() {
         role="slider"
         className={styles.thumb}
         data-scroll-thumb
-        aria-label="Desplazamiento de página"
+        aria-label={ui.thumb}
         aria-orientation="vertical"
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={value}
-        aria-valuetext={`${value}% de la página`}
+        aria-valuetext={`${value}% ${ui.ofPage}`}
         style={{ height: `${thumbSize}%`, top: `${thumbTop}%` }}
         onKeyDown={handleThumbKeyDown}
         onPointerDown={handleThumbPointerDown}

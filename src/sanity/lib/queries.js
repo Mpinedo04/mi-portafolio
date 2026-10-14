@@ -1,8 +1,9 @@
 import { sanityFetch as liveFetch } from './live';
 import { sanityReady } from './client';
 
-export async function sanityFetch(query, params = {}, fallback = null, options = {}) {
-  if (!sanityReady) return fallback;
+// Sanity guarda el contenido en español; en inglés y catalán se usa siempre el contenido local traducido.
+export async function sanityFetch(query, params = {}, fallback = null, { lang = 'es', ...options } = {}) {
+  if (!sanityReady || lang !== 'es') return fallback;
   try {
     const { data } = await liveFetch({ query, params, ...options });
     return data ?? fallback;

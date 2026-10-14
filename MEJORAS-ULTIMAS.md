@@ -134,7 +134,7 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 
 ## Nuevo proyecto: StagePlot Studio (13/10/2026)
 
-- Se añadió StagePlot Studio a los proyectos, justo después del laboratorio SOC, con una captura del editor (`public/assets/stageplot-studio-preview.jpg`).
+- Se añadió StagePlot Studio a los proyectos, justo después del laboratorio SOC, con una captura del editor (ahora en `public/assets/stageplot/stageplot-editor-3d.jpg`).
 - La ficha explica que es una app de pago con backend propio (Supabase con seguridad por filas, licencias, control de dispositivos y funciones en Cloudflare) e incluye tres datos: 24/8 entradas y auxiliares, 8 tablas con RLS y 28 funciones SQL.
 - El enlace lleva a la web publicada en Cloudflare Pages. No hay enlace al código porque es una app de pago con el código privado.
 
@@ -152,6 +152,7 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 
 - En el PDF del CV, el Grado Superior ASIX pasa de «2023 - 2025» a «2023 - 2026», según el expediente académico, y el correo pasa a `mpinedo@gmail.com`.
 - Se editó el PDF original cambiando solo esos dos textos, con la misma fuente, tamaño, color y posición. El resto del documento no cambia.
+- Siguiendo una revisión del CV, se quitaron la dirección completa (queda el municipio en «Ubicación»), la fecha de nacimiento, la nacionalidad y el DNI. La sección «Datos personales» desaparece e «Idiomas» y «Competencias» suben para no dejar hueco. Los datos se borraron del PDF, no solo se taparon.
 
 ## Grado Superior ASIX en Estudios (13/10/2026)
 
@@ -173,6 +174,51 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 - Mejoras respecto al de Raúl: no hay «modo prueba» que diga «enviado» sin enviar nada, y una trampa invisible (`_gotcha`) frena a los bots.
 - Solo aparece si hay un ID de formulario en `contactContent.formspreeId`, en Sanity («ID de Formspree») o en la variable `NEXT_PUBLIC_FORMSPREE_ID`. Mientras no lo haya, la página sigue igual que antes.
 
+## Perfil real, experiencia, caso de StagePlot, tres idiomas y transición rápida (14/10/2026)
+
+**Mensaje alineado con el perfil real.** La web dejaba de encajar con el CV («Security Researcher & Developer», «Encuentro vulnerabilidades antes de que las encuentren otros»). Ahora:
+- Portada: «// Técnico en ciberseguridad y sistemas» y el lema «Listo para defender sistemas y redes desde mi primer puesto».
+- Terminal (`whoami`, `skills.txt`): datos reales del ASIX, como hacking ético · 9, seguridad y alta disponibilidad · 9, SIEM con Wazuh (laboratorio propio) y administración Windows/Linux.
+- «Sobre mí»: la biografía y las habilidades salen de lo demostrable; se quitó «CTF / Red Team / HackTheBox / THM».
+- Títulos, descripciones SEO y la imagen al compartir el enlace dicen lo mismo.
+
+**Experiencia y formación.**
+- Sección «Experiencia» en «Sobre mí» (`ExperienceTimeline`):
+  - prácticas del Grado Superior en Simón Coll (FCT, 383 h, 2025 – 2026);
+  - informático en prácticas en Finques Pardas (Grado Medio);
+  - una línea con otros trabajos.
+- También en Sanity (campo «Experiencia» de «Sobre mí»).
+- En «Formación» se añadió el Grado Medio SMX (2020 – 2023).
+
+**Caso de estudio de StagePlot Studio** (`src/data/reports/caso-stageplot-studio.json`, solo en español).
+- Resumen, problema, funciones, arquitectura (Cloudflare Pages + Supabase), siete capas de seguridad, casos de abuso, privacidad y aprendizajes.
+- Tres capturas reales: editor 3D, input list y ficha técnica.
+- No incluye código, claves, URL de la base de datos ni precios.
+- `src/data/reports.js` admite varios proyectos con documentación.
+- Con un solo documento, las tarjetas enlazan directamente a él (`caseStudyPath`).
+
+**Español, inglés y catalán.**
+- Rutas: el español sigue sin prefijo (`/proyectos`); el inglés y el catalán van en `/en/…` y `/ca/…`. Las páginas viven en `src/app/(website)/[lang]/` y `src/proxy.js` reescribe por dentro las rutas sin prefijo a `/es`. `/es/…` redirige a la versión sin prefijo.
+- Selector ES · EN · CA en la cabecera, que conserva la página actual. En móvil estrecho se oculta la etiqueta «PDF» del botón del CV para que todo quepa.
+- Textos de interfaz en `src/i18n/ui.js` y contenido traducido en `src/data/content/en.js` y `ca.js`.
+- Cada página indica su idioma (`<html lang>`), su canónica y sus versiones en los otros idiomas (`hreflang`).
+- La terminal de la portada responde en el idioma de la página.
+- Los informes y casos de estudio siguen en español; en inglés y catalán muestran un aviso. Sanity solo alimenta la versión en español.
+
+**Transición entre páginas.**
+- Pasa de unos 0,7 s a unos 0,25 s.
+- Ya no muestra la terminal `root@miguel… cd /proyectos`, sino el nombre de la página de destino en el idioma de la web.
+
 ## Próximas mejoras
 
 - Añadir aquí cada nuevo cambio con su fecha y una descripción breve.
+
+### Pendiente
+
+- [ ] **Activar el formulario de contacto (Formspree).** El código ya está publicado, pero el formulario no se ve hasta tener un ID.
+  1. Entrar en [formspree.io](https://formspree.io) → **New form** → nombre «Portafolio Miguel», que envíe a `mpinedo@gmail.com`.
+  2. Copiar la parte final de la dirección que da (`https://formspree.io/f/XXXXXXXX` → `XXXXXXXX`).
+  3. Ponerla en `formspreeId` dentro de `contactContent` (`src/data/portfolio.js`), o en Sanity → Contacto → «ID de Formspree».
+  4. Subir y enviar un mensaje de prueba desde `/contacto`. El primer envío puede pedir confirmar el formulario por email.
+- [ ] **Poner la dirección miguelpinedo.vercel.app** (lo hace Miguel en Vercel): Project → Settings → Domains → *Add* `miguelpinedo.vercel.app`, y en la dirección antigua (`mi-portafolio-sepia-xi.vercel.app`) elegir *Redirect to* la nueva (308). El README ya usa la dirección nueva.
+- [ ] **Fechas de la experiencia en el CV y en la web.** En la web, se cambian en `experienceContent` (`src/data/portfolio.js`) y en las traducciones de `src/data/content/`. Cambiar «9 meses», «6 meses»… por mes y año de inicio y fin de cada trabajo, indicando si era de fines de semana (p. ej. `01/2026 – 06/2026 (fines de semana)`): La Bastilla, Finques Pardas, Simón Coll e Interim Group.

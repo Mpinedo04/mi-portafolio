@@ -1,9 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { t } from '@/i18n/ui';
+import { useLang } from '@/i18n/useLang';
 import styles from './ScrollProgress.module.css';
 
 export default function ScrollProgress() {
+  const ui = t(useLang()).scroll;
   const [progress, setProgress] = useState(0);
   useEffect(() => {
     const update = () => {
@@ -35,7 +38,7 @@ export default function ScrollProgress() {
         <i aria-hidden="true"/>
         <span className={styles.eof} aria-hidden="true">EOF</span>
         <span className={styles.sep} aria-hidden="true"/>
-        <span>volver arriba</span>
+        <span>{ui.backToTop}</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
       </button>
     </div>

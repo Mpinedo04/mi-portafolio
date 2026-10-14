@@ -2,22 +2,22 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import { splitLocale } from '@/i18n/config';
+import { t } from '@/i18n/ui';
 import styles from './PageTransition.module.css';
 
-const LABELS = {
-  '/': 'inicio',
-  '/sobre-mi': 'perfil',
-  '/proyectos': 'proyectos',
-  '/estudios': 'credenciales',
-  '/contacto': 'contacto',
+// Nombre de la página de destino, en el idioma de la ruta.
+const describe = (pathname) => {
+  const { lang, path } = splitLocale(pathname);
+  const labels = t(lang).transition;
+  if (labels[path]) return labels[path];
+  if (path.includes('/informe')) return labels.caseStudy;
+  if (path.startsWith('/proyectos/')) return labels.project;
+  return labels['/'];
 };
 
-const describe = (pathname) => {
-  if (LABELS[pathname]) return LABELS[pathname];
-  if (pathname.includes('/informe')) return 'informe técnico';
-  if (pathname.startsWith('/proyectos/')) return 'caso de estudio';
-  return pathname.split('/').filter(Boolean).at(-1) || 'inicio';
-};
+// Lo que tarda la cortina en cubrir la pantalla antes de cambiar de página.
+const LEAVE_MS = 220;
 
 export const TRANSITION_EVENT = 'portfolio:navigate';
 
@@ -39,14 +39,14 @@ export default function PageTransition({ children }) {
     setDestination(target.pathname);
     setPanel((current) => ({ path: target.pathname, id: (current?.id || 0) + 1 }));
     document.body.classList.add('page-is-leaving');
-    window.setTimeout(() => router.push(`${target.pathname}${target.search}${target.hash}`), reduced ? 0 : 620);
+    window.setTimeout(() => router.push(`${target.pathname}${target.search}${target.hash}`), reduced ? 0 : LEAVE_MS);
   }, [router]);
 
   useEffect(() => {
     const onClick = (event) => {
       const link = event.target.closest('a');
       if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      if (link.target === '_blank' || link.hasAttribute('download')) return;
+      if (link.target === '_blank' || link.hasAttribute('download') || link.hasAttribute('data-no-transition')) return;
       const href = link.getAttribute('href');
       if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
       const target = new URL(link.href, window.location.href);
@@ -67,16 +67,8 @@ export default function PageTransition({ children }) {
   return <div className={styles.root}>
     <div className={`page-transition ${destination ? 'is-active' : ''}`} aria-hidden="true">
       {panel && <div className="transition-panel" key={panel.id}>
-        <div className="transition-head"><i/><i/><i/><span>secure-route.sh</span></div>
-        <div className="transition-body">
-          <p className="transition-cmd"><b>root@miguel<span>:~$</span></b> cd {panel.path}</p>
-          <ul className="transition-log">
-            <li style={{ '--d': 0 }}><b>[OK]</b> resolviendo ruta<em>{panel.path}</em></li>
-            <li style={{ '--d': 1 }}><b>[OK]</b> handshake TLS 1.3<em>verificado</em></li>
-            <li style={{ '--d': 2 }}><b>[OK]</b> cargando módulo<em>{describe(panel.path)}</em></li>
-          </ul>
-          <div className="transition-progress"><span/><strong/></div>
-        </div>
+        <p className="transition-label">{describe(panel.path)}</p>
+        <span className="transition-line"/>
       </div>}
     </div>
     {children}

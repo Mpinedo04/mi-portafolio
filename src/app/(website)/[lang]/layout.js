@@ -1,9 +1,12 @@
+import { notFound } from 'next/navigation';
 import { draftMode } from 'next/headers';
 import { Analytics } from '@vercel/analytics/next';
 import { VisualEditing } from 'next-sanity/visual-editing';
 import { stegaClean } from 'next-sanity';
-import { homeContent, siteSettings } from '@/data/portfolio';
-import { ogImage, siteName, siteUrl } from '@/lib/seo';
+import { getContent } from '@/data/content';
+import { isLocale, locales } from '@/i18n/config';
+import { t } from '@/i18n/ui';
+import { ogImage, siteUrl } from '@/lib/seo';
 import { getPage } from '@/sanity/lib/queries';
 import { sanityLiveReady, sanityReady } from '@/sanity/lib/client';
 import { SanityLive } from '@/sanity/lib/live';
@@ -15,23 +18,35 @@ import ScrollProgress from '@/components/ScrollProgress';
 import SideScrollRail from '@/components/SideScrollRail';
 import DisableDraftMode from '@/components/DisableDraftMode';
 import styles from './layout.module.css';
-import './globals.css';
+import '../globals.css';
 
 export const revalidate = 10;
 
-export const metadata = {
-  metadataBase: new URL(siteUrl),
-  title: 'Miguel Pinedo - Cybersecurity',
-  description: homeContent.seo.metaDescription,
-  applicationName: siteName,
-  authors: [{ name: 'Miguel Pinedo', url: 'https://github.com/mpinedo04' }],
-  openGraph: { type: 'website', locale: 'es_ES', siteName, images: [ogImage] },
-  twitter: { card: 'summary_large_image', images: [ogImage] },
-  icons: { icon: '/assets/favicon.svg', shortcut: '/assets/favicon.svg' },
-};
+export function generateStaticParams() {
+  return locales.map((lang) => ({ lang }));
+}
 
-export default async function WebsiteLayout({ children }) {
-  const settings = await getPage('settings', 'settings', siteSettings);
+export async function generateMetadata({ params }) {
+  const { lang } = await params;
+  const { homeContent } = getContent(lang);
+  const ui = t(lang);
+  return {
+    metadataBase: new URL(siteUrl),
+    title: homeContent.seo.metaTitle,
+    description: homeContent.seo.metaDescription,
+    applicationName: ui.seo.siteName,
+    authors: [{ name: 'Miguel Pinedo', url: 'https://github.com/mpinedo04' }],
+    openGraph: { type: 'website', siteName: ui.seo.siteName, images: [{ ...ogImage, alt: ui.seo.ogAlt }] },
+    twitter: { card: 'summary_large_image', images: [{ ...ogImage, alt: ui.seo.ogAlt }] },
+    icons: { icon: '/assets/favicon.svg', shortcut: '/assets/favicon.svg' },
+  };
+}
+
+export default async function WebsiteLayout({ children, params }) {
+  const { lang } = await params;
+  if (!isLocale(lang)) notFound();
+  const { siteSettings } = getContent(lang);
+  const settings = await getPage('settings', 'settings', siteSettings, { lang });
   const safeSettings = {
     ...settings,
     cvUrl: stegaClean(settings?.cvUrl || siteSettings.cvUrl),
@@ -39,7 +54,7 @@ export default async function WebsiteLayout({ children }) {
   };
   const isDraft = sanityReady && (await draftMode()).isEnabled;
 
-  return <html lang="es" data-scroll-behavior="smooth">
+  return <html lang={lang} data-scroll-behavior="smooth">
     <head>
       <link rel="preconnect" href="https://fonts.googleapis.com"/>
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
@@ -51,7 +66,7 @@ export default async function WebsiteLayout({ children }) {
         <ScrollProgress/>
         <SideScrollRail/>
         <PageTransition>
-          <Header settings={safeSettings}/>
+          <Header settings={safeSettings} lang={lang}/>
           {children}
           <Footer settings={safeSettings}/>
         </PageTransition>

@@ -15,3 +15,7 @@
   .breadcrumbs, .back { display: none; }
   .title { color: #111; }
 }
+
+/* Aviso en inglés y catalán: el documento solo está en español */
+.notice { background: rgba(201, 168, 106, .08); border: 1px solid rgba(201, 168, 106, .3); border-radius: 10px; color: var(--accent-strong); font-size: 14px; margin: .9rem 0 .4rem; padding: .7rem 1rem; }
+@media print { .notice { display: none; } }

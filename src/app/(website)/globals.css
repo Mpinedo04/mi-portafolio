@@ -49,8 +49,8 @@ body.page-is-leaving main,
 body.page-is-leaving header nav,
 body.page-is-leaving footer {
   filter: blur(2px);
-  transform: scale(0.992);
-  transition: filter 0.45s ease, transform 0.45s ease;
+  transform: scale(0.994);
+  transition: filter 0.2s ease, transform 0.2s ease;
 }
 
 ::selection {
@@ -133,6 +133,7 @@ button:focus-visible {
   z-index: 0;
 }
 
+/* Transición entre páginas: una cortina rápida con el nombre del destino */
 .page-transition {
   align-items: center;
   background: rgba(10, 14, 22, 0.97);
@@ -142,12 +143,12 @@ button:focus-visible {
   justify-content: center;
   pointer-events: none;
   position: fixed;
-  transition: clip-path 0.68s cubic-bezier(0.77, 0, 0.18, 1);
+  transition: clip-path 0.26s cubic-bezier(0.65, 0, 0.35, 1);
   z-index: 999;
 }
 
 .page-transition::after {
-  background: linear-gradient(90deg, transparent, rgba(201, 168, 106, 0.75), transparent);
+  background: linear-gradient(180deg, transparent, rgba(201, 168, 106, 0.75), transparent);
   content: "";
   height: 100%;
   position: absolute;
@@ -161,119 +162,32 @@ button:focus-visible {
 }
 
 .transition-panel {
-  background: linear-gradient(180deg, rgba(18, 24, 38, 0.98), rgba(12, 17, 27, 0.98));
-  border: 1px solid rgba(201, 168, 106, 0.28);
-  border-radius: 12px;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5), 0 0 60px rgba(201, 168, 106, 0.06);
-  color: var(--light);
-  font-family: var(--mono);
-  font-size: 12.5px;
-  min-width: min(460px, calc(100vw - 2.5rem));
-  overflow: hidden;
-  position: relative;
-  text-align: left;
-}
-
-.transition-panel::before {
-  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 3px);
-  content: "";
-  inset: 0;
-  pointer-events: none;
-  position: absolute;
-}
-
-.transition-head {
   align-items: center;
-  border-bottom: 1px solid var(--border);
-  color: var(--faint);
+  animation: transitionIn 0.18s ease-out 0.06s both;
   display: flex;
-  font-size: 10.5px;
-  gap: 0.4rem;
-  letter-spacing: 0.08em;
-  padding: 0.6rem 0.95rem;
+  flex-direction: column;
+  gap: 0.9rem;
 }
 
-.transition-head i {
-  background: #4a5468;
-  border-radius: 50%;
-  height: 8px;
-  width: 8px;
-}
-
-.transition-head i:nth-child(3) {
-  background: var(--accent);
-}
-
-.transition-head span {
-  margin-left: auto;
-}
-
-.transition-body {
-  padding: 1rem 1.15rem 1.1rem;
-}
-
-.transition-cmd {
+.transition-label {
   color: var(--white);
-  margin-bottom: 0.55rem;
-}
-
-.transition-cmd b {
-  color: var(--accent-strong);
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
   font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
-.transition-cmd b span {
-  color: var(--faint);
-}
-
-.transition-log {
-  list-style: none;
-  margin-bottom: 0.9rem;
-}
-
-.transition-log li {
-  animation: transitionLine 0.16s steps(2, end) both;
-  animation-delay: calc(90ms + var(--d, 0) * 115ms);
-  color: var(--slate);
-  display: flex;
-  gap: 0.6rem;
-}
-
-.transition-log li b {
-  color: var(--sage);
-  font-weight: 500;
-}
-
-.transition-log li em {
-  color: var(--accent-strong);
-  font-style: normal;
-  margin-left: auto;
-  padding-left: 1rem;
-}
-
-@property --transition-pct {
-  inherits: false;
-  initial-value: 0;
-  syntax: "<integer>";
-}
-
-.transition-progress {
-  align-items: center;
-  display: flex;
-  gap: 0.8rem;
-}
-
-.transition-progress span {
-  background: rgba(201, 168, 106, 0.12);
+.transition-line {
+  background: rgba(201, 168, 106, 0.15);
   border-radius: 2px;
-  flex: 1;
-  height: 3px;
+  height: 2px;
   overflow: hidden;
   position: relative;
+  width: 140px;
 }
 
-.transition-progress span::before {
-  animation: transitionFill 0.56s cubic-bezier(0.5, 0, 0.2, 1) both;
+.transition-line::before {
+  animation: transitionFill 0.2s cubic-bezier(0.5, 0, 0.2, 1) both;
   background: linear-gradient(90deg, var(--accent), var(--accent-strong), var(--sage));
   box-shadow: 0 0 12px rgba(226, 200, 147, 0.7);
   content: "";
@@ -282,21 +196,8 @@ button:focus-visible {
   transform-origin: left;
 }
 
-.transition-progress strong {
-  animation: transitionCount 0.56s cubic-bezier(0.5, 0, 0.2, 1) both;
-  color: var(--accent-strong);
-  counter-reset: pct var(--transition-pct);
-  font-weight: 500;
-  min-width: 3.2ch;
-  text-align: right;
-}
-
-.transition-progress strong::after {
-  content: counter(pct) "%";
-}
-
-@keyframes transitionLine {
-  from { opacity: 0; transform: translateX(-4px); }
+@keyframes transitionIn {
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: none; }
 }
 
@@ -305,9 +206,18 @@ button:focus-visible {
   to { transform: scaleX(1); }
 }
 
-@keyframes transitionCount {
-  from { --transition-pct: 0; }
-  to { --transition-pct: 100; }
+@media (prefers-reduced-motion: reduce) {
+  .page-transition,
+  body.page-is-leaving main,
+  body.page-is-leaving header nav,
+  body.page-is-leaving footer {
+    transition: none;
+  }
+
+  .transition-panel,
+  .transition-line::before {
+    animation: none;
+  }
 }
 
 header nav {
@@ -329,6 +239,52 @@ header nav {
   align-items: center;
   display: flex;
   gap: 1.1rem;
+}
+
+.nav-actions {
+  align-items: center;
+  display: flex;
+  gap: 0.7rem;
+}
+
+/* --- Selector de idioma --- */
+.nav-lang {
+  align-items: center;
+  background: rgba(12, 16, 25, 0.7);
+  border: 1px solid rgba(201, 168, 106, 0.2);
+  border-radius: 999px;
+  display: inline-flex;
+  height: 30px;
+  padding: 2px;
+}
+
+.nav-lang a {
+  align-items: center;
+  border-radius: 999px;
+  color: var(--faint);
+  display: inline-flex;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  height: 100%;
+  letter-spacing: 0.8px;
+  padding: 0 0.55rem;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-lang a:hover {
+  color: var(--accent-strong);
+}
+
+.nav-lang a.active {
+  background: linear-gradient(145deg, #f3e2bb, var(--accent-strong) 40%, var(--accent) 100%);
+  color: #0d121c;
+}
+
+.nav-lang a:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
 }
 
 /* --- Logo: el nombre en una píldora con el mismo borde de luz que el botón del CV --- */
@@ -1642,6 +1598,19 @@ footer p {
     padding: 0 0.4rem 0 0.7rem;
   }
 
+  .nav-actions {
+    gap: 0.45rem;
+  }
+
+  .nav-lang {
+    height: 28px;
+  }
+
+  .nav-lang a {
+    font-size: 9.5px;
+    padding: 0 0.42rem;
+  }
+
   .nav-divider {
     display: none;
   }
@@ -1737,6 +1706,31 @@ footer p {
     /* Deja libre la pastilla «volver arriba» del marco de fin de página */
     padding-bottom: 4.5rem;
     text-align: center;
+  }
+}
+
+/* Móvil estrecho: logo, CV e idiomas caben en una fila */
+@media (max-width: 480px) {
+  header nav {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .nav-logo {
+    padding: 0 0.75rem;
+  }
+
+  .logo-name {
+    font-size: 12px;
+    letter-spacing: 1.1px;
+  }
+
+  .nav-cv .cv-badge {
+    display: none;
+  }
+
+  .nav-cv {
+    padding: 0 0.65rem;
   }
 }
 

@@ -8,52 +8,62 @@ export const siteSettings = {
     { label: 'estudios', href: '/estudios' },
     { label: 'contacto', href: '/contacto' },
   ],
-  seo: { metaTitle: 'Miguel Pinedo - Cybersecurity', metaDescription: 'Portafolio de ciberseguridad de Miguel Pinedo: laboratorio SOC con Wazuh, informes de incidentes, pentesting web, hardening de Linux y desarrollo web.' },
+  seo: { metaTitle: 'Miguel Pinedo · Ciberseguridad y sistemas', metaDescription: 'Portafolio de Miguel Pinedo, Técnico Superior en ASIX con perfil de ciberseguridad: laboratorio SOC con Wazuh, informes de incidentes, administración de sistemas y desarrollo web seguro.' },
 };
 
 export const homeContent = {
-  prefix: '// SECURITY RESEARCHER & DEVELOPER',
+  prefix: '// TÉCNICO EN CIBERSEGURIDAD Y SISTEMAS',
   firstName: 'Miguel',
   lastName: 'Pinedo',
-  tagline: 'Encuentro vulnerabilidades antes de que las encuentren otros.',
+  tagline: 'Listo para defender sistemas y redes desde mi primer puesto.',
   terminalTitle: 'scan.sh - bash',
   terminalLines: [
     { delayMs: 0, type: 'cmd', text: 'whoami' },
-    { delayMs: 600, type: 'out', text: 'miguel.pinedo - security researcher' },
+    { delayMs: 600, type: 'out', text: 'miguel.pinedo - técnico superior ASIX' },
     { delayMs: 1100, type: 'cmd', text: 'cat skills.txt' },
-    { delayMs: 1700, type: 'ok', text: '[OK] Web Pentesting    - activo' },
-    { delayMs: 2100, type: 'ok', text: '[OK] Network Analysis  - activo' },
-    { delayMs: 2500, type: 'ok', text: '[OK] Linux Hardening   - activo' },
-    { delayMs: 2900, type: 'ok', text: '[OK] Python scripting  - activo' },
-    { delayMs: 3300, type: 'warn', text: '[~]  Red Team ops      - en progreso' },
+    { delayMs: 1700, type: 'ok', text: '[OK] Hacking ético      - nota 9' },
+    { delayMs: 2100, type: 'ok', text: '[OK] Seguridad y HA     - nota 9' },
+    { delayMs: 2500, type: 'ok', text: '[OK] SIEM con Wazuh     - lab propio' },
+    { delayMs: 2900, type: 'ok', text: '[OK] Windows y Linux    - administración' },
+    { delayMs: 3300, type: 'warn', text: '[~]  Red Team          - aprendiendo' },
     { delayMs: 3800, type: 'cmd', text: 'echo "open to work"' },
     { delayMs: 4400, type: 'out', text: 'open to work' },
     { delayMs: 4900, type: 'cursor', text: '' },
   ],
   primaryCta: { label: 'ver proyectos', href: '/proyectos' },
   secondaryCta: { label: 'contactar', href: '/contacto' },
-  introTitle: 'perfil operativo',
-  introBody: 'Ciberseguridad defensiva y ofensiva, administración de sistemas y desarrollo web.',
-  seo: { metaTitle: 'Miguel Pinedo - Cybersecurity', metaDescription: 'Portafolio de ciberseguridad de Miguel Pinedo: laboratorio SOC con Wazuh, informes de incidentes, pentesting web, hardening de Linux y desarrollo web.' },
+  introTitle: 'Técnico en ciberseguridad y sistemas',
+  introBody: 'Técnico Superior en ASIX con perfil de ciberseguridad (nota final 8,01). Administro sistemas Windows y Linux, monto entornos de detección con Wazuh y desarrollo aplicaciones web con la seguridad en el diseño. Busco mi primer puesto en un SOC o en administración de sistemas.',
+  seo: { metaTitle: 'Miguel Pinedo · Ciberseguridad y sistemas', metaDescription: 'Portafolio de Miguel Pinedo, Técnico Superior en ASIX con perfil de ciberseguridad: laboratorio SOC con Wazuh, informes de incidentes, administración de sistemas y desarrollo web seguro.' },
 };
 
 export const aboutContent = {
   sectionLabel: '// 01 - sobre mí',
   sectionTitle: 'Perfil',
   bio: [
-    'Especializado en ciberseguridad defensiva y ofensiva, con experiencia en análisis de vulnerabilidades, pentesting web y hardening de sistemas Linux.',
-    'Combino mentalidad de atacante con disciplina de defensor. Cada sistema que analizo lo estudio con el objetivo de entenderlo desde dentro.',
-    'Actualmente busco proyectos donde la seguridad no sea un añadido de última hora, sino parte del diseño.',
+    'Soy Técnico Superior en Administración de Sistemas Informáticos en Red (ASIX) con perfil de ciberseguridad, con una nota final de 8,01. Antes cursé el Grado Medio de Sistemas Microinformáticos y Redes.',
+    'Aprendo construyendo: he montado un laboratorio SOC con Wazuh en el que provoco, detecto y documento ataques, y he desarrollado StagePlot Studio, una aplicación de pago con su propio sistema de cuentas, licencias y seguridad por capas.',
+    'Busco mi primer puesto en ciberseguridad (SOC, blue team) o en administración de sistemas, en un equipo donde seguir aprendiendo y aportar desde el primer día.',
   ],
   skills: [
-    { name: 'Pentesting Web', detail: 'OWASP / Burp Suite' },
-    { name: 'Network Security', detail: 'Wireshark / Nmap' },
-    { name: 'Linux / Bash', detail: 'Hardening / Scripts' },
-    { name: 'CTF / Red Team', detail: 'HackTheBox / THM' },
-    { name: 'Python', detail: 'Automatización / PoC' },
-    { name: 'Forense', detail: 'Análisis de logs' },
+    { name: 'Seguridad defensiva', detail: 'Wazuh / Sysmon / SIEM' },
+    { name: 'Hacking ético', detail: 'Pentesting web / OWASP' },
+    { name: 'Redes', detail: 'Wireshark / Nmap / Cortafuegos' },
+    { name: 'Sistemas', detail: 'Windows Server / Linux' },
+    { name: 'Scripting', detail: 'Bash / Python' },
+    { name: 'Desarrollo web', detail: 'React / Next.js / Supabase' },
   ],
-  seo: { metaTitle: 'Sobre mí - Miguel Pinedo', metaDescription: 'Perfil de Miguel Pinedo: ciberseguridad defensiva y ofensiva, análisis de vulnerabilidades, pentesting web, hardening de Linux y automatización con Python.' },
+  seo: { metaTitle: 'Sobre mí - Miguel Pinedo', metaDescription: 'Perfil de Miguel Pinedo: Técnico Superior en ASIX con perfil de ciberseguridad, prácticas en empresa, laboratorio SOC propio y desarrollo web seguro.' },
+};
+
+export const experienceContent = {
+  sectionLabel: '// experiencia',
+  title: 'Experiencia',
+  items: [
+    { role: 'Prácticas del Grado Superior ASIX', company: 'Simón Coll', period: '2025 – 2026', detail: 'Formación en centro de trabajo (FCT) del ciclo de Administración de Sistemas Informáticos en Red · 383 horas.' },
+    { role: 'Informático en prácticas', company: 'Finques Pardas', period: '9 meses', detail: 'Prácticas del Grado Medio de Sistemas Microinformáticos y Redes.' },
+  ],
+  others: 'Otros trabajos: camarero en La Bastilla (9 meses) e Interim Group (6 meses).',
 };
 
 export const capabilities = [
@@ -72,10 +82,15 @@ export const studiesContent = {
       name: 'Grado Superior en Administración de Sistemas Informáticos en Red (ASIX)',
       issuer: 'Formación Profesional · perfil de ciberseguridad · nota final 8,01',
       year: '2023 – 2026', orderRank: 5,
-      highlights: ['Proyecto final · 10', 'Ciberseguridad y hacking ético · 9', 'Seguridad y alta disponibilidad · 9', 'Prácticas en empresa · 383 h'],
+      highlights: ['Proyecto final · 10', 'Ciberseguridad y hacking ético · 9', 'Seguridad y alta disponibilidad · 9', 'Prácticas en Simón Coll · 383 h'],
+    },
+    {
+      name: 'Grado Medio en Sistemas Microinformáticos y Redes (SMX)',
+      issuer: 'Formación Profesional · prácticas en Finques Pardas',
+      year: '2020 – 2023', orderRank: 10,
     },
   ],
-  seo: { metaTitle: 'Estudios - Miguel Pinedo', metaDescription: 'Formación de Miguel Pinedo: Grado Superior en Administración de Sistemas Informáticos en Red (ASIX) con perfil de ciberseguridad.' },
+  seo: { metaTitle: 'Estudios - Miguel Pinedo', metaDescription: 'Formación de Miguel Pinedo: Grado Superior en Administración de Sistemas Informáticos en Red (ASIX) con perfil de ciberseguridad y Grado Medio en Sistemas Microinformáticos y Redes (SMX).' },
 };
 
 const projectContent = [
@@ -93,7 +108,7 @@ const projectContent = [
   },
   {
     _id: 'project-stageplot', orderRank: 15, title: 'StagePlot Studio', slug: 'stageplot-studio', subtitle: 'App de pago · código privado', category: 'aplicación', customLabel: '',
-    mainImage: '/assets/stageplot-studio-preview.jpg', mainImageAlt: 'Editor de StagePlot Studio: escenario en 3D con músicos, cableado y monitores, biblioteca de instrumentos y consola de 24 canales',
+    mainImage: '/assets/stageplot/stageplot-editor-3d.jpg', mainImageAlt: 'Editor de StagePlot Studio: escenario en 3D con músicos, cableado y monitores, biblioteca de instrumentos y consola de 24 canales',
     description: 'Editor de stage plots en 3D para técnicos de sonido y bandas: montas el escenario arrastrando instrumentos, monitores y sub-snakes, y Auto-Patch numera los canales en un patchbay de 24 entradas y 8 auxiliares. Genera la input list y una ficha técnica imprimible, comparte el bolo con un enlace de solo lectura y se instala como app en el móvil, también sin cobertura. Detrás hay un backend propio: base de datos PostgreSQL en Supabase con seguridad por filas, acceso con código de un solo uso por email (sin contraseñas), licencias anuales con límite de dispositivos, panel de administración de clientes y pagos, y funciones en Cloudflare que solo entregan el editor a quien tiene una licencia válida.',
     tags: ['React', 'Supabase', 'PostgreSQL', 'Cloudflare Pages', 'PWA'],
     stats: [{ value: '24/8', label: 'entradas / aux' }, { value: '8', label: 'tablas con RLS' }, { value: '28', label: 'funciones SQL' }],
@@ -138,12 +153,12 @@ export const projects = projectContent;
 
 export const contactContent = {
   sectionLabel: '// 04 - contacto', title: 'Hablemos',
-  subtitle: 'Si tienes un proyecto, una auditoría pendiente o simplemente quieres conectar, mi bandeja está abierta.',
+  subtitle: 'Si buscas a alguien para tu equipo de ciberseguridad o sistemas, o quieres comentarme un proyecto, escríbeme y te respondo pronto.',
   // ID del formulario en formspree.io (lo que va después de /f/). Vacío: no se muestra el formulario.
   formspreeId: '',
   links: [
     { label: 'mpinedo@gmail.com', url: 'mailto:mpinedo@gmail.com?subject=Contacto%20desde%20tu%20portafolio', iconKey: 'mail' },
     { label: 'github', url: 'https://github.com/mpinedo04', iconKey: 'github' },
   ],
-  seo: { metaTitle: 'Contacto - Miguel Pinedo', metaDescription: 'Contacta con Miguel Pinedo para proyectos de ciberseguridad, auditorías o desarrollo web.' },
+  seo: { metaTitle: 'Contacto - Miguel Pinedo', metaDescription: 'Contacta con Miguel Pinedo: técnico en ciberseguridad y sistemas que busca su primer puesto en un SOC o en administración de sistemas.' },
 };

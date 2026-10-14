@@ -1,20 +1,16 @@
 'use client';
 
 import { useState } from 'react';
+import { t } from '@/i18n/ui';
 import styles from './ContactForm.module.css';
-
-const MESSAGES = {
-  sending: 'Enviando…',
-  sent: '¡Mensaje enviado! Te responderé lo antes posible.',
-  error: 'No se pudo enviar. Prueba de nuevo o escríbeme directamente al correo.',
-};
 
 /*
  * Formulario de contacto con Formspree (como en Portafolio Raúl): el mensaje llega por
  * email y el campo «email» queda como dirección de respuesta. Solo se muestra si hay
  * un ID de formulario, para no aparentar que se envía algo que nunca llega.
  */
-export default function ContactForm({ formId }) {
+export default function ContactForm({ formId, lang = 'es' }) {
+  const ui = t(lang).form;
   const [status, setStatus] = useState('idle');
 
   const submit = async (event) => {
@@ -36,32 +32,32 @@ export default function ContactForm({ formId }) {
   };
 
   return <form className={styles.form} onSubmit={submit}>
-    <input type="hidden" name="_subject" value="Contacto desde tu portafolio"/>
+    <input type="hidden" name="_subject" value={ui.subject}/>
     {/* Trampa para bots: los humanos no ven este campo y Formspree descarta lo que lo rellena */}
     <input type="text" name="_gotcha" className={styles.trap} tabIndex={-1} autoComplete="off" aria-hidden="true"/>
     <div className={styles.row}>
       <label className={styles.field}>
-        <span>Nombre</span>
+        <span>{ui.name}</span>
         <input type="text" name="nombre" autoComplete="name" required/>
       </label>
       <label className={styles.field}>
-        <span>Correo</span>
+        <span>{ui.email}</span>
         <input type="email" name="email" autoComplete="email" required/>
       </label>
     </div>
     <label className={styles.field}>
-      <span>Empresa o teléfono <em>(opcional)</em></span>
+      <span>{ui.extra} <em>{ui.optional}</em></span>
       <input type="text" name="empresa_o_telefono" autoComplete="organization"/>
     </label>
     <label className={styles.field}>
-      <span>Mensaje</span>
+      <span>{ui.message}</span>
       <textarea name="mensaje" rows={5} required/>
     </label>
     <div className={styles.actions}>
       <button type="submit" className="btn-primary" disabled={status === 'sending'}>
-        {status === 'sending' ? 'enviando…' : 'enviar mensaje'}
+        {status === 'sending' ? ui.sending : ui.send}
       </button>
-      <p className={styles.status} role="status" data-status={status}>{status === 'idle' ? '' : MESSAGES[status]}</p>
+      <p className={styles.status} role="status" data-status={status}>{status === 'idle' || status === 'sending' ? '' : ui[status]}</p>
     </div>
   </form>;
 }

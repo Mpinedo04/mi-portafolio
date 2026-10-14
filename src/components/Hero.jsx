@@ -8,12 +8,15 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import Glyphs from './hero/Glyphs';
 import { HeroField } from './hero/fieldEngine';
 import { complete, execute, line } from './hero/commands';
+import { localePath } from '@/i18n/config';
+import { t } from '@/i18n/ui';
+import { useLang } from '@/i18n/useLang';
 import styles from './Hero.module.css';
 
-const QUICK_COMMANDS = [
+const quickCommands = (grepWord) => [
   ['help', 'help'],
   ['scan', 'scan'],
-  ['grep', 'grep vulnerabilidades'],
+  ['grep', `grep ${grepWord}`],
   ['rm -rf /', 'sudo rm -rf /'],
 ];
 
@@ -48,6 +51,8 @@ function LineParts({ parts, onRun }) {
 
 export default function Hero({ content, projects = [], contact = null, cvUrl = '/assets/CV_Miguel_Pinedo_moderno.pdf' }) {
   const pathname = usePathname();
+  const lang = useLang();
+  const ui = useMemo(() => t(lang).hero, [lang]);
   const heroRef = useRef(null);
   const bodyRef = useRef(null);
   const inputRef = useRef(null);
@@ -251,6 +256,8 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
         data: commandData,
         history: [...history, command],
         pathname,
+        lang,
+        localize: (path) => localePath(lang, path),
         clear: () => setLines([]),
         navigate: (href) => window.dispatchEvent(new CustomEvent('portfolio:navigate', { detail: href })),
         openExternal: (url) => window.open(url, '_blank', 'noopener,noreferrer'),
@@ -265,7 +272,7 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
       setBusy(false);
       window.requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
     }
-  }, [busy, closeTerminal, commandData, finishIntro, getEngine, history, introDone, pathname, print, resetAll, typeTagline, wait]);
+  }, [busy, closeTerminal, commandData, finishIntro, getEngine, history, introDone, lang, pathname, print, resetAll, typeTagline, wait]);
 
   const openTerminal = useCallback(() => {
     if (windowState === 'closed') {
@@ -313,7 +320,7 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
     }
     if (event.key === 'Tab') {
       event.preventDefault();
-      const { matches, value } = complete(input, commandData.projects);
+      const { matches, value } = complete(input, commandData.projects, lang);
       if (matches.length > 1 && value === input) print({ tone: 'cmd', text: input }, { tone: 'dim', parts: [matches.join('  ')] });
       setInput(value);
       return;
@@ -364,7 +371,7 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
     style={floating && placeholderSize ? { width: `${placeholderSize.width}px` } : undefined}
     data-terminal-window
     role="region"
-    aria-label="Terminal interactiva"
+    aria-label={ui.terminal}
   >
     <div
       className={`terminal-bar ${styles.terminalBar}`}
@@ -372,13 +379,13 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
       onDoubleClick={(event) => { if (!event.target.closest('button')) setMaximized((value) => !value); }}
     >
       <div className={styles.windowControls}>
-        <button type="button" className={styles.windowControl} aria-label="Cerrar terminal" title="Cerrar" onClick={closeTerminal}>
+        <button type="button" className={styles.windowControl} aria-label={ui.close} title={ui.closeTitle} onClick={closeTerminal}>
           <span className={`${styles.controlDot} ${styles.closeDot}`}><span>×</span></span>
         </button>
-        <button type="button" className={styles.windowControl} aria-label="Minimizar terminal" title="Minimizar" onClick={minimizeTerminal}>
+        <button type="button" className={styles.windowControl} aria-label={ui.minimize} title={ui.minimizeTitle} onClick={minimizeTerminal}>
           <span className={`${styles.controlDot} ${styles.minimizeDot}`}><span>−</span></span>
         </button>
-        <button type="button" className={styles.windowControl} aria-label={maximized ? 'Restaurar tamaño de terminal' : 'Maximizar terminal'} title={maximized ? 'Restaurar' : 'Maximizar'} onClick={() => setMaximized((value) => !value)}>
+        <button type="button" className={styles.windowControl} aria-label={maximized ? ui.restoreSize : ui.maximize} title={maximized ? ui.restoreTitle : ui.maximizeTitle} onClick={() => setMaximized((value) => !value)}>
           <span className={`${styles.controlDot} ${styles.maximizeDot}`}><span>{maximized ? '⤡' : '⤢'}</span></span>
         </button>
       </div>
@@ -413,8 +420,8 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
           value={input}
           onChange={(event) => { setInput(event.target.value); setHistoryIndex(-1); }}
           onKeyDown={handleKeyDown}
-          aria-label="Escribe un comando (prueba help)"
-          placeholder={lines.length <= introLines.length + 1 && !busy ? 'escribe help…' : ''}
+          aria-label={ui.input}
+          placeholder={lines.length <= introLines.length + 1 && !busy ? ui.placeholder : ''}
           autoComplete="off"
           autoCapitalize="off"
           autoCorrect="off"
@@ -423,12 +430,12 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
           readOnly={busy}
         />
       </form>}
-      {!introDone && <button type="button" className={styles.skip} onClick={finishIntro}>saltar ›</button>}
+      {!introDone && <button type="button" className={styles.skip} onClick={finishIntro}>{ui.skip}</button>}
     </div>
 
     <div className={styles.quickBar}>
-      <span className={styles.quickLabel} aria-hidden="true">prueba</span>
-      {QUICK_COMMANDS.map(([label, command]) => <button type="button" key={label} className={styles.quick} disabled={busy} onClick={() => runCommand(command, { animate: true })}>{label}</button>)}
+      <span className={styles.quickLabel} aria-hidden="true">{ui.try}</span>
+      {quickCommands(ui.grepWord).map(([label, command]) => <button type="button" key={label} className={styles.quick} disabled={busy} onClick={() => runCommand(command, { animate: true })}>{label}</button>)}
     </div>
   </div> : null;
 
@@ -436,7 +443,7 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
   const slotContent = windowState !== 'open'
     ? <button type="button" className={styles.openTerminal} onClick={openTerminal}>
         <span className={styles.openTerminalIcon} aria-hidden="true">›_</span>
-        <span>{windowState === 'minimized' ? 'Restaurar terminal' : 'Abrir terminal'}</span>
+        <span>{windowState === 'minimized' ? ui.restore : ui.open}</span>
       </button>
     : inPortal
       ? <div
@@ -445,12 +452,12 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
           style={placeholderSize ? { height: `${placeholderSize.height}px` } : undefined}
           aria-hidden="true"
         >
-          {floating && <span className={styles.dockLabel}>⌂ suelta la terminal aquí para acoplarla</span>}
+          {floating && <span className={styles.dockLabel}>{ui.drop}</span>}
         </div>
       : terminalNode;
 
   const portal = inPortal && typeof document !== 'undefined' ? createPortal(<>
-    {maximized && <button type="button" className={styles.maximizedBackdrop} aria-label="Restaurar ventana de terminal" onClick={() => setMaximized(false)}/>}
+    {maximized && <button type="button" className={styles.maximizedBackdrop} aria-label={ui.restoreWindow} onClick={() => setMaximized(false)}/>}
     {terminalNode}
   </>, document.body) : null;
 
@@ -458,7 +465,7 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
     'data-group': group,
     className: styles.interactiveText,
     onClick: () => runFromText(group),
-    title: `clic → ${TEXT_ACTIONS[group]}`,
+    title: `${ui.click} ${TEXT_ACTIONS[group]}`,
   });
 
   return <>
@@ -477,8 +484,8 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
           <span aria-hidden="true"><Glyphs text={shownTagline}/>{tagline !== null && <span className={styles.taglineCaret}/>}</span>
         </p>
         <div className="hero-cta" data-group="cta">
-          <Link className="btn-primary" data-field-block href={stegaClean(content?.primaryCta?.href || '/proyectos')}>{content?.primaryCta?.label || 'ver proyectos'}</Link>
-          <Link className="btn-ghost" data-field-block href={stegaClean(content?.secondaryCta?.href || '/contacto')}>{content?.secondaryCta?.label || 'contactar'}</Link>
+          <Link className="btn-primary" data-field-block href={localePath(lang, stegaClean(content?.primaryCta?.href || '/proyectos'))}>{content?.primaryCta?.label}</Link>
+          <Link className="btn-ghost" data-field-block href={localePath(lang, stegaClean(content?.secondaryCta?.href || '/contacto'))}>{content?.secondaryCta?.label}</Link>
         </div>
       </div>
 
@@ -486,8 +493,8 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
         {slotContent}
         <p className={styles.hint} aria-hidden="true">
           {windowState === 'open'
-            ? <>arrastra la barra y <em>lánzala</em> contra el texto · escribe <button type="button" tabIndex={-1} onClick={() => runCommand('help', { animate: true })}>help</button></>
-            : <>la terminal sigue aquí cuando la necesites</>}
+            ? <>{ui.hintStart}<em>{ui.hintThrow}</em>{ui.hintEnd}<button type="button" tabIndex={-1} onClick={() => runCommand('help', { animate: true })}>help</button></>
+            : <>{ui.hintClosed}</>}
         </p>
       </div>
     </section>

@@ -1,0 +1,718 @@
+{
+  "title": "StagePlot Studio · caso de estudio",
+  "slug": "caso-stageplot-studio",
+  "seo": {
+    "metaTitle": "StagePlot Studio · caso de estudio · Miguel Pinedo",
+    "metaDescription": "Cómo diseñé y protegí StagePlot Studio, una app de pago para sonido en directo: arquitectura con Supabase y Cloudflare, siete capas de seguridad y control de licencias."
+  },
+  "body": [
+    {
+      "_type": "block",
+      "_key": "bk00002",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00001",
+          "text": "01 · Resumen",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00004",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00003",
+          "text": "StagePlot Studio es una aplicación web de pago para técnicos de sonido y bandas. Sirve para preparar un concierto: se monta el escenario en 3D, se asignan los canales de la mesa de mezclas y se genera la documentación que el equipo técnico necesita el día del bolo.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00006",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00005",
+          "text": "La he diseñado, programado y publicado yo solo: la interfaz, la base de datos, el sistema de cuentas y licencias, y la seguridad. El código es privado porque es un producto comercial, así que aquí no aparece; sí explico la arquitectura y las decisiones de seguridad.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportTable",
+      "_key": "tb00007",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00008",
+          "cells": [
+            "Indicador",
+            "Valor"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00009",
+          "cells": [
+            "Tipo",
+            "Aplicación web instalable (PWA) de pago"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00010",
+          "cells": [
+            "Para quién",
+            "Técnicos de sonido, bandas y salas de conciertos"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00011",
+          "cells": [
+            "Interfaz",
+            "React · unas 5.200 líneas en 17 módulos"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00012",
+          "cells": [
+            "Base de datos",
+            "PostgreSQL en Supabase · 8 tablas con seguridad por filas · 28 funciones SQL"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00013",
+          "cells": [
+            "Servidor",
+            "Cloudflare Pages con funciones"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00014",
+          "cells": [
+            "Mi papel",
+            "Todo el proyecto: diseño, desarrollo, seguridad y publicación"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "reportImage",
+      "_key": "im00015",
+      "url": "/assets/stageplot/stageplot-editor-3d.jpg",
+      "alt": "Editor de StagePlot Studio: escenario en 3D con músicos, monitores y cableado, biblioteca de equipo a la izquierda y consola de 24 canales abajo",
+      "caption": "Editor · escenario en 3D con músicos, monitores y cableado; abajo, la consola de 24 canales."
+    },
+    {
+      "_type": "block",
+      "_key": "bk00017",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00016",
+          "text": "02 · El problema",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00019",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00018",
+          "text": "Antes de cada concierto, la banda envía a la sala un stage plot (dónde va cada músico y cada equipo) y una input list (qué micrófono entra por cada canal de la mesa). Normalmente se preparan a mano, en un dibujo y en una hoja de cálculo que dejan de coincidir en cuanto cambia algo.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00021",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00020",
+          "text": "StagePlot Studio une las dos cosas: lo que se coloca en el escenario genera automáticamente el patch, la input list y la ficha técnica, siempre coherentes entre sí.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00023",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00022",
+          "text": "03 · Qué hace la aplicación",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00026",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00024",
+          "text": "Escenario en 3D.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "sp00025",
+          "text": " Vistas libre, isométrica, 2.5D y en planta, con cámara orbital y gestos táctiles en móvil y tablet.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00029",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00027",
+          "text": "Biblioteca de equipo.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "sp00028",
+          "text": " Instrumentos, monitores, sub-snakes y racks que se arrastran al escenario y se configuran en un inspector.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00032",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00030",
+          "text": "Auto-Patch.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "sp00031",
+          "text": " Numera los canales de un patchbay de 24 entradas y 8 auxiliares siguiendo la convención habitual: batería, bajo, guitarras, teclados, vientos y voces.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00035",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00033",
+          "text": "Input list y ficha técnica.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "sp00034",
+          "text": " La tabla completa del patch y una ficha imprimible que se exporta en HTML, PDF y SVG.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00038",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00036",
+          "text": "Nube y uso sin conexión.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "sp00037",
+          "text": " Los bolos se sincronizan entre dispositivos y la app sigue funcionando sin cobertura, algo habitual en sótanos y salas.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00041",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00039",
+          "text": "Enlaces de solo lectura.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "sp00040",
+          "text": " Para pasar la ficha al técnico de la sala sin darle acceso a la cuenta.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportImage",
+      "_key": "im00042",
+      "url": "/assets/stageplot/stageplot-input-list.jpg",
+      "alt": "Input list de StagePlot Studio: tabla con canal, instrumento, fuente, micrófono, phantom, ubicación, stagebox y auxiliar de cada entrada",
+      "caption": "Input list · se genera sola a partir de lo colocado en el escenario."
+    },
+    {
+      "_type": "reportImage",
+      "_key": "im00043",
+      "url": "/assets/stageplot/stageplot-ficha-tecnica.jpg",
+      "alt": "Ficha técnica exportable de StagePlot Studio con los datos del bolo y el plano del escenario visto en planta",
+      "caption": "Ficha técnica · lista para imprimir o enviar a la sala."
+    },
+    {
+      "_type": "block",
+      "_key": "bk00045",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00044",
+          "text": "04 · Arquitectura",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00047",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00046",
+          "text": "La aplicación se apoya en tres piezas. Ninguna necesita un servidor propio que mantener, y el control de acceso nunca depende del navegador del usuario.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "codeBlock",
+      "_key": "cb00048",
+      "language": "text",
+      "code": "Navegador (PWA)            Cloudflare Pages                 Supabase (PostgreSQL)\n───────────────            ────────────────                 ─────────────────────\npantalla de acceso ──────▶ /api/editor ── ¿licencia? ─────▶ licencias · dispositivos\n(código por email)         entrega el editor solo si        RLS: cada usuario ve\n                           la base de datos lo confirma     solo sus filas\neditor en caché ◀───────── \n                           /api/viewer ── ¿enlace activo? ─▶ bolos compartidos",
+      "caption": "flujo de acceso"
+    },
+    {
+      "_type": "reportTable",
+      "_key": "tb00049",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00050",
+          "cells": [
+            "Pieza",
+            "Tecnología",
+            "Función"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00051",
+          "cells": [
+            "Interfaz",
+            "React empaquetado con esbuild",
+            "Editor 3D, paneles, consola y manual integrado"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00052",
+          "cells": [
+            "Instalación",
+            "PWA con service worker",
+            "Instalarla en el móvil y usarla sin conexión"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00053",
+          "cells": [
+            "Servidor",
+            "Cloudflare Pages Functions",
+            "Entregan el editor y el visor solo a quien tiene permiso"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00054",
+          "cells": [
+            "Datos",
+            "Supabase · PostgreSQL",
+            "Cuentas, licencias, dispositivos, pagos, bolos y configuraciones"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00055",
+          "cells": [
+            "Control de datos",
+            "Row Level Security y funciones SQL",
+            "Cada consulta devuelve solo las filas del usuario"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "bk00057",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00056",
+          "text": "05 · Seguridad por capas",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00059",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00058",
+          "text": "La idea que guía el diseño: el código de acceso demuestra quién eres, el límite de dispositivos impide que una licencia la usen varias personas y el servidor lo comprueba todo. La aplicación no se fía de sí misma.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportTable",
+      "_key": "tb00060",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00061",
+          "cells": [
+            "Capa",
+            "Qué hace",
+            "Contra qué protege"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00062",
+          "cells": [
+            "1 · Alta controlada",
+            "Solo se crean cuentas de emails dados de alta por el administrador: un hook lo comprueba antes de crear el usuario",
+            "Registros no autorizados"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00063",
+          "cells": [
+            "2 · Sin contraseñas",
+            "Código de 6 cifras por email, de un solo uso, que caduca en 1 hora; como mucho uno por minuto",
+            "Robo, reutilización y fuerza bruta de credenciales"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00064",
+          "cells": [
+            "3 · Licencia en el servidor",
+            "El editor no está en la web pública: una función de Cloudflare lo entrega solo si la base de datos confirma la licencia",
+            "Saltarse el pago manipulando el navegador"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00065",
+          "cells": [
+            "4 · Límite de dispositivos",
+            "3 dispositivos registrados, 2 abiertos a la vez y como mucho 5 altas nuevas cada 30 días",
+            "Compartir una licencia entre varias personas"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00066",
+          "cells": [
+            "5 · Seguridad por filas",
+            "RLS en las 8 tablas; las funciones de administración comprueban en el servidor que quien llama es administrador",
+            "Leer o cambiar datos de otros clientes"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00067",
+          "cells": [
+            "6 · Sin conexión con fecha límite",
+            "La app funciona 7 días sin conexión con la última comprobación de licencia",
+            "Usarla para siempre desconectada"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00068",
+          "cells": [
+            "7 · Enlaces de solo lectura",
+            "Token aleatorio de 12 caracteres que deja de funcionar al dejar de compartir o si caduca la licencia",
+            "Acceso no autorizado a los bolos compartidos"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "bk00070",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00069",
+          "text": "06 · Casos de abuso que cierra",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "reportTable",
+      "_key": "tb00071",
+      "rows": [
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00072",
+          "cells": [
+            "Lo que alguien intenta",
+            "Qué pasa"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00073",
+          "cells": [
+            "Entrar con un email sin licencia",
+            "No se crea la cuenta ni llega el código"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00074",
+          "cells": [
+            "Reutilizar un código ya usado",
+            "No vale: es de un solo uso"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00075",
+          "cells": [
+            "Compartir la cuenta con diez personas",
+            "Solo caben 3 dispositivos; el cuarto no entra"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00076",
+          "cells": [
+            "Liberar dispositivos para ir metiendo gente",
+            "Como mucho 5 altas en 30 días; después se bloquean y la cuenta queda marcada para revisión"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00077",
+          "cells": [
+            "Manipular la app en el navegador",
+            "La licencia se comprueba en el servidor y el editor no se descarga sin ella"
+          ]
+        },
+        {
+          "_type": "reportTableRow",
+          "_key": "tr00078",
+          "cells": [
+            "Leer los bolos de otro cliente",
+            "La base de datos no devuelve filas ajenas"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "bk00080",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00079",
+          "text": "07 · Privacidad y datos",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00082",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00081",
+          "text": "No hay contraseñas que robar, la conexión va siempre cifrada (HTTPS) y no hay publicidad ni cookies de seguimiento. Si un cliente deja de pagar, tiene 14 días de cortesía; sus bolos se guardan 3 meses más por si vuelve y después se borran solos con una tarea programada en la base de datos.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00084",
+      "style": "h2",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00083",
+          "text": "08 · Qué he aprendido",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00086",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00085",
+          "text": "Diseñar la seguridad desde el principio es más sencillo que añadirla al final: decidir qué comprueba el servidor y qué puede ver cada usuario marcó toda la arquitectura.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00088",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00087",
+          "text": "Pensar como un atacante (cómo compartiría yo una licencia, cómo me saltaría el pago) me dio la lista de abusos que había que cerrar antes de vender la aplicación.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00090",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00089",
+          "text": "Y que la seguridad tiene límites razonables: dos personas turnándose un mismo dispositivo no se puede impedir del todo, igual que en cualquier servicio por suscripción. Lo importante es que resulte incómodo y que se pueda detectar desde el panel de administración.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_type": "block",
+      "_key": "bk00095",
+      "style": "normal",
+      "children": [
+        {
+          "_type": "span",
+          "_key": "sp00093",
+          "text": "La aplicación está publicada en ",
+          "marks": []
+        },
+        {
+          "_type": "span",
+          "_key": "sp00092",
+          "text": "stageplot-studio.pages.dev",
+          "marks": [
+            "lk00091"
+          ]
+        },
+        {
+          "_type": "span",
+          "_key": "sp00094",
+          "text": " (el acceso requiere licencia).",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "lk00091",
+          "_type": "link",
+          "href": "https://stageplot-studio.pages.dev/"
+        }
+      ]
+    }
+  ]
+}

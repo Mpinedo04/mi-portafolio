@@ -1,0 +1,17 @@
+.wrap { max-width: 800px; }
+.list { list-style: none; position: relative; }
+/* Raíl vertical que une los puntos */
+.list::before { background: linear-gradient(180deg, var(--accent), rgba(201, 168, 106, .1)); bottom: .6rem; content: ""; left: 5px; position: absolute; top: .6rem; width: 1px; }
+
+.item { padding: 0 0 2rem 2rem; position: relative; }
+.item:last-child { padding-bottom: 0; }
+.dot { background: var(--bg); border: 2px solid var(--accent); border-radius: 50%; box-shadow: 0 0 10px rgba(201, 168, 106, .35); height: 11px; left: 0; position: absolute; top: .45rem; width: 11px; }
+.item:first-child .dot { background: var(--accent-strong); }
+
+.head { align-items: baseline; display: flex; flex-wrap: wrap; gap: .3rem 1.5rem; justify-content: space-between; }
+.role { color: var(--white); font-family: var(--serif); font-size: 18px; font-weight: 500; line-height: 1.35; }
+.period { color: var(--accent-strong); flex-shrink: 0; font-family: var(--mono); font-size: 12px; letter-spacing: .5px; }
+.company { color: var(--sage); font-size: 13px; font-weight: 500; letter-spacing: .3px; margin-top: .15rem; }
+.detail { color: var(--slate); font-size: 14px; margin-top: .45rem; max-width: 640px; }
+
+.others { border-top: 1px solid var(--border); color: var(--faint); font-size: 13px; margin-top: 2rem; padding-top: 1.1rem; }
