@@ -1,0 +1,95 @@
+.strip {
+  padding: 0 4rem 3.5rem;
+}
+
+.list {
+  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  list-style: none;
+}
+
+.item {
+  padding: 1.6rem 1.4rem 1.5rem;
+  position: relative;
+}
+
+.item + .item {
+  border-left: 1px solid var(--border);
+}
+
+/* Línea dorada que se dibuja encima de cada cifra al entrar en pantalla */
+.item::before {
+  background: linear-gradient(90deg, var(--accent-strong), transparent);
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: -1px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.live .item::before {
+  transform: scaleX(1);
+}
+
+.live .item:nth-child(2)::before { transition-delay: 0.11s; }
+.live .item:nth-child(3)::before { transition-delay: 0.22s; }
+.live .item:nth-child(4)::before { transition-delay: 0.33s; }
+
+.value {
+  color: var(--white);
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.4vw, 2.8rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.value [data-count] {
+  color: var(--accent-strong);
+}
+
+.affix {
+  color: var(--accent);
+  font-size: 0.55em;
+  margin-left: 0.15em;
+}
+
+.label {
+  color: var(--faint);
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  margin-top: 0.55rem;
+  text-transform: uppercase;
+}
+
+@media (max-width: 860px) {
+  .strip {
+    padding: 0 1.5rem 3rem;
+  }
+
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .item:nth-child(3) {
+    border-left: 0;
+  }
+
+  .item:nth-child(n + 3) {
+    border-top: 1px solid var(--border);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item::before {
+    transform: scaleX(1);
+    transition: none;
+  }
+}

@@ -1,0 +1,295 @@
+/*
+ * Efectos globales: capas que crean los comandos de la terminal (lluvia, confeti, linterna, minijuego),
+ * letras que se cogen con el ratón, aviso flotante y luz que sigue al puntero en las tarjetas.
+ */
+
+/* ---------- canvas de efectos ---------- */
+
+.fx-canvas {
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  transition: opacity 0.6s ease;
+}
+
+.fx-matrix {
+  opacity: 0.9;
+}
+
+.fx-burst {
+  z-index: 1200;
+}
+
+/* Mientras se arrastra una letra del hero */
+html.is-plucking,
+html.is-plucking * {
+  cursor: grabbing !important;
+  user-select: none !important;
+}
+
+/* ---------- modo linterna ---------- */
+
+.fx-lights {
+  animation: lightsFlickerOff 0.75s steps(1, end) both;
+  background: radial-gradient(circle 200px at var(--lx, 50%) var(--ly, 50%), rgba(3, 5, 10, 0) 0%, rgba(3, 5, 10, 0.12) 52%, rgba(3, 5, 10, 0.94) 100%);
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: 1090;
+}
+
+.fx-lights.is-leaving {
+  animation: lightsFlickerOn 0.42s steps(1, end) both;
+}
+
+.fx-lights-switch {
+  background: rgba(13, 18, 28, 0.92);
+  border: 1px solid rgba(201, 168, 106, 0.45);
+  border-radius: 999px;
+  bottom: 1.4rem;
+  box-shadow: 0 0 24px rgba(201, 168, 106, 0.18);
+  color: var(--accent-strong);
+  cursor: pointer;
+  font: 500 11px var(--mono);
+  left: 50%;
+  letter-spacing: 0.08em;
+  padding: 0.5rem 1rem;
+  pointer-events: auto;
+  position: fixed;
+  transform: translateX(-50%);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.fx-lights-switch:hover {
+  background: rgba(25, 32, 46, 0.98);
+  border-color: var(--accent-strong);
+}
+
+@keyframes lightsFlickerOff {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  25% { opacity: 0.2; }
+  40% { opacity: 1; }
+  55% { opacity: 0.55; }
+  70%, 100% { opacity: 1; }
+}
+
+@keyframes lightsFlickerOn {
+  0% { opacity: 1; }
+  25% { opacity: 0.3; }
+  45% { opacity: 1; }
+  70% { opacity: 0.15; }
+  100% { opacity: 0; }
+}
+
+/* ---------- minijuego defend ---------- */
+
+.fx-defend {
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  transition: opacity 0.4s ease;
+  z-index: 1095;
+}
+
+.fx-defend.is-over {
+  opacity: 0;
+}
+
+.fx-defend.is-hit {
+  animation: defendHit 0.4s ease-out;
+}
+
+.fx-defend-hud {
+  align-items: center;
+  background: rgba(13, 18, 28, 0.92);
+  border: 1px solid rgba(201, 168, 106, 0.35);
+  border-radius: 999px;
+  bottom: 1.4rem;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  color: var(--light);
+  display: flex;
+  font: 500 11px var(--mono);
+  gap: 0.55rem;
+  left: 50%;
+  letter-spacing: 0.1em;
+  padding: 0.5rem 1.05rem;
+  position: fixed;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.fx-defend-hud strong {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.fx-defend-label,
+.fx-defend-sep {
+  color: var(--faint);
+}
+
+.fx-defend-bars {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.fx-defend-bars i {
+  background: rgba(255, 98, 91, 0.28);
+  border-radius: 2px;
+  display: block;
+  height: 8px;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  width: 14px;
+}
+
+.fx-defend-bars i.on {
+  background: var(--sage);
+  box-shadow: 0 0 8px rgba(133, 189, 161, 0.6);
+}
+
+.fx-packet {
+  background: rgba(46, 14, 16, 0.9);
+  border: 1px solid rgba(255, 98, 91, 0.75);
+  border-radius: 999px;
+  box-shadow: 0 0 18px rgba(255, 98, 91, 0.35);
+  color: #ffd9d3;
+  cursor: crosshair;
+  font: 600 11px var(--mono);
+  left: 0;
+  letter-spacing: 0.04em;
+  padding: 0.38rem 0.75rem 0.38rem 1.4rem;
+  pointer-events: auto;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.fx-packet::before {
+  animation: packetPulse 0.8s ease-in-out infinite;
+  background: #ff625b;
+  border-radius: 50%;
+  content: "";
+  height: 6px;
+  left: 0.6rem;
+  margin-top: -3px;
+  position: absolute;
+  top: 50%;
+  width: 6px;
+}
+
+.fx-packet:hover {
+  border-color: #ff8f7e;
+  box-shadow: 0 0 26px rgba(255, 98, 91, 0.6);
+}
+
+.fx-packet.is-blocked {
+  animation: packetGone 0.5s ease-out forwards;
+  background: rgba(16, 40, 30, 0.92);
+  border-color: var(--sage);
+  box-shadow: 0 0 26px rgba(133, 189, 161, 0.55);
+  color: #d9f2e5;
+}
+
+.fx-packet.is-blocked::before {
+  animation: none;
+  background: var(--sage);
+}
+
+.fx-packet.is-blocked::after {
+  animation: packetRing 0.5s ease-out forwards;
+  border: 2px solid var(--sage);
+  border-radius: 999px;
+  content: "";
+  inset: -5px;
+  position: absolute;
+}
+
+.fx-packet.is-breach {
+  animation: packetBreach 0.45s ease-out forwards;
+}
+
+.fx-packet.is-expired {
+  animation: packetGone 0.35s ease-out forwards;
+}
+
+@keyframes packetPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@keyframes packetGone {
+  to { opacity: 0; scale: 1.3; }
+}
+
+@keyframes packetRing {
+  from { opacity: 1; scale: 1; }
+  to { opacity: 0; scale: 1.6; }
+}
+
+@keyframes packetBreach {
+  0% { box-shadow: 0 0 0 0 rgba(255, 98, 91, 0.8); }
+  100% { box-shadow: 0 0 0 40px rgba(255, 98, 91, 0); opacity: 0; scale: 1.5; }
+}
+
+@keyframes defendHit {
+  from { box-shadow: inset 0 0 180px rgba(255, 98, 91, 0.5); }
+  to { box-shadow: inset 0 0 0 rgba(255, 98, 91, 0); }
+}
+
+/* ---------- aviso flotante ---------- */
+
+.fx-toast {
+  animation: toastIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both, toastOut 0.4s ease 2.8s forwards;
+  background: rgba(13, 18, 28, 0.94);
+  border: 1px solid rgba(201, 168, 106, 0.45);
+  border-radius: 999px;
+  bottom: 1.6rem;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(201, 168, 106, 0.15);
+  color: var(--accent-strong);
+  font: 500 12px var(--mono);
+  left: 50%;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 1.2rem;
+  pointer-events: none;
+  position: fixed;
+  translate: -50% 0;
+  white-space: nowrap;
+  z-index: 1210;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes toastOut {
+  to { opacity: 0; transform: translateY(10px); }
+}
+
+/* ---------- luz que sigue al puntero en las tarjetas ---------- */
+
+.project-card,
+.capability-card {
+  background-image: radial-gradient(560px circle at var(--mx, -999px) var(--my, -999px), rgba(201, 168, 106, 0.08), transparent 42%);
+}
+
+/* ---------- títulos que se descifran al aparecer ---------- */
+
+[data-scrambling] {
+  color: var(--accent-strong);
+}
+
+.section-label[data-scrambling] {
+  color: var(--sage);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-lights,
+  .fx-lights.is-leaving,
+  .fx-toast {
+    animation: none;
+  }
+}

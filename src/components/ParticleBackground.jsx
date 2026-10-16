@@ -3,6 +3,13 @@
 import { useEffect, useRef } from 'react';
 import styles from './ParticleBackground.module.css';
 
+const INTERACTIVE = 'a, button, input, textarea, select, label, summary, [role="button"], [data-terminal-window], .fx-packet';
+
+/*
+ * Fondo: cuadrícula, red de nodos y partículas que reaccionan al puntero.
+ * Por la red viajan paquetes de datos y un clic en una zona vacía (o la orden ping de la terminal)
+ * lanza un sonar que ilumina los nodos al pasar.
+ */
 export default function ParticleBackground() {
   const canvasRef = useRef(null);
 
@@ -18,6 +25,10 @@ export default function ParticleBackground() {
     let ratio = 1;
     let particles = [];
     let nodes = [];
+    let edges = [];
+    let packets = [];
+    let sonars = [];
+    let nextPacket = 0;
     let frameId = 0;
     let radarAngle = 0;
 
@@ -44,8 +55,12 @@ export default function ParticleBackground() {
         return {
           x: (column + 0.6 + Math.random() * 0.6) * (width / 7),
           y: (row + 0.7 + Math.random() * 0.5) * (height / Math.ceil(nodeCount / 7)),
+          flash: 0,
         };
       });
+      edges = [];
+      nodes.forEach((a, i) => nodes.slice(i + 1).forEach((b) => { if (Math.hypot(a.x - b.x, a.y - b.y) < 215) edges.push([a, b]); }));
+      packets = [];
       if (reduceMotion) draw();
     };
 
@@ -75,10 +90,11 @@ export default function ParticleBackground() {
       }
     };
 
-    const drawNetwork = () => {
+    const drawNetwork = (now) => {
       for (let i = 0; i < nodes.length; i += 1) {
         const a = nodes[i];
-        const glow = Math.max(0, 1 - Math.hypot(pointer.x - a.x, pointer.y - a.y) / 260);
+        const flash = Math.max(0, (a.flash - now) / 600);
+        const glow = Math.min(1, Math.max(0, 1 - Math.hypot(pointer.x - a.x, pointer.y - a.y) / 260) + flash);
         context.fillStyle = `rgba(201, 168, 106, ${0.09 + glow * 0.38})`;
         context.beginPath(); context.arc(a.x, a.y, 1.5 + glow * 1.2, 0, Math.PI * 2); context.fill();
         for (let j = i + 1; j < nodes.length; j += 1) {
@@ -129,6 +145,64 @@ export default function ParticleBackground() {
       context.beginPath(); context.moveTo(pointer.x, pointer.y); context.lineTo(pointer.x + Math.cos(radarAngle) * radius, pointer.y + Math.sin(radarAngle) * radius); context.stroke();
     };
 
+    // Paquetes que viajan por las conexiones de la red, con una pequeña estela.
+    const drawPackets = (now) => {
+      if (reduceMotion || !edges.length) return;
+      if (now > nextPacket && packets.length < (width < 720 ? 4 : 9)) {
+        const [from, to] = edges[Math.floor(Math.random() * edges.length)];
+        const forward = Math.random() < 0.5;
+        packets.push({ a: forward ? from : to, b: forward ? to : from, t: 0, speed: 0.35 + Math.random() * 0.45, sage: Math.random() < 0.25 });
+        nextPacket = now + 260 + Math.random() * 520;
+      }
+      packets = packets.filter((packet) => {
+        packet.t += packet.speed / 60;
+        if (packet.t >= 1) { packet.b.flash = now + 380; return false; }
+        const x = packet.a.x + (packet.b.x - packet.a.x) * packet.t;
+        const y = packet.a.y + (packet.b.y - packet.a.y) * packet.t;
+        const tail = Math.max(0, packet.t - 0.12);
+        const tx = packet.a.x + (packet.b.x - packet.a.x) * tail;
+        const ty = packet.a.y + (packet.b.y - packet.a.y) * tail;
+        const near = Math.max(0, 1 - Math.hypot(pointer.x - x, pointer.y - y) / 300);
+        const color = packet.sage ? '133, 189, 161' : '226, 200, 147';
+        const gradient = context.createLinearGradient(tx, ty, x, y);
+        gradient.addColorStop(0, `rgba(${color}, 0)`);
+        gradient.addColorStop(1, `rgba(${color}, ${0.32 + near * 0.4})`);
+        context.strokeStyle = gradient;
+        context.lineWidth = 1.4;
+        context.beginPath(); context.moveTo(tx, ty); context.lineTo(x, y); context.stroke();
+        context.fillStyle = `rgba(${color}, ${0.55 + near * 0.4})`;
+        context.beginPath(); context.arc(x, y, 1.7, 0, Math.PI * 2); context.fill();
+        context.lineWidth = 1;
+        return true;
+      });
+    };
+
+    // Ondas de sonar: un anillo que crece y enciende los nodos por los que pasa.
+    const drawSonars = (now) => {
+      sonars = sonars.filter((sonar) => {
+        const progress = (now - sonar.start) / 1300;
+        if (progress >= 1) return false;
+        const radius = 20 + progress * 360;
+        const alpha = (1 - progress) ** 1.6;
+        context.strokeStyle = `rgba(226, 200, 147, ${alpha * 0.55})`;
+        context.lineWidth = 1.5;
+        context.beginPath(); context.arc(sonar.x, sonar.y, radius, 0, Math.PI * 2); context.stroke();
+        context.strokeStyle = `rgba(133, 189, 161, ${alpha * 0.25})`;
+        context.beginPath(); context.arc(sonar.x, sonar.y, radius * 0.72, 0, Math.PI * 2); context.stroke();
+        context.lineWidth = 1;
+        nodes.forEach((node) => {
+          if (Math.abs(Math.hypot(node.x - sonar.x, node.y - sonar.y) - radius) < 14) node.flash = now + 600;
+        });
+        particles.forEach((particle) => {
+          const dx = particle.x - sonar.x;
+          const dy = particle.y - sonar.y;
+          const distance = Math.hypot(dx, dy) || 1;
+          if (Math.abs(distance - radius) < 10) { particle.vx += (dx / distance) * 1.6; particle.vy += (dy / distance) * 1.6; }
+        });
+        return true;
+      });
+    };
+
     const drawGlitch = () => {
       if (pointer.speed < 28 || reduceMotion) return;
       const strips = Math.min(7, Math.floor(pointer.speed / 12));
@@ -138,10 +212,12 @@ export default function ParticleBackground() {
       }
     };
 
-    function draw() {
+    function draw(now = performance.now()) {
       context.clearRect(0, 0, width, height);
       drawGrid();
-      drawNetwork();
+      drawNetwork(now);
+      drawPackets(now);
+      drawSonars(now);
       drawParticles();
       drawRadar();
       drawGlitch();
@@ -156,17 +232,31 @@ export default function ParticleBackground() {
       pointer.speed = Math.hypot(pointer.x - pointer.oldX, pointer.y - pointer.oldY);
     };
     const onPointerLeave = () => { pointer.active = false; };
+    const ping = (x, y) => {
+      if (reduceMotion) return;
+      sonars.push({ x, y, start: performance.now() });
+      if (sonars.length > 4) sonars.shift();
+    };
+    const onPointerDown = (event) => {
+      if (event.button !== 0 || event.target.closest?.(INTERACTIVE) || window.getSelection?.()?.toString()) return;
+      ping(event.clientX, event.clientY);
+    };
+    const onPing = (event) => { if (event.detail) ping(event.detail.x, event.detail.y); };
 
     resize();
     if (!reduceMotion) draw();
     window.addEventListener('resize', resize);
     window.addEventListener('pointermove', onPointerMove, { passive: true });
     window.addEventListener('pointerleave', onPointerLeave);
+    window.addEventListener('pointerdown', onPointerDown, { passive: true });
+    window.addEventListener('portfolio:ping', onPing);
     return () => {
       window.cancelAnimationFrame(frameId);
       window.removeEventListener('resize', resize);
       window.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('pointerleave', onPointerLeave);
+      window.removeEventListener('pointerdown', onPointerDown);
+      window.removeEventListener('portfolio:ping', onPing);
     };
   }, []);
 

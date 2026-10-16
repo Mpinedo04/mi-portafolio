@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { VisualEditing } from 'next-sanity/visual-editing';
 import { stegaClean } from 'next-sanity';
 import { getContent } from '@/data/content';
+import { caseStudyPath } from '@/data/reports';
 import { isLocale, locales } from '@/i18n/config';
 import { t } from '@/i18n/ui';
 import { ogImage, siteUrl } from '@/lib/seo';
@@ -17,8 +18,11 @@ import ParticleBackground from '@/components/ParticleBackground';
 import ScrollProgress from '@/components/ScrollProgress';
 import SideScrollRail from '@/components/SideScrollRail';
 import DisableDraftMode from '@/components/DisableDraftMode';
+import CommandPalette from '@/components/CommandPalette';
+import PageEffects from '@/components/PageEffects';
 import styles from './layout.module.css';
 import '../globals.css';
+import '../effects.css';
 
 export const revalidate = 10;
 
@@ -45,7 +49,7 @@ export async function generateMetadata({ params }) {
 export default async function WebsiteLayout({ children, params }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
-  const { siteSettings } = getContent(lang);
+  const { siteSettings, projectsWithReports, contactContent } = getContent(lang);
   const settings = await getPage('settings', 'settings', siteSettings, { lang });
   const safeSettings = {
     ...settings,
@@ -53,6 +57,8 @@ export default async function WebsiteLayout({ children, params }) {
     navigation: (settings?.navigation || siteSettings.navigation).map((item) => ({ ...item, href: stegaClean(item.href || '/') })),
   };
   const isDraft = sanityReady && (await draftMode()).isEnabled;
+  const paletteProjects = projectsWithReports.map((project) => ({ title: project.title, slug: project.slug, casePath: caseStudyPath(project) }));
+  const email = contactContent.links?.find((item) => item.iconKey === 'mail')?.url || null;
 
   return <html lang={lang} data-scroll-behavior="smooth">
     <head>
@@ -68,8 +74,10 @@ export default async function WebsiteLayout({ children, params }) {
         <PageTransition>
           <Header settings={safeSettings} lang={lang}/>
           {children}
-          <Footer settings={safeSettings}/>
+          <Footer settings={safeSettings} lang={lang}/>
         </PageTransition>
+        <CommandPalette lang={lang} projects={paletteProjects} cvUrl={safeSettings.cvUrl} email={email}/>
+        <PageEffects/>
         {sanityLiveReady && <SanityLive/>}
         {isDraft && <><VisualEditing/><DisableDraftMode/></>}
         {!isDraft && <Analytics/>}

@@ -135,7 +135,10 @@ sequenceDiagram
 
 - **Next.js 16 con App Router**, desplegada en Vercel. Cada subida a `main` publica una versión nueva.
 - **Tres idiomas**: español sin prefijo (`/proyectos`), inglés (`/en/proyectos`) y catalán (`/ca/proyectos`), con selector en la cabecera que mantiene la página. `src/proxy.js` reescribe las rutas sin prefijo a `/es` por dentro. Los textos de interfaz están en `src/i18n/ui.js` y las traducciones del contenido en `src/data/content/`. Los informes y casos de estudio solo están en español y en inglés y catalán se muestran con un aviso.
-- **Terminal interactiva en la portada**, con un motor físico propio (`src/components/hero/fieldEngine.js`): la ventana se arrastra, se lanza con inercia y se acopla sola, y las letras del titular reaccionan a ella. Admite comandos como `help`, `whoami`, `ls`, `cd`, `cat skills.txt`, `nmap`, `scan`, `grep`, `echo "…" > tagline`, `encrypt`, `decrypt` o `sudo rm -rf /`.
+- **Terminal interactiva en la portada**, con un motor físico propio (`src/components/hero/fieldEngine.js`): la ventana se arrastra, se lanza con inercia y se acopla sola, y las letras del titular reaccionan a ella (también se pueden coger y estirar con el ratón). Admite comandos como `help`, `whoami`, `neofetch`, `cd`, `nmap`, `logs`, `htop`, `scan`, `grep`, `matrix`, `glitch`, `lights off`, `encrypt`, `hire` o `sudo rm -rf /`, sugiere en gris mientras escribes y esconde un minijuego (`defend`) y un mini-CTF de tres flags (`ctf`).
+- **Búsqueda con Ctrl+K** (`src/components/CommandPalette.jsx`) para saltar a cualquier página, proyecto o caso de estudio, descargar el CV o cambiar de idioma.
+- **Detalles en toda la web** (`src/components/PageEffects.jsx`, `src/lib/fx/`): títulos que se descifran al aparecer, luz que sigue al puntero en las tarjetas, fondo con paquetes de datos y sonar, cifras que cuentan en la portada y una 404 que sugiere la página más parecida.
+- **`robots.txt`, `sitemap.xml` y `/.well-known/security.txt`** (RFC 9116).
 - **Contenido editable con Sanity** (opcional). Sin configurarlo, la web usa el contenido local de `src/data/`.
 - **Informes y casos de estudio** en JSON (Portable Text), con botón para imprimir o guardar en PDF: la guía y los tres informes del laboratorio SOC, y el caso de estudio de StagePlot Studio.
 - **Vista previa al compartir el enlace** (Open Graph): descripción propia por página e imagen generada en el build (`/og-image.png`).
@@ -195,7 +198,8 @@ No compartas ni subas `.env.local`.
 │   ├── app/api/                     vista previa de borradores y revalidación
 │   ├── app/og-image.png/            imagen de vista previa al compartir
 │   ├── components/                  cabecera, tarjetas, transiciones…
-│   ├── components/hero/             terminal interactiva, comandos y motor físico
+│   ├── components/hero/             terminal interactiva, comandos, motor físico y minijuego
+│   ├── lib/fx/                      efectos: lluvia Matrix, confeti, linterna, avisos
 │   ├── data/                        contenido en español, informes y casos de estudio en JSON
 │   ├── data/content/                traducciones al inglés y al catalán
 │   ├── i18n/                        idiomas, rutas por idioma y textos de interfaz

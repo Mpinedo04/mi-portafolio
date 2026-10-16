@@ -5,6 +5,7 @@ import { t } from '@/i18n/ui';
 import { getPage, getProjects } from '@/sanity/lib/queries';
 import Hero from '@/components/Hero';
 import FeaturedProject from '@/components/FeaturedProject';
+import StatsStrip from '@/components/StatsStrip';
 import { pageMetadata } from '@/lib/seo';
 import styles from './page.module.css';
 
@@ -28,6 +29,7 @@ export default async function HomePage({ params }) {
   const terminalProjects = (projects || []).map((project) => ({ title: project.title, slug: project.slug }));
   return <main className={styles.main}>
     <Hero content={home} projects={terminalProjects} contact={{ links: contact?.links || [] }} cvUrl={settings?.cvUrl || content.siteSettings.cvUrl}/>
+    <StatsStrip items={content.homeContent.stats} lang={lang} label={ui.home.statsLabel}/>
     <FeaturedProject projects={projects || []} lang={lang}/>
     <section className={styles.intro}>
       <div className={styles.introInner}>

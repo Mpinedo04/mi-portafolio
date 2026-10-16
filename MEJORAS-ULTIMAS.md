@@ -1,6 +1,6 @@
 # Registro de mejoras del portafolio
 
-**Actualizado: 26 de septiembre de 2026**
+**Actualizado: 16 de octubre de 2026**
 
 Este archivo recoge las mejoras incorporadas al portafolio y sirve como lista para anotar las siguientes.
 
@@ -208,6 +208,36 @@ Se comparó el backup `mi-portafolio-antiguo-backup.zip` con la web nueva, pági
 **Transición entre páginas.**
 - Pasa de unos 0,7 s a unos 0,25 s.
 - Ya no muestra la terminal `root@miguel… cd /proyectos`, sino el nombre de la página de destino en el idioma de la web.
+
+## Detalles interactivos: terminal, efectos y búsqueda (16/10/2026)
+
+**Terminal de la portada.** Comandos nuevos (`help` los agrupa por temas), en los tres idiomas:
+- `matrix`: lluvia de caracteres dorados detrás del texto; las letras del nombre parpadean cuando las toca una gota.
+- `glitch`: interferencia con desplazamiento de colores sobre el titular.
+- `lights off` / `lights on`: apaga la web y deja una linterna que sigue al ratón (Esc o el botón de abajo la encienden). Sigue activa al cambiar de página.
+- `defend`: minijuego de 25 s; llegan paquetes maliciosos (SQLi, phishing, ransomware…) hacia el nombre y hay que pararlos con un clic. Al final da un rango, de «becario» a «Threat Hunter».
+- `logs`: simulación de alertas de Wazuh como las del laboratorio (fuerza bruta, respuesta activa, PowerShell codificado, FIM, regla propia) con su técnica MITRE.
+- `htop` en directo, `neofetch` con un escudo en ASCII y ficha personal, `hire` (barra de «selección» y confeti), `cowsay`, `coffee`, `lang en|es|ca`, `curl`, `base64`.
+- `ping` y `nmap` lanzan ondas de sonar en el fondo.
+- Sugerencia en gris mientras escribes (se acepta con →), a partir del historial y del autocompletado.
+- El usuario del prompt pasa a ser `visitante@miguel` (antes `root`), coherente con `sudo`.
+
+**Mini-CTF.** Tres flags escondidas en la web (un archivo oculto de la terminal, la consola del navegador y `/.well-known/security.txt`). `ctf` muestra el progreso y las pistas, y `submit FLAG{…}` las comprueba (solo se guarda su SHA-256). Con las tres sale confeti y el correo.
+
+**Letras del nombre.** Con el ratón se pueden coger y estirar: arrastran a sus vecinas de palabra como una goma y vuelven a su sitio al soltarlas. En móvil no se activa, para no estorbar al scroll.
+
+**En toda la web.**
+- Búsqueda con **Ctrl+K** (o `/`, o la lupa de la cabecera): páginas, proyectos, casos de estudio, CV, correo, idioma, linterna…
+- Títulos y etiquetas de sección que se «descifran» al aparecer.
+- Luz que sigue al puntero dentro de las tarjetas de proyectos y capacidades.
+- Fondo: paquetes de datos que viajan por la red de nodos y un sonar al hacer clic en una zona vacía.
+- Franja de cifras en la portada (8,01 · 383 h · 3 informes · 3 idiomas) que cuenta desde cero.
+- Pie de página con piloto «todos los sistemas operativos», el commit desplegado (enlace a GitHub) y el atajo Ctrl K.
+- Página 404 con un `traceroute` que sugiere la página más parecida a la dirección mal escrita (`/proyecto` → `/proyectos`, `/about` → `/sobre-mi`…).
+- Saludo en la consola del navegador para quien curiosee el código, título de la pestaña «sesión en pausa» al cambiar de pestaña y código Konami (↑↑↓↓←→←→BA).
+- `robots.txt`, `sitemap.xml` (las páginas en los tres idiomas) y `security.txt` (RFC 9116).
+
+Todo respeta el movimiento reducido: sin lluvia, glitch, minijuego ni animaciones de texto.
 
 ## Próximas mejoras
 

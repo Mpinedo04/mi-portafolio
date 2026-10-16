@@ -21,6 +21,12 @@ const en = {
       {},
       {},
     ],
+    stats: [
+      { label: 'final grade, ASIX diploma' },
+      { label: 'of work placement' },
+      { label: 'incident reports' },
+      { label: 'languages · es · ca · en B1' },
+    ],
     primaryCta: { label: 'view projects' },
     secondaryCta: { label: 'get in touch' },
     introTitle: 'Cybersecurity and systems technician',

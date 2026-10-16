@@ -11,3 +11,6 @@ Thumbs.db
 
 # Copias de seguridad locales
 *.zip
+
+# Configuración local de Claude Code
+.claude/

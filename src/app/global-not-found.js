@@ -5,6 +5,7 @@ import { t } from '@/i18n/ui';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
+import RouteTrace from '@/components/RouteTrace';
 import ParticleBackground from '@/components/ParticleBackground';
 import ScrollProgress from '@/components/ScrollProgress';
 import styles from './(website)/[lang]/not-found.module.css';
@@ -37,14 +38,7 @@ export default function GlobalNotFound() {
               <p className="section-label">{ui.label}</p>
               <h1 className={styles.code}>4<span>0</span>4</h1>
               <p className={styles.description}>{ui.description}</p>
-              <div className="terminal" style={{ margin: '0 auto 2.5rem' }}>
-                <div className="terminal-bar"><span className="dot dot-r"/><span className="dot dot-y"/><span className="dot dot-g"/><span className="terminal-title">route_error.log - bash</span></div>
-                <div className="terminal-body" style={{ minHeight: 110, textAlign: 'left' }}>
-                  <span className="t-line"><span className="t-prompt">&gt; </span><span className="t-cmd">traceroute target_node</span></span>
-                  <span className="t-line"><span className="t-warn">[!] Destination unreachable: 404_NOT_FOUND</span></span>
-                  <span className="t-line"><span className="t-prompt">&gt; </span><span className="t-out">initiating secure fallback protocol...</span></span>
-                </div>
-              </div>
+              <RouteTrace lang="es"/>
               <Link className="btn-primary" href="/">{ui.back}</Link>
             </section>
           </main>

@@ -4,19 +4,20 @@ import Link from 'next/link';
 import { stegaClean } from 'next-sanity';
 import { usePathname } from 'next/navigation';
 import { createPortal } from 'react-dom';
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useEffectEvent, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Glyphs from './hero/Glyphs';
 import { HeroField } from './hero/fieldEngine';
-import { complete, execute, line } from './hero/commands';
+import { complete, execute, line, suggest } from './hero/commands';
 import { localePath } from '@/i18n/config';
 import { t } from '@/i18n/ui';
 import { useLang } from '@/i18n/useLang';
 import styles from './Hero.module.css';
 
-const quickCommands = (grepWord) => [
+const QUICK_COMMANDS = [
   ['help', 'help'],
+  ['matrix', 'matrix'],
+  ['defend', 'defend'],
   ['scan', 'scan'],
-  ['grep', `grep ${grepWord}`],
   ['rm -rf /', 'sudo rm -rf /'],
 ];
 
@@ -26,18 +27,34 @@ const TEXT_ACTIONS = {
   tagline: 'scan',
 };
 
+// Ids de línea únicos aunque el módulo se vuelva a cargar (recarga en caliente) con líneas ya en pantalla.
+const ID_PREFIX = Math.random().toString(36).slice(2, 7);
 let lineSeed = 0;
-const nextId = () => { lineSeed += 1; return `l${lineSeed}`; };
+const nextId = () => { lineSeed += 1; return `l${ID_PREFIX}${lineSeed}`; };
 
 class Aborted extends Error {}
 
-function Prompt() {
-  return <span className={styles.prompt} aria-hidden="true"><span className={styles.promptUser}>root@miguel</span><span className={styles.promptPath}>:~$</span> </span>;
+function Prompt({ user }) {
+  return <span className={styles.prompt} aria-hidden="true"><span className={styles.promptUser}>{user}@miguel</span><span className={styles.promptPath}>:~$</span> </span>;
+}
+
+// Salida de neofetch: dibujo a la izquierda y ficha a la derecha.
+function Neofetch({ data }) {
+  return <div className={styles.neofetch}>
+    <pre className={styles.neofetchArt} aria-hidden="true">{data.art.join('\n')}</pre>
+    <div className={styles.neofetchInfo}>
+      <p className={styles.neofetchTitle}>{data.title}</p>
+      <p className={styles.neofetchRule} aria-hidden="true">{'─'.repeat(data.title.length)}</p>
+      {data.rows.map(([key, value]) => <p key={key}><span className={styles.neofetchKey}>{key}</span> {value}</p>)}
+      <p className={styles.neofetchColors} aria-hidden="true">{['#0a0e16', '#ff8f7e', '#85bda1', '#c9a86a', '#939cb0', '#e2c893', '#c9cfdd', '#e9eaf0'].map((color) => <i key={color} style={{ background: color }}/>)}</p>
+    </div>
+  </div>;
 }
 
 function LineParts({ parts, onRun }) {
   return parts.map((part, index) => {
     if (typeof part === 'string') return <span key={index}>{part}</span>;
+    if (part.block === 'neofetch') return <Neofetch key={index} data={part.data}/>;
     if (part.run) {
       return <button type="button" className={styles.runLink} key={index} onClick={(event) => { event.stopPropagation(); onRun(part.run); }}>{part.text}</button>;
     }
@@ -175,8 +192,15 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
 
   /* ---------- ejecución de comandos ---------- */
 
+  // Devuelve los ids de las líneas para poder reescribirlas luego (barras de progreso, htop…).
   const print = useCallback((...entries) => {
-    setLines((current) => [...current, ...entries.map((entry) => ({ id: nextId(), ...entry }))].slice(-220));
+    const items = entries.map((entry) => ({ id: nextId(), ...entry }));
+    setLines((current) => [...current, ...items].slice(-220));
+    return items.map((item) => item.id);
+  }, []);
+
+  const update = useCallback((id, entry) => {
+    setLines((current) => current.map((item) => (item.id === id ? { ...entry, id } : item)));
   }, []);
 
   const wait = useCallback((ms) => new Promise((resolve, reject) => {
@@ -185,6 +209,28 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
     const timer = window.setTimeout(() => (token?.aborted ? reject(new Aborted()) : resolve()), ms);
     token?.cancels.push(() => { window.clearTimeout(timer); reject(new Aborted()); });
   }), []);
+
+  // Espera a un efecto largo (lluvia, minijuego…); con Ctrl+C lo para y corta el comando.
+  const until = useCallback((promise, stop) => new Promise((resolve, reject) => {
+    const token = abortRef.current;
+    if (token?.aborted) { stop?.(); reject(new Aborted()); return; }
+    let settled = false;
+    token?.cancels.push(() => {
+      if (settled) return;
+      settled = true;
+      stop?.();
+      reject(new Aborted());
+    });
+    promise.then(
+      (value) => { if (!settled) { settled = true; resolve(value); } },
+      (error) => { if (!settled) { settled = true; reject(error); } },
+    );
+  }), []);
+
+  const terminalCenter = useCallback(() => {
+    const rect = getEngine()?.terminal.el?.getBoundingClientRect();
+    return rect ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 } : null;
+  }, [getEngine]);
 
   const typeTagline = useCallback(async (text) => {
     const engine = getEngine();
@@ -251,6 +297,9 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
     try {
       await execute(command, {
         print,
+        update,
+        until,
+        terminalCenter,
         wait,
         engine: getEngine(),
         data: commandData,
@@ -272,7 +321,7 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
       setBusy(false);
       window.requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
     }
-  }, [busy, closeTerminal, commandData, finishIntro, getEngine, history, introDone, lang, pathname, print, resetAll, typeTagline, wait]);
+  }, [busy, closeTerminal, commandData, finishIntro, getEngine, history, introDone, lang, pathname, print, resetAll, terminalCenter, typeTagline, until, update, wait]);
 
   const openTerminal = useCallback(() => {
     if (windowState === 'closed') {
@@ -282,10 +331,28 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
     setWindowState('open');
   }, [windowState]);
 
+  // La búsqueda (Ctrl+K → «Abrir la terminal») pide la terminal: se abre, se sube arriba y se enfoca.
+  const onTerminalRequest = useEffectEvent(() => {
+    openTerminal();
+    if (!introDone) finishIntro();
+    window.scrollTo({ top: 0, behavior: getEngine()?.reducedMotion ? 'auto' : 'smooth' });
+    window.setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 350);
+  });
+
+  useEffect(() => {
+    const onRequest = () => onTerminalRequest();
+    window.addEventListener('portfolio:terminal', onRequest);
+    return () => {
+      window.removeEventListener('portfolio:terminal', onRequest);
+      // Al salir de la portada se corta el comando en marcha (minijuego, lluvia…) para no dejar capas sueltas.
+      abortRef.current?.cancels.forEach((cancel) => cancel());
+    };
+  }, []);
+
   const runFromText = (group) => {
     const command = TEXT_ACTIONS[group];
     if (!command) return;
-    if (window.getSelection?.()?.toString()) return;
+    if (window.getSelection?.()?.toString() || getEngine()?.consumeClick()) return;
     if (windowState !== 'open') {
       setWindowState('open');
       finishIntro();
@@ -298,6 +365,8 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
     setMaximized(false);
     setWindowState('minimized');
   };
+
+  const ghost = useMemo(() => (busy ? '' : suggest(input, history, commandData.projects, lang)), [busy, commandData.projects, history, input, lang]);
 
   const handleKeyDown = (event) => {
     if (event.ctrlKey && event.key.toLowerCase() === 'c') {
@@ -316,6 +385,11 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
     if (event.ctrlKey && event.key.toLowerCase() === 'l') {
       event.preventDefault();
       setLines([]);
+      return;
+    }
+    if (event.key === 'ArrowRight' && ghost && event.currentTarget.selectionStart === input.length) {
+      event.preventDefault();
+      setInput(ghost);
       return;
     }
     if (event.key === 'Tab') {
@@ -403,9 +477,9 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
       }}
     >
       <div role="log" aria-live="polite" aria-relevant="additions">
-        {lines.map((item) => <div className={`${styles.line} ${styles[item.tone] || ''}`} key={item.id}>
+        {lines.map((item) => <div className={`${styles.line} ${styles[item.tone] || ''}`} key={item.id} style={item.indent ? { paddingLeft: `${item.indent}ch`, textIndent: `-${item.indent}ch` } : undefined}>
           {item.tone === 'cmd'
-            ? <><Prompt/><span className={styles.cmdText}>{item.text}</span>{item.typing && <span className={styles.blockCursor} aria-hidden="true"/>}</>
+            ? <><Prompt user={ui.user}/><span className={styles.cmdText}>{item.text}</span>{item.typing && <span className={styles.blockCursor} aria-hidden="true"/>}</>
             : <LineParts parts={item.parts || []} onRun={(command) => runCommand(command)}/>}
         </div>)}
       </div>
@@ -413,29 +487,32 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
         className={`${styles.line} ${styles.inputRow} ${busy ? styles.inputBusy : ''}`}
         onSubmit={(event) => { event.preventDefault(); runCommand(input); }}
       >
-        <Prompt/>
-        <input
-          ref={inputRef}
-          className={styles.input}
-          value={input}
-          onChange={(event) => { setInput(event.target.value); setHistoryIndex(-1); }}
-          onKeyDown={handleKeyDown}
-          aria-label={ui.input}
-          placeholder={lines.length <= introLines.length + 1 && !busy ? ui.placeholder : ''}
-          autoComplete="off"
-          autoCapitalize="off"
-          autoCorrect="off"
-          spellCheck={false}
-          enterKeyHint="send"
-          readOnly={busy}
-        />
+        <Prompt user={ui.user}/>
+        <span className={styles.inputWrap}>
+          <input
+            ref={inputRef}
+            className={styles.input}
+            value={input}
+            onChange={(event) => { setInput(event.target.value); setHistoryIndex(-1); }}
+            onKeyDown={handleKeyDown}
+            aria-label={ui.input}
+            placeholder={lines.length <= introLines.length + 1 && !busy ? ui.placeholder : ''}
+            autoComplete="off"
+            autoCapitalize="off"
+            autoCorrect="off"
+            spellCheck={false}
+            enterKeyHint="send"
+            readOnly={busy}
+          />
+          {ghost && <span className={styles.ghost} aria-hidden="true"><span className={styles.ghostTyped}>{input}</span>{ghost.slice(input.length)}<kbd>→</kbd></span>}
+        </span>
       </form>}
       {!introDone && <button type="button" className={styles.skip} onClick={finishIntro}>{ui.skip}</button>}
     </div>
 
     <div className={styles.quickBar}>
       <span className={styles.quickLabel} aria-hidden="true">{ui.try}</span>
-      {quickCommands(ui.grepWord).map(([label, command]) => <button type="button" key={label} className={styles.quick} disabled={busy} onClick={() => runCommand(command, { animate: true })}>{label}</button>)}
+      {QUICK_COMMANDS.map(([label, command]) => <button type="button" key={label} className={styles.quick} disabled={busy} onClick={() => runCommand(command, { animate: true })}>{label}</button>)}
     </div>
   </div> : null;
 
@@ -493,7 +570,7 @@ export default function Hero({ content, projects = [], contact = null, cvUrl = '
         {slotContent}
         <p className={styles.hint} aria-hidden="true">
           {windowState === 'open'
-            ? <>{ui.hintStart}<em>{ui.hintThrow}</em>{ui.hintEnd}<button type="button" tabIndex={-1} onClick={() => runCommand('help', { animate: true })}>help</button></>
+            ? <>{ui.hintStart}<em>{ui.hintThrow}</em>{ui.hintEnd}<span className={styles.hintLetters}>{ui.hintLetters}</span>{ui.hintType}<button type="button" tabIndex={-1} onClick={() => runCommand('help', { animate: true })}>help</button></>
             : <>{ui.hintClosed}</>}
         </p>
       </div>

@@ -287,6 +287,62 @@ header nav {
   outline-offset: 2px;
 }
 
+/* --- Botón de búsqueda (paleta Ctrl+K) --- */
+.nav-search {
+  align-items: center;
+  background: rgba(12, 16, 25, 0.7);
+  border: 1px solid rgba(201, 168, 106, 0.2);
+  border-radius: 999px;
+  color: var(--faint);
+  cursor: pointer;
+  display: inline-flex;
+  gap: 0.45rem;
+  height: 30px;
+  padding: 0 0.6rem;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-search svg {
+  fill: none;
+  height: 13px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 2.2;
+  width: 13px;
+}
+
+.nav-search-key {
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  font: 600 9px var(--mono);
+  letter-spacing: 0.05em;
+  padding: 1px 4px;
+}
+
+.nav-search:hover {
+  background: rgba(201, 168, 106, 0.08);
+  border-color: rgba(201, 168, 106, 0.5);
+  color: var(--accent-strong);
+}
+
+@media (max-width: 1100px) {
+  .nav-search {
+    justify-content: center;
+    padding: 0;
+    width: 30px;
+  }
+
+  .nav-search-key {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-search {
+    display: none;
+  }
+}
+
 /* --- Logo: el nombre en una píldora con el mismo borde de luz que el botón del CV --- */
 .nav-logo {
   align-items: center;

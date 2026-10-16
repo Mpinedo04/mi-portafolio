@@ -1,1 +1,53 @@
 .footer { position: relative; z-index: 1; }
+
+.status {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+.status a {
+  color: inherit;
+  font-family: var(--mono);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.status a:hover {
+  color: var(--accent-strong);
+}
+
+/* Piloto verde de «todo en marcha» con un latido suave */
+.dot {
+  animation: statusPulse 2.6s ease-in-out infinite;
+  background: var(--sage);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(133, 189, 161, 0.5);
+  height: 6px;
+  width: 6px;
+}
+
+.hint kbd {
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  font: 500 9.5px var(--mono);
+  letter-spacing: 0.04em;
+  padding: 0 0.3rem;
+}
+
+@media (hover: none), (max-width: 768px) {
+  .hint {
+    display: none;
+  }
+}
+
+@keyframes statusPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(133, 189, 161, 0.45); }
+  50% { box-shadow: 0 0 0 5px rgba(133, 189, 161, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    animation: none;
+  }
+}

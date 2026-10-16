@@ -41,6 +41,11 @@ export default function Header({ settings, lang = 'es' }) {
               data-no-transition
             >{code.toUpperCase()}</Link>)}
           </div>
+          {/* Abre la paleta de búsqueda (también con Ctrl+K o /) */}
+          <button type="button" className="nav-search" onClick={() => window.dispatchEvent(new CustomEvent('portfolio:palette'))} aria-label={ui.header.search} title={`${ui.header.search} · Ctrl K`}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+            <kbd className="nav-search-key">Ctrl K</kbd>
+          </button>
         </div>
       </div>
       <ul>{links.map((item) => {

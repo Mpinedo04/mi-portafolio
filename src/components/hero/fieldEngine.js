@@ -8,10 +8,18 @@
  * - Expone efectos que usan los comandos de la terminal: scan, grep, encrypt,
  *   decrypt y colapso por gravedad.
  *
+ * - Las letras se pueden coger con el ratón y estirar: arrastran a sus vecinas de
+ *   palabra como si fueran una goma y vuelven a su sitio al soltarlas.
+ * - Efectos extra: lluvia Matrix que hace parpadear las letras que toca, glitch,
+ *   impactos (minijuego defend) y celebración con confeti.
+ *
  * Todo se escribe directamente en el DOM dentro de un único requestAnimationFrame
  * para no provocar renders de React por fotograma. El bucle se duerme cuando
  * todo está en reposo.
  */
+
+import { burst } from '@/lib/fx/burst';
+import { matrixRain } from '@/lib/fx/matrixRain';
 
 const CIPHER = '01<>/\\{}[]#$%&*+=?!ABCDEF0123456789';
 const randomGlyph = () => CIPHER[Math.floor(Math.random() * CIPHER.length)];
@@ -47,6 +55,10 @@ export class HeroField {
     this.dockEl = null;
     this.onDocked = null;
     this.maximized = false;
+    this.pluck = null;
+    this.suppressClickUntil = 0;
+    this.rain = null;
+    this.glitchUntil = 0;
     this.terminal = {
       el: null, x: 0, y: 0, vx: 0, vy: 0, w: 0, h: 0, tilt: 0,
       floating: false, mode: 'idle', grabX: 0, grabY: 0, lastT: 0, lastX: 0, lastY: 0,
@@ -57,6 +69,9 @@ export class HeroField {
     this.handleHover = this.handleHover.bind(this);
     this.handlePointerMove = this.handlePointerMove.bind(this);
     this.handlePointerUp = this.handlePointerUp.bind(this);
+    this.handleGlyphDown = this.handleGlyphDown.bind(this);
+    this.handlePluckMove = this.handlePluckMove.bind(this);
+    this.handlePluckUp = this.handlePluckUp.bind(this);
   }
 
   /* ---------- ciclo de vida ---------- */
@@ -67,6 +82,7 @@ export class HeroField {
     window.addEventListener('resize', this.handleResize);
     window.addEventListener('scroll', this.wake, { passive: true });
     root.addEventListener('pointerover', this.handleHover);
+    root.addEventListener('pointerdown', this.handleGlyphDown);
     document.fonts?.ready.then(() => { this.dirty = true; });
   }
 
@@ -79,6 +95,11 @@ export class HeroField {
     window.removeEventListener('pointerup', this.handlePointerUp);
     window.removeEventListener('pointercancel', this.handlePointerUp);
     this.root?.removeEventListener('pointerover', this.handleHover);
+    this.root?.removeEventListener('pointerdown', this.handleGlyphDown);
+    this.endPluck();
+    this.rain?.stop();
+    this.rain = null;
+    this.root?.removeAttribute('data-glitch');
     this.scanState?.line.remove();
     this.bodies.forEach((body) => this.resetBody(body));
     this.bodies = [];
@@ -147,6 +168,8 @@ export class HeroField {
         mode: 'spring', releaseAt: 0,
         cipher: false, nextSwap: 0, restoreAt: 0, flashUntil: 0, hoverUntil: 0, locked: false,
         hot: false, scanned: false, written: '', recovering: false,
+        word: kind === 'glyph' ? el.parentElement : null,
+        wordIndex: kind === 'glyph' ? [...el.parentElement.children].indexOf(el) : 0,
       }));
     this.byElement = new WeakMap();
     this.bodies.forEach((body) => this.byElement.set(body.el, body));
@@ -423,6 +446,12 @@ export class HeroField {
       active = true;
     }
 
+    const pluck = this.pluck?.active ? this.pluck : null;
+    const rain = this.rain;
+    const glitching = now < this.glitchUntil;
+    if (pluck || rain) active = true;
+    if (!glitching && this.glitchUntil) { this.glitchUntil = 0; this.root?.removeAttribute('data-glitch'); }
+
     for (const body of this.bodies) {
       if (!body.home) continue;
       const rect = this.viewportRect(body);
@@ -431,15 +460,33 @@ export class HeroField {
       let ay = 0;
       let hot = false;
       let inside = false;
+      const held = pluck && body === pluck.body;
+      // Las vecinas de palabra de la letra cogida la siguen como una goma, cada vez menos.
+      const pulled = pluck && !held && body.word && body.word === pluck.body.word;
 
-      if (body.mode === 'fall') {
+      if (held) {
+        body.x = pluck.x;
+        body.y = pluck.y;
+        body.vx = 0;
+        body.vy = 0;
+        hot = true;
+      } else if (body.mode === 'fall') {
         ay = 2600;
         body.vx *= Math.exp(-dt * 0.6);
       } else {
         if (body.mode === 'return' && now >= body.releaseAt) body.mode = 'spring';
-        const k = body.mode === 'return' ? 0 : SPRING;
-        ax = -k * body.x - DAMPING * body.vx;
-        ay = -k * body.y - DAMPING * body.vy;
+        let k = body.mode === 'return' ? 0 : SPRING;
+        let tx = 0;
+        let ty = 0;
+        if (pulled) {
+          const follow = 0.6 ** Math.abs(body.wordIndex - pluck.body.wordIndex);
+          tx = pluck.x * follow;
+          ty = pluck.y * follow;
+          k = SPRING * 1.5;
+          body.recovering = true;
+        }
+        ax = -k * (body.x - tx) - DAMPING * body.vx;
+        ay = -k * (body.y - ty) - DAMPING * body.vy;
         if (body.mode === 'return') { ax = -DAMPING * 0.4 * body.vx; ay = -DAMPING * 0.4 * body.vy; }
 
         if (T && onScreen && !this.reducedMotion) {
@@ -479,10 +526,26 @@ export class HeroField {
         }
       }
 
-      body.vx += ax * dt;
-      body.vy += ay * dt;
-      body.x += body.vx * dt;
-      body.y += body.vy * dt;
+      if (!held) {
+        body.vx += ax * dt;
+        body.vy += ay * dt;
+        body.x += body.vx * dt;
+        body.y += body.vy * dt;
+      }
+
+      // Lluvia Matrix: la cabeza de la gota hace parpadear la letra que toca.
+      if (rain && body.kind === 'glyph' && onScreen) {
+        const head = rain.heads[Math.floor(rect.cx / rain.size)];
+        if (head >= 0 && Math.abs(head - rect.cy) < rain.size * 0.9) {
+          body.flashUntil = now + 150;
+          body.vy -= 5;
+        }
+      }
+      // Glitch: sacudidas y cifrados al azar.
+      if (glitching && body.kind === 'glyph' && Math.random() < 0.035) {
+        body.flashUntil = now + between(60, 140);
+        body.vx += between(-160, 160);
+      }
 
       if (body.mode === 'fall') {
         const baseTop = rect.top - body.y;
@@ -507,7 +570,9 @@ export class HeroField {
           body.x = clamp(body.x, -limit, limit);
           body.y = clamp(body.y, -limit, limit);
         }
-        const rotTarget = body.kind === 'glyph' ? clamp(body.x * 0.32 + body.vx * 0.01, -28, 28) : clamp(body.x * 0.06, -5, 5);
+        const rotTarget = held
+          ? clamp(pluck.vx * 0.02, -35, 35)
+          : body.kind === 'glyph' ? clamp(body.x * 0.32 + body.vx * 0.01, -28, 28) : clamp(body.x * 0.06, -5, 5);
         body.rot += (rotTarget - body.rot) * Math.min(1, dt * (body.mode === 'return' ? 4 : 12));
       }
 
@@ -697,6 +762,142 @@ export class HeroField {
     this.gravity = { until: performance.now() + duration, resolve, promise };
     this.wake();
     return promise.then(() => true);
+  }
+
+  /* ---------- letras que se pueden coger ---------- */
+
+  handleGlyphDown(event) {
+    // Solo ratón o lápiz: en pantallas táctiles el gesto es para hacer scroll.
+    if (event.button !== 0 || event.pointerType === 'touch' || this.reducedMotion) return;
+    const body = this.byElement.get(event.target.closest?.('[data-glyph]'));
+    if (!body || body.mode === 'fall' || body.locked) return;
+    this.endPluck();
+    this.pluck = {
+      body, pointerId: event.pointerId, active: false,
+      startX: event.clientX, startY: event.clientY, originX: body.x, originY: body.y,
+      x: body.x, y: body.y, vx: 0, vy: 0, lastX: event.clientX, lastY: event.clientY, lastT: performance.now(),
+    };
+    window.addEventListener('pointermove', this.handlePluckMove);
+    window.addEventListener('pointerup', this.handlePluckUp);
+    window.addEventListener('pointercancel', this.handlePluckUp);
+  }
+
+  handlePluckMove(event) {
+    const p = this.pluck;
+    if (!p || event.pointerId !== p.pointerId) return;
+    const dx = event.clientX - p.startX;
+    const dy = event.clientY - p.startY;
+    if (!p.active) {
+      if (Math.hypot(dx, dy) < 6) return;
+      p.active = true;
+      p.body.recovering = true;
+      document.documentElement.classList.add('is-plucking');
+    }
+    window.getSelection?.()?.removeAllRanges();
+    const now = performance.now();
+    const dt = Math.max(1, now - p.lastT) / 1000;
+    p.vx = p.vx * 0.5 + ((event.clientX - p.lastX) / dt) * 0.5;
+    p.vy = p.vy * 0.5 + ((event.clientY - p.lastY) / dt) * 0.5;
+    p.lastX = event.clientX;
+    p.lastY = event.clientY;
+    p.lastT = now;
+    p.x = p.originX + dx;
+    p.y = p.originY + dy;
+    this.wake();
+  }
+
+  handlePluckUp(event) {
+    const p = this.pluck;
+    if (!p || event.pointerId !== p.pointerId) return;
+    if (p.active) {
+      // Al soltarla sale disparada con la velocidad del puntero y el muelle la devuelve.
+      const fresh = performance.now() - p.lastT < 80;
+      p.body.vx = fresh ? clamp(p.vx, -2600, 2600) * 0.55 : 0;
+      p.body.vy = fresh ? clamp(p.vy, -2600, 2600) * 0.55 : 0;
+      p.body.flashUntil = performance.now() + 160;
+      this.suppressClickUntil = performance.now() + 120;
+    }
+    this.endPluck();
+    this.wake();
+  }
+
+  endPluck() {
+    window.removeEventListener('pointermove', this.handlePluckMove);
+    window.removeEventListener('pointerup', this.handlePluckUp);
+    window.removeEventListener('pointercancel', this.handlePluckUp);
+    document.documentElement.classList.remove('is-plucking');
+    this.pluck = null;
+  }
+
+  // true si el clic que llega viene de soltar una letra (y no debe lanzar el comando del texto).
+  consumeClick() {
+    return performance.now() < this.suppressClickUntil;
+  }
+
+  /* ---------- efectos para los comandos ---------- */
+
+  // Centro del nombre: el objetivo de los paquetes del minijuego defend.
+  targetPoint() {
+    // El h1 ocupa toda la columna: se mide el texto visible (el span con las letras).
+    const heading = this.root?.querySelector('h1');
+    const rect = (heading?.querySelector('[aria-hidden="true"]') || heading)?.getBoundingClientRect();
+    if (!rect) return null;
+    return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+  }
+
+  matrix(duration = 6500) {
+    if (this.reducedMotion) return { promise: Promise.resolve(false), stop() {} };
+    if (this.dirty) this.collect();
+    this.rain?.stop();
+    const rain = matrixRain({ duration });
+    this.rain = rain;
+    rain.promise.then(() => { if (this.rain === rain) this.rain = null; });
+    this.wake();
+    return { promise: rain.promise, stop: () => rain.stop() };
+  }
+
+  glitch(duration = 1400) {
+    if (this.reducedMotion) return Promise.resolve(false);
+    if (this.dirty) this.collect();
+    this.glitchUntil = performance.now() + duration;
+    this.root?.setAttribute('data-glitch', '');
+    this.wake();
+    return new Promise((r) => window.setTimeout(() => r(true), duration));
+  }
+
+  // Empuja las letras y botones cercanos a un punto (px de la ventana) y los descifra un momento.
+  impact(x, y, radius = 220, force = 900) {
+    if (this.reducedMotion) return;
+    if (this.dirty) this.collect();
+    const now = performance.now();
+    this.bodies.forEach((body) => {
+      if (!body.home) return;
+      const rect = this.viewportRect(body);
+      const dx = rect.cx - x;
+      const dy = rect.cy - y;
+      const d = Math.hypot(dx, dy) || 1;
+      if (d > radius) return;
+      const falloff = 1 - d / radius;
+      body.vx += (dx / d) * force * falloff;
+      body.vy += (dy / d) * force * falloff;
+      if (body.kind === 'glyph') body.flashUntil = now + 200 + falloff * 400;
+    });
+    this.wake();
+  }
+
+  // Las letras saltan en ola y sale confeti dorado del nombre.
+  celebrate() {
+    if (this.reducedMotion) return Promise.resolve(false);
+    if (this.dirty) this.collect();
+    this.bodies.forEach((body, i) => {
+      if (body.kind !== 'glyph') return;
+      window.setTimeout(() => { body.vy -= between(380, 620); body.vx += between(-60, 60); body.flashUntil = performance.now() + 160; this.wake(); }, i * 12);
+    });
+    const target = this.targetPoint();
+    this.wake();
+    const x = target?.x ?? window.innerWidth / 2;
+    const y = target?.y ?? window.innerHeight / 3;
+    return burst({ x, y, count: 140 });
   }
 
   get encrypted() {

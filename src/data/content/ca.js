@@ -21,6 +21,12 @@ const ca = {
       {},
       {},
     ],
+    stats: [
+      { label: 'nota final de l’ASIX' },
+      { label: 'de pràctiques a l’empresa' },
+      { label: 'informes d’incidents' },
+      { label: 'idiomes · es · ca · en B1' },
+    ],
     primaryCta: { label: 'veure projectes' },
     secondaryCta: { label: 'contactar' },
     introTitle: 'Tècnic en ciberseguretat i sistemes',

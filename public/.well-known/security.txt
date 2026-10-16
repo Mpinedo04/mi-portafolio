@@ -1,0 +1,8 @@
+# Política de divulgación de vulnerabilidades · Miguel Pinedo (RFC 9116)
+# Si encuentras un fallo de seguridad en esta web, escríbeme y lo arreglo. Gracias.
+# If you find a security issue on this site, please email me. Thank you.
+Contact: mailto:mpinedo@gmail.com
+Expires: 2027-10-01T00:00:00.000Z
+Preferred-Languages: es, ca, en
+
+# flag 03 → FLAG{rfc9116_security_txt}

@@ -1,0 +1,49 @@
+.trace {
+  margin: 0 auto 2.5rem;
+  text-align: left;
+}
+
+.body {
+  min-height: 0 !important;
+}
+
+/* Las líneas aparecen una tras otra, como si el traceroute fuera respondiendo */
+.row {
+  animation: rowIn 0.32s ease both;
+  animation-delay: calc(var(--i) * 0.38s + 0.2s);
+  white-space: pre-wrap;
+}
+
+.prompt { color: var(--accent-strong); }
+.cmd { color: var(--light); }
+.dim { color: var(--faint); }
+.warn { color: var(--sage); }
+.err { color: #ff8f7e; }
+.ok { color: var(--accent-strong); }
+
+.ok a {
+  border-bottom: 1px dotted var(--accent-strong);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.ok a:hover {
+  background: rgba(201, 168, 106, 0.12);
+}
+
+.row kbd {
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  font: 500 10px var(--mono);
+  padding: 0 0.3rem;
+}
+
+@keyframes rowIn {
+  from { opacity: 0; transform: translateX(-6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row {
+    animation: none;
+  }
+}

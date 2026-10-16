@@ -30,6 +30,13 @@ export const homeContent = {
     { delayMs: 4400, type: 'out', text: 'open to work' },
     { delayMs: 4900, type: 'cursor', text: '' },
   ],
+  // Cifras clave bajo el hero (cuentan desde cero al aparecer).
+  stats: [
+    { value: 8.01, decimals: 2, label: 'nota final del ASIX' },
+    { value: 383, suffix: 'h', label: 'de prácticas en empresa' },
+    { value: 3, label: 'informes de incidentes' },
+    { value: 3, label: 'idiomas · es · ca · en B1' },
+  ],
   primaryCta: { label: 'ver proyectos', href: '/proyectos' },
   secondaryCta: { label: 'contactar', href: '/contacto' },
   introTitle: 'Técnico en ciberseguridad y sistemas',
